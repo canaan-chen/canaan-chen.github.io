@@ -86,16 +86,12 @@
 <meta property="og:url" content="http://canaan-chen.github.io/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="UncleFish">
 <meta property="og:description" content="这篇文章主要讲解了如何设计一个异步Fifo.">
-<meta property="og:image" content="http://canaan-chen.github.io/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/1.png">
-<meta property="og:image" content="http://canaan-chen.github.io/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/Untitled.png">
-<meta property="og:image" content="http://canaan-chen.github.io/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/3.png">
 <meta property="article:published_time" content="2020-03-15T09:58:18.000Z">
 <meta property="article:modified_time" content="2020-03-16T04:34:43.514Z">
 <meta property="article:author" content="UncleFish">
 <meta property="article:tag" content="IC design">
 <meta property="article:tag" content="FIFO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://canaan-chen.github.io/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/1.png">
 
 
 
@@ -417,7 +413,7 @@
 
 <h2 id="1-资料"><a href="#1-资料" class="headerlink" title="1. 资料"></a>1. 资料</h2><p><a href="https://zhuanlan.zhihu.com/p/42991844" target="_blank" rel="noopener">异步FIFO设计（1）</a></p>
 <p><a href="https://blog.csdn.net/deng_d1/article/details/50179677" target="_blank" rel="noopener">异步FIFO设计原理及Verliog源代码_网络_deng_d1的博客-CSDN博客</a></p>
-<h2 id="2-原理介绍"><a href="#2-原理介绍" class="headerlink" title="2. 原理介绍"></a>2. 原理介绍</h2><img src="/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/1.png" class="">
+<h2 id="2-原理介绍"><a href="#2-原理介绍" class="headerlink" title="2. 原理介绍"></a>2. 原理介绍</h2>
 
 <h3 id="2-1-使用FIFO的情况"><a href="#2-1-使用FIFO的情况" class="headerlink" title="2.1 使用FIFO的情况"></a>2.1 使用FIFO的情况</h3><ul>
 <li>两个不同时钟域进行数据传输时可以用FIFO</li>
@@ -457,7 +453,7 @@
 <li><p><strong>出去最高位，次高位取反后两者相同。比如：写指针已经走了一圈了跑到3，此时写指针：1110，而读指针第一次走到3，指针数值为：0010。⇒ 发现最高位和次高位均不同，表示满状态。</strong></p>
 </li>
 <li><p><strong>相应的，如果最高位和次高位均相同则表示空状态。</strong></p>
-<img src="/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/Untitled.png" class="">
+
 
 </li>
 </ol>
@@ -505,7 +501,7 @@
 <h3 id="3-5-Top-level-各模块集成"><a href="#3-5-Top-level-各模块集成" class="headerlink" title="3.5 Top level 各模块集成"></a>3.5 Top level 各模块集成</h3><p>EDA link : <a href="https://www.edaplayground.com/x/6Mfp" target="_blank" rel="noopener">https://www.edaplayground.com/x/6Mfp</a></p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "fifo_mem.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "wr_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "rd_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> fifo(</span><br><span class="line">	<span class="keyword">input</span> wr_clk,</span><br><span class="line">	<span class="keyword">input</span> rd_clk,</span><br><span class="line">	<span class="keyword">input</span> rst_n,</span><br><span class="line">	<span class="keyword">input</span> wr_en,</span><br><span class="line">	<span class="keyword">input</span> rd_en,</span><br><span class="line">	<span class="keyword">input</span> [<span class="number">7</span>:<span class="number">0</span>] data_i,</span><br><span class="line">  	<span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] data_o,</span><br><span class="line">  	<span class="keyword">output</span> <span class="keyword">reg</span> full, <span class="comment">// 用于控制数据的输入</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin;</span><br><span class="line"><span class="keyword">wire</span> empty;</span><br><span class="line"><span class="keyword">wire</span> wr_rst_n,rd_rst_n;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> wr_rst_n = rst_n;</span><br><span class="line"><span class="keyword">assign</span> rd_rst_n = rst_n;</span><br><span class="line"></span><br><span class="line">fifo_mem dut(</span><br><span class="line">    <span class="variable">.rst_n</span> (rst_n),</span><br><span class="line">    <span class="variable">.wr_clk</span> (wr_clk),</span><br><span class="line">    <span class="variable">.rd_clk</span> (rd_clk),</span><br><span class="line">    <span class="variable">.wdata</span> (data_i),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line">    <span class="variable">.wr_full</span>(full),</span><br><span class="line">    <span class="variable">.rd_empty</span>(empty),</span><br><span class="line">    <span class="variable">.rdata</span>(data_o)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">wr_ctrl write(</span><br><span class="line">    <span class="variable">.wr_clk</span>(wr_clk),</span><br><span class="line">    <span class="variable">.wr_rst_n</span>(wr_rst_n),</span><br><span class="line">    <span class="variable">.wr_en</span>(wr_en),</span><br><span class="line">    <span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line">    <span class="variable">.wr_full</span>(full)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">rd_ctrl read (</span><br><span class="line">		<span class="variable">.rd_clk</span>(rd_clk),</span><br><span class="line">    <span class="variable">.rd_rst_n</span>(rd_rst_n),</span><br><span class="line">		<span class="variable">.rd_en</span>(rd_en),</span><br><span class="line"> 		<span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line"> 		<span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line"> 		<span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line">		<span class="variable">.rd_empty</span>(empty)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
-<img src="/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/3.png" class="" title="Simulation Result">
+
       
     </div>
     
@@ -658,7 +654,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
