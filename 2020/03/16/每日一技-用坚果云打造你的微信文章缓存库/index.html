@@ -347,7 +347,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -514,12 +514,7 @@
 
   
     <div class="comments" id="comments">
-      
-        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
-        <div id="gitment-container" style="display:none"></div>
-      
     </div>
-
   
 
 
@@ -816,49 +811,30 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'canaan-chen',
-            repo: 'blog_comment',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: '7d210dddae5affda43ce2a5638f4efd175fc38d7',
-            
-                client_id: '01e81aeafd181daaff74'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      function showGitment(){
-        document.getElementById("gitment-display-button").style.display = "none";
-        document.getElementById("gitment-container").style.display = "block";
-        renderGitment();
-      }
-      
-      </script>
-    
 
 
 
-
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '2NTT4CkWV9YmgjzENPv63b4U-gzGzoHsz',
+        appKey: 'wf6ezWceA3if7rMC6mjaYrAv',
+        placeholder: 'Just go go',
+        avatar:'',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
