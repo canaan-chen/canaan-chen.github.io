@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://canaan-chen.github.io/2020/03/17/I2C-%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1-biu-%E6%A8%A1%E5%9D%97/</loc>
+    <loc>http://canaan-chen.github.io/ic/index.html</loc>
     
-    <lastmod>2020-03-17T12:43:15.133Z</lastmod>
+    <lastmod>2020-03-18T04:09:51.853Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://canaan-chen.github.io/2020/03/17/I2C-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</loc>
     
-    <lastmod>2020-03-17T12:20:31.903Z</lastmod>
+    <lastmod>2020-03-18T04:06:46.614Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://canaan-chen.github.io/2020/03/17/I2C-%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1-biu-%E6%A8%A1%E5%9D%97/</loc>
+    
+    <lastmod>2020-03-17T12:43:15.133Z</lastmod>
     
   </url>
   
@@ -103,13 +110,6 @@
     <loc>http://canaan-chen.github.io/2020/03/16/%E3%80%8A1917%E3%80%8B%E2%80%94-%E6%88%91%E5%9C%A8%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E4%BA%86%E6%88%98%E4%BA%89/</loc>
     
     <lastmod>2020-03-16T04:12:36.325Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://canaan-chen.github.io/ic/index.html</loc>
-    
-    <lastmod>2020-03-15T09:56:59.114Z</lastmod>
     
   </url>
   
