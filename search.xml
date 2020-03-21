@@ -1,742 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>hexo next 主题优化 | 这里可能有你遇到所有问题的答案</title>
-    <url>/2020/03/19/hexo-next-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p>
-<a id="more"></a>
-
-<h2 id="搭建blog的初衷"><a href="#搭建blog的初衷" class="headerlink" title="搭建blog的初衷"></a>搭建blog的初衷</h2><p>现在网络平台里有很多可以发表个人看法的平台，比如我派，比如知乎、简书等，那花费功夫搭建自己的个人blog到底有什么意义呢？在我看来，个人博客的意义在于自由性，因为这是你自己的平台，你可以自由地去发表个人想法和文章，而不用担心内容是否迎合具体某个平台的读者。其次，我将个人博客作为自己的一个分享型知识记录，我希望自己的经历或者知识可以给别人带来一点启发和帮助，也许某一个瞬间，当一个人在搜寻相关的知识，参考了你博客的内容并且留言感时，你会发现自己其实在给这个社会做贡献，你在无声中被别人所认可。</p>
-<h2 id="相关的优化"><a href="#相关的优化" class="headerlink" title="相关的优化"></a>相关的优化</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>关于hexo</li>
-</ul>
-<p>我所搭建的blog是基于hexo + GitHub的，因为hexo凭借它轻便快捷的特点，已经成为现在个人博客搭建的主流。我派已经有较为具体的搭建教程文章了，就不再详述搭建步骤。</p>
-<p><a href="https://sspai.com/post/59337" target="_blank" rel="noopener">https://sspai.com/post/59337</a></p>
-<ul>
-<li>关于NexT</li>
-</ul>
-<p>NexT 是hexo主题中非常流行的一个，因为它功能齐全，而且插件丰富，成为大多数人的首选主题。当然流行就会出现一个问题，很容易撞车，大家的博客外表都非常相似。不过鱼叔认为博客只是载体，内容才是王道，所以在精力有限的情况下，没必要太纠结于博客外表的华丽，找一个顺眼的主题驻扎即可。本文接下去的内容也主要适用于NexT主题。</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318145642.png" alt="next 主题样式"></p>
-<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a></h3><h3 id="菜单栏修改问题"><a href="#菜单栏修改问题" class="headerlink" title="菜单栏修改问题"></a>菜单栏修改问题</h3><p>Next在主题的_config.yml文件中提供菜单栏的修改，只要搜索menu就可以找到，通过去除注释即可以在网页上进行渲染。然而鱼叔在修改next中的menu时会发现存在这样的报错 “cannot get %20” – 无法找到相应的菜单。出现的原因是官方给的代码中多加了一个空格，导致网页无法渲染，个人除了删除注释外，要将“||”前的空格删除不然会导致菜单没法跳转。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/||</span> <span class="string">home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/||</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/||</span> <span class="string">archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || calendar #官方给的代码 || 前多加了空格</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318150930.png" alt=""></p>
-<h3 id="Hexo博客出现“Cannot-GET-tags-or-categories”错误"><a href="#Hexo博客出现“Cannot-GET-tags-or-categories”错误" class="headerlink" title="Hexo博客出现“Cannot GET/tags or categories”错误"></a>Hexo博客出现“Cannot GET/tags or categories”错误</h3><p>next提供了标签和分类功能，但是在实现这个功能时常常会遇到”cannot get” 的问题，这是因为我们没有对它们进行初始化。具体解决方法如下：</p>
-<ol>
-<li><p>在git bash 中输入以下代码创建相应的page：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">hexo new page <span class="string">"tags"</span></span><br><span class="line">hexo new page <span class="string">"categories"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在第一步完成后会在source文件夹中出现tags和categories的文件夹，在各自的文件夹里打开index.md文件进行修改(多加上一个type属性)：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2020-03-15 14:19:53</span><br><span class="line">type: "categories"</span><br><span class="line"></span><br><span class="line">title: tags</span><br><span class="line">date: 2020-03-15 14:20:32</span><br><span class="line">type: "tags"</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<h3 id="底部下一页跳转问题"><a href="#底部下一页跳转问题" class="headerlink" title="底部下一页跳转问题"></a>底部下一页跳转问题</h3><p>鱼叔在建立博客的时候发现底部下一页跳转按钮没有正常显示，如下图</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/fsfsfewf.png" alt=""></p>
-<p>修改方式：</p>
-<p>打开主题 layout/_partials/pagination.swg 进行修改，将“i class”模块删除修改成如下模式(其中prev 和 next可以自定字样)：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.prev <span class="keyword">or</span> page.next %&#125;</span><br><span class="line">  &lt;nav class="pagination"&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: <span class="string">'prev'</span>,</span><br><span class="line">        next_text: <span class="string">'next'</span>,</span><br><span class="line">        mid_size: <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-
-<p>修改后结果为下图，实现正常的跳转按钮：</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/ljoifowenfewnf.png" alt=""></p>
-<h3 id="如何让首页文章部分显示"><a href="#如何让首页文章部分显示" class="headerlink" title="如何让首页文章部分显示"></a>如何让首页文章部分显示</h3><p>next主题默认的是将你的文章全篇显示在自己的首页上，这就会导致一个问题，首页各个文章太长了不利于翻阅，那如何部分显示自己的文章呢？很简单，只要在个人的文章Markdown 中在想要显示的文章部分下面加上代码<code>&lt;!--more&gt;</code>，即可只在首页显示所需的文章部分。</p>
-<h3 id="修改头像问题"><a href="#修改头像问题" class="headerlink" title="修改头像问题"></a>修改头像问题</h3><p>将自己的头像复制到blog文件夹中的\themes\next\source\images中覆盖原来的avatar.png 文件即可。</p>
-<h3 id="修改站点icon"><a href="#修改站点icon" class="headerlink" title="修改站点icon"></a>修改站点icon</h3><p>当套用完next主题后，个人博客的站点图标会自动为next的logo，作为博主当然不能忍这个logo啦，那怎么修改呢？</p>
-<p>我们打开next的主题配置文件会发现有这样的设定：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">favicon:</span></span><br><span class="line">  <span class="attr">small:</span> <span class="string">/images/favicon-16x16-next.png</span></span><br><span class="line">  <span class="attr">medium:</span> <span class="string">/images/favicon-32x32-next.png</span></span><br><span class="line">  <span class="attr">apple_touch_icon:</span> <span class="string">/images/apple-touch-icon-next.png</span></span><br><span class="line">  <span class="attr">safari_pinned_tab:</span> <span class="string">/images/logo.svg</span></span><br></pre></td></tr></table></figure>
-
-<p>这就可以很清晰地发现去哪里修改了，只要在对应的路径上把原有的图片文件给替换成我们需要的文件就行了。这里给大家提供一个网站用于生成所需的icon同尺寸图像：<a href="https://www.favicon-generator.org/" target="_blank" rel="noopener">https://www.favicon-generator.org/</a></p>
-<h3 id="增加阅读时长和字数统计功能"><a href="#增加阅读时长和字数统计功能" class="headerlink" title="增加阅读时长和字数统计功能"></a>增加阅读时长和字数统计功能</h3><p>next自带阅读时长和字数统计插件，我们所需要做的就是调用这两个工具。首先在主题的配置文件中修改：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span>         <span class="comment"># 单篇 字数统计</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span>          <span class="comment"># 单篇 阅读时长</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">false</span>       <span class="comment"># 网站 字数统计</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>完成配置后，我们需要安装word-count 插件，在git bash中输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm i --save hexo-wordcount</span><br></pre></td></tr></table></figure>
-
-<p>完成插件安装后，为了更好的显示，我们可以打开xxx_blog/themes/next/layout/_macro/post.swig ，在对应地方添加字words 和 min。可以通过搜索‘wordcount’ 和 ‘min2read’ 来定位。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;span title&#x3D;&quot;&#123;&#123; __(&#39;post.wordcount&#39;) &#125;&#125;&quot;&gt;</span><br><span class="line">                 &#123;&#123; wordcount(post.content) &#125;&#125; words</span><br><span class="line">               &lt;&#x2F;span&gt;</span><br><span class="line">        </span><br><span class="line">          &lt;span title&#x3D;&quot;&#123;&#123; __(&#39;post.min2read&#39;) &#125;&#125;&quot;&gt;</span><br><span class="line">                 &#123;&#123; min2read(post.content) &#125;&#125; min</span><br><span class="line">               &lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置搜索功能"><a href="#配置搜索功能" class="headerlink" title="配置搜索功能"></a>配置搜索功能</h3><p>next自带一个搜索功能，可以实现对站内内容的搜索。</p>
-<p>首先需要通过如下命令安装对应的搜索插件：</p>
-<p>然后在全局的配置文件（hexoblog目录下的_config.yml）中，增加配置如下内容：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Search Config</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在git hash 中加载相应的插件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-
-<p>打开主题内的配置文件，找到 local_search 属性，配置开启本地搜索功能。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># if auto, trigger search by changing input</span></span><br><span class="line">  <span class="comment"># if manual, trigger search by pressing enter key or search button</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">auto</span></span><br><span class="line">  <span class="comment"># show top n results per article, show all results by setting to -1</span></span><br><span class="line">  <span class="attr">top_n_per_article:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="将自己的博客收录到谷歌搜索中"><a href="#将自己的博客收录到谷歌搜索中" class="headerlink" title="将自己的博客收录到谷歌搜索中"></a>将自己的博客收录到谷歌搜索中</h3><p>为了让自己的博客能被更多人搜索到，自然需要将自己的博客收录到谷歌引擎中，具体的操作如下：</p>
-<ol>
-<li>添加资源</li>
-</ol>
-<p>打开<a href="https://search.google.com/search-console?hl=zh" target="_blank" rel="noopener">Google search Console</a>, 在左上角添加资源：</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161417.png" alt=""></p>
-<ol start="2">
-<li>网址验证</li>
-</ol>
-<p>选择网址前缀输入自己的博客网址。接下去就是对网站的验证，即证明网站是自己的。google 提供了多种方式进行验证，比较方便的是HTML 文件方式，它会产生一个HTML 文件，你只要将它放到博客source里然后再进行重新部署就行,（tips: 为了避免验证文件被hexo渲染，可以在验证html里添加‘layout：false’ 代码）。鱼叔采用的是HTML标记的方式，具体的方法就是将google提供的代码copy到 xxx_blog/themes/next/layout/_partials/head.swig中，放在头部的<meta>下面即可。</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161752.png" alt=""></p>
-<ol start="3">
-<li><p>增加sitemap</p>
-<p>通过在线网址 <a href="https://www.xml-sitemaps.com/" target="_blank" rel="noopener">sitemap</a>生成自己博客的站点地图，然后将站点地图下载下来放到自己博客源public文件夹中（xxx_blog/public）。然后打开 Google console，点开左侧的添加站点地图，输入sitemap.xml，点击提交即可，一般会花2-3天时间进行收录。</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319115742.png" alt=""></p>
-</li>
-</ol>
-<h3 id="增加评论功能"><a href="#增加评论功能" class="headerlink" title="增加评论功能"></a>增加评论功能</h3><p>目前比较流行的两种评论系统是Valine 和 Giement，这里主要讲Valine的配置。</p>
-<ol>
-<li><p>注册leancloud， <a href="https://leancloud.cn/dashboard/login.html#/signin" target="_blank" rel="noopener">leancloud注册网址</a></p>
-</li>
-<li><p>注册登陆后，访问控制台，创建应用，选择开发版，创建好之后就生成了对应的id和key</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319121641.png" alt=""></p>
-</li>
-<li><p>在主题配置文件中进行修改</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> Valine.</span><br><span class="line"># You can get your appid and appkey from https:&#x2F;&#x2F;leancloud.cn</span><br><span class="line"># more info please open https:&#x2F;&#x2F;valine.js.org</span><br><span class="line">valine:</span><br><span class="line">  enable: true </span><br><span class="line">  appid:   # 填入 App ID</span><br><span class="line">  appkey:  # 填入 App Key</span><br><span class="line">  notify: false </span><br><span class="line">  verify: false #</span><br><span class="line">  placeholder: 请在此输入您的留言 # 默认留言框内的文字</span><br><span class="line">  avatar: &quot;&quot; # 修改留言者头像，具体代码可以参考valine官网</span><br><span class="line">  guest_info: nick,mail # 默认留言框的头部需要访问者输入的信息</span><br><span class="line">  pageSize: 10 #默认单页的留言条数</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最后效果</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319122124.png" alt=""></p>
-</li>
-</ol>
-<h3 id="博客中图床问题"><a href="#博客中图床问题" class="headerlink" title="博客中图床问题"></a>博客中图床问题</h3><p>这里推荐图床神器PicGo, 可以非常快捷地将图片上传到自己所需的云端中，而我采用的是PicGo结合腾讯云COS来搭建在线个人图床。</p>
-<p>相关的教程链接：<a href="https://sspai.com/post/59284" target="_blank" rel="noopener">https://sspai.com/post/59284</a></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>基本上讲完了我搭建博客时遇到的所有问题，我之前看过一个博主写的一句话，“搭建博客就像玩了一个游戏，你的博客就是你的角色，你总是会想方设法地给他升级“。博客优化其实是一个无止境的路，需要耐心和时间，但往往我们会过度的为了美化它而忘记了自己搭建的初衷。好的内容才是一个博客真正的灵魂。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">Next 官方指南</a></p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>hexo next 主题优化 | 这里可能有你遇到所有问题的答案</title>
+      <link href="/2020/03/19/hexo-next-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/"/>
+      <url>/2020/03/19/hexo-next-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p><a id="more"></a><h2 id="搭建blog的初衷"><a href="#搭建blog的初衷" class="headerlink" title="搭建blog的初衷"></a>搭建blog的初衷</h2><p>现在网络平台里有很多可以发表个人看法的平台，比如我派，比如知乎、简书等，那花费功夫搭建自己的个人blog到底有什么意义呢？在我看来，个人博客的意义在于自由性，因为这是你自己的平台，你可以自由地去发表个人想法和文章，而不用担心内容是否迎合具体某个平台的读者。其次，我将个人博客作为自己的一个分享型知识记录，我希望自己的经历或者知识可以给别人带来一点启发和帮助，也许某一个瞬间，当一个人在搜寻相关的知识，参考了你博客的内容并且留言感时，你会发现自己其实在给这个社会做贡献，你在无声中被别人所认可。</p><h2 id="相关的优化"><a href="#相关的优化" class="headerlink" title="相关的优化"></a>相关的优化</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul><li>关于hexo</li></ul><p>我所搭建的blog是基于hexo + GitHub的，因为hexo凭借它轻便快捷的特点，已经成为现在个人博客搭建的主流。我派已经有较为具体的搭建教程文章了，就不再详述搭建步骤。</p><p><a href="https://sspai.com/post/59337" target="_blank" rel="noopener">https://sspai.com/post/59337</a></p><ul><li>关于NexT</li></ul><p>NexT 是hexo主题中非常流行的一个，因为它功能齐全，而且插件丰富，成为大多数人的首选主题。当然流行就会出现一个问题，很容易撞车，大家的博客外表都非常相似。不过鱼叔认为博客只是载体，内容才是王道，所以在精力有限的情况下，没必要太纠结于博客外表的华丽，找一个顺眼的主题驻扎即可。本文接下去的内容也主要适用于NexT主题。</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318145642.png" alt="next 主题样式"></p><h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="-2"><a href="#-2" class="headerlink" title=""></a></h3><h3 id="菜单栏修改问题"><a href="#菜单栏修改问题" class="headerlink" title="菜单栏修改问题"></a>菜单栏修改问题</h3><p>Next在主题的_config.yml文件中提供菜单栏的修改，只要搜索menu就可以找到，通过去除注释即可以在网页上进行渲染。然而鱼叔在修改next中的menu时会发现存在这样的报错 “cannot get %20” – 无法找到相应的菜单。出现的原因是官方给的代码中多加了一个空格，导致网页无法渲染，个人除了删除注释外，要将“||”前的空格删除不然会导致菜单没法跳转。</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/||</span> <span class="string">home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about/||</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/||</span> <span class="string">archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || calendar #官方给的代码 || 前多加了空格</span></span><br></pre></td></tr></table></figure><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318150930.png" alt=""></p><h3 id="Hexo博客出现“Cannot-GET-tags-or-categories”错误"><a href="#Hexo博客出现“Cannot-GET-tags-or-categories”错误" class="headerlink" title="Hexo博客出现“Cannot GET/tags or categories”错误"></a>Hexo博客出现“Cannot GET/tags or categories”错误</h3><p>next提供了标签和分类功能，但是在实现这个功能时常常会遇到”cannot get” 的问题，这是因为我们没有对它们进行初始化。具体解决方法如下：</p><ol><li><p>在git bash 中输入以下代码创建相应的page：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">"tags"</span></span><br><span class="line">hexo new page <span class="string">"categories"</span></span><br></pre></td></tr></table></figure></li><li><p>在第一步完成后会在source文件夹中出现tags和categories的文件夹，在各自的文件夹里打开index.md文件进行修改(多加上一个type属性)：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: categories</span><br><span class="line">date: 2020-03-15 14:19:53</span><br><span class="line">type: "categories"</span><br><span class="line"></span><br><span class="line">title: tags</span><br><span class="line">date: 2020-03-15 14:20:32</span><br><span class="line">type: "tags"</span><br></pre></td></tr></table></figure></li></ol><h3 id="底部下一页跳转问题"><a href="#底部下一页跳转问题" class="headerlink" title="底部下一页跳转问题"></a>底部下一页跳转问题</h3><p>鱼叔在建立博客的时候发现底部下一页跳转按钮没有正常显示，如下图</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/fsfsfewf.png" alt=""></p><p>修改方式：</p><p>打开主题 layout/_partials/pagination.swg 进行修改，将“i class”模块删除修改成如下模式(其中prev 和 next可以自定字样)：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> page.prev <span class="keyword">or</span> page.next %&#125;</span><br><span class="line">  &lt;nav class="pagination"&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: <span class="string">'prev'</span>,</span><br><span class="line">        next_text: <span class="string">'next'</span>,</span><br><span class="line">        mid_size: <span class="number">1</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;/nav&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure><p>修改后结果为下图，实现正常的跳转按钮：</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/ljoifowenfewnf.png" alt=""></p><h3 id="如何让首页文章部分显示"><a href="#如何让首页文章部分显示" class="headerlink" title="如何让首页文章部分显示"></a>如何让首页文章部分显示</h3><p>next主题默认的是将你的文章全篇显示在自己的首页上，这就会导致一个问题，首页各个文章太长了不利于翻阅，那如何部分显示自己的文章呢？很简单，只要在个人的文章Markdown 中在想要显示的文章部分下面加上代码<code>&lt;!--more&gt;</code>，即可只在首页显示所需的文章部分。</p><h3 id="修改头像问题"><a href="#修改头像问题" class="headerlink" title="修改头像问题"></a>修改头像问题</h3><p>将自己的头像复制到blog文件夹中的\themes\next\source\images中覆盖原来的avatar.png 文件即可。</p><h3 id="修改站点icon"><a href="#修改站点icon" class="headerlink" title="修改站点icon"></a>修改站点icon</h3><p>当套用完next主题后，个人博客的站点图标会自动为next的logo，作为博主当然不能忍这个logo啦，那怎么修改呢？</p><p>我们打开next的主题配置文件会发现有这样的设定：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">favicon:</span></span><br><span class="line">  <span class="attr">small:</span> <span class="string">/images/favicon-16x16-next.png</span></span><br><span class="line">  <span class="attr">medium:</span> <span class="string">/images/favicon-32x32-next.png</span></span><br><span class="line">  <span class="attr">apple_touch_icon:</span> <span class="string">/images/apple-touch-icon-next.png</span></span><br><span class="line">  <span class="attr">safari_pinned_tab:</span> <span class="string">/images/logo.svg</span></span><br></pre></td></tr></table></figure><p>这就可以很清晰地发现去哪里修改了，只要在对应的路径上把原有的图片文件给替换成我们需要的文件就行了。这里给大家提供一个网站用于生成所需的icon同尺寸图像：<a href="https://www.favicon-generator.org/" target="_blank" rel="noopener">https://www.favicon-generator.org/</a></p><h3 id="增加阅读时长和字数统计功能"><a href="#增加阅读时长和字数统计功能" class="headerlink" title="增加阅读时长和字数统计功能"></a>增加阅读时长和字数统计功能</h3><p>next自带阅读时长和字数统计插件，我们所需要做的就是调用这两个工具。首先在主题的配置文件中修改：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span>         <span class="comment"># 单篇 字数统计</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span>          <span class="comment"># 单篇 阅读时长</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">false</span>       <span class="comment"># 网站 字数统计</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>完成配置后，我们需要安装word-count 插件，在git bash中输入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save hexo-wordcount</span><br></pre></td></tr></table></figure><p>完成插件安装后，为了更好的显示，我们可以打开xxx_blog/themes/next/layout/_macro/post.swig ，在对应地方添加字words 和 min。可以通过搜索‘wordcount’ 和 ‘min2read’ 来定位。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;span title&#x3D;&quot;&#123;&#123; __(&#39;post.wordcount&#39;) &#125;&#125;&quot;&gt;</span><br><span class="line">                 &#123;&#123; wordcount(post.content) &#125;&#125; words</span><br><span class="line">               &lt;&#x2F;span&gt;</span><br><span class="line">        </span><br><span class="line">          &lt;span title&#x3D;&quot;&#123;&#123; __(&#39;post.min2read&#39;) &#125;&#125;&quot;&gt;</span><br><span class="line">                 &#123;&#123; min2read(post.content) &#125;&#125; min</span><br><span class="line">               &lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure><h3 id="配置搜索功能"><a href="#配置搜索功能" class="headerlink" title="配置搜索功能"></a>配置搜索功能</h3><p>next自带一个搜索功能，可以实现对站内内容的搜索。</p><p>首先需要通过如下命令安装对应的搜索插件：</p><p>然后在全局的配置文件（hexoblog目录下的_config.yml）中，增加配置如下内容：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Search Config</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure><p>然后在git hash 中加载相应的插件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure><p>打开主题内的配置文件，找到 local_search 属性，配置开启本地搜索功能。</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># if auto, trigger search by changing input</span></span><br><span class="line">  <span class="comment"># if manual, trigger search by pressing enter key or search button</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">auto</span></span><br><span class="line">  <span class="comment"># show top n results per article, show all results by setting to -1</span></span><br><span class="line">  <span class="attr">top_n_per_article:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure><h3 id="将自己的博客收录到谷歌搜索中"><a href="#将自己的博客收录到谷歌搜索中" class="headerlink" title="将自己的博客收录到谷歌搜索中"></a>将自己的博客收录到谷歌搜索中</h3><p>为了让自己的博客能被更多人搜索到，自然需要将自己的博客收录到谷歌引擎中，具体的操作如下：</p><ol><li>添加资源</li></ol><p>打开<a href="https://search.google.com/search-console?hl=zh" target="_blank" rel="noopener">Google search Console</a>, 在左上角添加资源：</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161417.png" alt=""></p><ol start="2"><li>网址验证</li></ol><p>选择网址前缀输入自己的博客网址。接下去就是对网站的验证，即证明网站是自己的。google 提供了多种方式进行验证，比较方便的是HTML 文件方式，它会产生一个HTML 文件，你只要将它放到博客source里然后再进行重新部署就行,（tips: 为了避免验证文件被hexo渲染，可以在验证html里添加‘layout：false’ 代码）。鱼叔采用的是HTML标记的方式，具体的方法就是将google提供的代码copy到 xxx_blog/themes/next/layout/_partials/head.swig中，放在头部的<meta>下面即可。</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161752.png" alt=""></p><ol start="3"><li><p>增加sitemap</p><p>通过在线网址 <a href="https://www.xml-sitemaps.com/" target="_blank" rel="noopener">sitemap</a>生成自己博客的站点地图，然后将站点地图下载下来放到自己博客源public文件夹中（xxx_blog/public）。然后打开 Google console，点开左侧的添加站点地图，输入sitemap.xml，点击提交即可，一般会花2-3天时间进行收录。</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319115742.png" alt=""></p></li></ol><h3 id="增加评论功能"><a href="#增加评论功能" class="headerlink" title="增加评论功能"></a>增加评论功能</h3><p>目前比较流行的两种评论系统是Valine 和 Giement，这里主要讲Valine的配置。</p><ol><li><p>注册leancloud， <a href="https://leancloud.cn/dashboard/login.html#/signin" target="_blank" rel="noopener">leancloud注册网址</a></p></li><li><p>注册登陆后，访问控制台，创建应用，选择开发版，创建好之后就生成了对应的id和key</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319121641.png" alt=""></p></li><li><p>在主题配置文件中进行修改</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> Valine.</span><br><span class="line"># You can get your appid and appkey from https:&#x2F;&#x2F;leancloud.cn</span><br><span class="line"># more info please open https:&#x2F;&#x2F;valine.js.org</span><br><span class="line">valine:</span><br><span class="line">  enable: true </span><br><span class="line">  appid:   # 填入 App ID</span><br><span class="line">  appkey:  # 填入 App Key</span><br><span class="line">  notify: false </span><br><span class="line">  verify: false #</span><br><span class="line">  placeholder: 请在此输入您的留言 # 默认留言框内的文字</span><br><span class="line">  avatar: &quot;&quot; # 修改留言者头像，具体代码可以参考valine官网</span><br><span class="line">  guest_info: nick,mail # 默认留言框的头部需要访问者输入的信息</span><br><span class="line">  pageSize: 10 #默认单页的留言条数</span><br></pre></td></tr></table></figure></li><li><p>最后效果</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319122124.png" alt=""></p></li></ol><h3 id="博客中图床问题"><a href="#博客中图床问题" class="headerlink" title="博客中图床问题"></a>博客中图床问题</h3><p>这里推荐图床神器PicGo, 可以非常快捷地将图片上传到自己所需的云端中，而我采用的是PicGo结合腾讯云COS来搭建在线个人图床。</p><p>相关的教程链接：<a href="https://sspai.com/post/59284" target="_blank" rel="noopener">https://sspai.com/post/59284</a></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>基本上讲完了我搭建博客时遇到的所有问题，我之前看过一个博主写的一句话，“搭建博客就像玩了一个游戏，你的博客就是你的角色，你总是会想方设法地给他升级“。博客优化其实是一个无止境的路，需要耐心和时间，但往往我们会过度的为了美化它而忘记了自己搭建的初衷。好的内容才是一个博客真正的灵魂。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">Next 官方指南</a></p>]]></content>
+      
+      
       <categories>
-        <category>效率</category>
+          
+          <category> 效率 </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>I2C 模块设计| biu 模块</title>
-    <url>/2020/03/17/I2C-%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1-biu-%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
-<a id="more"></a>
-
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt=""></p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> apb_i2c_biu #(</span><br><span class="line">	<span class="keyword">parameter</span> ADDR_SLICE_LHS = <span class="number">5</span>, <span class="comment">// addres [4:0] </span></span><br><span class="line">	<span class="keyword">parameter</span> APB_DATA_WIDTH = <span class="number">32</span></span><br><span class="line">)</span><br><span class="line">(</span><br><span class="line"><span class="comment">// signals connect to APB module </span></span><br><span class="line">	<span class="keyword">input</span>							pclk,</span><br><span class="line">	<span class="keyword">input</span>							presetn, <span class="comment">// reset</span></span><br><span class="line">	<span class="keyword">input</span> 							psel, <span class="comment">// select signal</span></span><br><span class="line">	<span class="keyword">input</span>	[ADDR_SLICE_LHS-<span class="number">1</span> : <span class="number">0</span>] 	paddr, <span class="comment">// 5bit addres</span></span><br><span class="line">	<span class="keyword">input</span>							pwrite,</span><br><span class="line">	<span class="keyword">input</span> 							penable,</span><br><span class="line">	<span class="keyword">input</span>	[APB_DATA_WIDTH-<span class="number">1</span> : <span class="number">0</span>]	pwdata,</span><br><span class="line">	<span class="keyword">output</span>	<span class="keyword">reg</span> [APB_DATA_WIDTH-<span class="number">1</span> : <span class="number">0</span>] prdata,</span><br><span class="line"><span class="comment">//signals connect to register module</span></span><br><span class="line">	<span class="keyword">input</span>	[<span class="number">15</span>:<span class="number">0</span>]					iprdata, <span class="comment">// ?</span></span><br><span class="line">	<span class="keyword">output</span>							wr_en,</span><br><span class="line">									rd_en,</span><br><span class="line">	<span class="keyword">output</span>	[ADDR_SLICE_LHS-<span class="number">3</span>:<span class="number">0</span>]	reg_addr, <span class="comment">// ahb addres searching</span></span><br><span class="line">	<span class="keyword">output</span>	[<span class="number">3</span>:<span class="number">0</span>]					byte_en,</span><br><span class="line">	<span class="keyword">output</span>	<span class="keyword">reg</span>	[<span class="number">31</span>:<span class="number">0</span>]				ipwdata</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p>
-<ul>
-<li><p>写操作代码：</p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">assign</span> wr_en = psel &amp; penable &amp; pwrite; <span class="comment">// 写信号的要求</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(pwdata) <span class="keyword">begin</span></span><br><span class="line">	ipwdata = <span class="number">32'b0</span>;</span><br><span class="line">	ipwdata [APB_DATA_WIDTH-<span class="number">1</span>:<span class="number">0</span>] = pwdata[APB_DATA_WIDTH-<span class="number">1</span>:<span class="number">0</span>]; <span class="comment">//apb总线上的数据每次发生变化，就将数据传输到输出reg中</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p>
-<ul>
-<li><p>关于读信号的判断</p>
-<p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">assign</span> rd_en = psel &amp; !penable &amp; !pwrite; <span class="comment">// 读信号要提前产生，因为要求把数据提前放到APB总线上</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据传输过程</span></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> pclk <span class="keyword">or</span> <span class="keyword">negedge</span> presetn) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>(presetn == <span class="number">1'b0</span>) <span class="keyword">begin</span></span><br><span class="line">		prdata &lt;= &#123;APB_DATA_WIDTH&#123;<span class="number">1'b0</span>&#125;&#125;; <span class="comment">//apb 读寄存器中的数据清零</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (rd_en) <span class="keyword">begin</span></span><br><span class="line">			prdata &lt;= &#123;<span class="number">16'b0</span>,iprdata&#125;; <span class="comment">// 将读入的数据保存到apb reg中</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h3 id="具体的代码链接如下："><a href="#具体的代码链接如下：" class="headerlink" title="具体的代码链接如下："></a>具体的代码链接如下：</h3><p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v" target="_blank" rel="noopener">Biu Ctrl Code</a></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>I2C 模块设计| biu 模块</title>
+      <link href="/2020/03/17/I2C-%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1-biu-%E6%A8%A1%E5%9D%97/"/>
+      <url>/2020/03/17/I2C-%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1-biu-%E6%A8%A1%E5%9D%97/</url>
+      
+        <content type="html"><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p><a id="more"></a><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt=""></p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> apb_i2c_biu #(</span><br><span class="line"><span class="keyword">parameter</span> ADDR_SLICE_LHS = <span class="number">5</span>, <span class="comment">// addres [4:0] </span></span><br><span class="line"><span class="keyword">parameter</span> APB_DATA_WIDTH = <span class="number">32</span></span><br><span class="line">)</span><br><span class="line">(</span><br><span class="line"><span class="comment">// signals connect to APB module </span></span><br><span class="line"><span class="keyword">input</span>pclk,</span><br><span class="line"><span class="keyword">input</span>presetn, <span class="comment">// reset</span></span><br><span class="line"><span class="keyword">input</span> psel, <span class="comment">// select signal</span></span><br><span class="line"><span class="keyword">input</span>[ADDR_SLICE_LHS-<span class="number">1</span> : <span class="number">0</span>] paddr, <span class="comment">// 5bit addres</span></span><br><span class="line"><span class="keyword">input</span>pwrite,</span><br><span class="line"><span class="keyword">input</span> penable,</span><br><span class="line"><span class="keyword">input</span>[APB_DATA_WIDTH-<span class="number">1</span> : <span class="number">0</span>]pwdata,</span><br><span class="line"><span class="keyword">output</span><span class="keyword">reg</span> [APB_DATA_WIDTH-<span class="number">1</span> : <span class="number">0</span>] prdata,</span><br><span class="line"><span class="comment">//signals connect to register module</span></span><br><span class="line"><span class="keyword">input</span>[<span class="number">15</span>:<span class="number">0</span>]iprdata, <span class="comment">// ?</span></span><br><span class="line"><span class="keyword">output</span>wr_en,</span><br><span class="line">rd_en,</span><br><span class="line"><span class="keyword">output</span>[ADDR_SLICE_LHS-<span class="number">3</span>:<span class="number">0</span>]reg_addr, <span class="comment">// ahb addres searching</span></span><br><span class="line"><span class="keyword">output</span>[<span class="number">3</span>:<span class="number">0</span>]byte_en,</span><br><span class="line"><span class="keyword">output</span><span class="keyword">reg</span>[<span class="number">31</span>:<span class="number">0</span>]ipwdata</span><br><span class="line">);</span><br></pre></td></tr></table></figure><h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p><ul><li><p>写操作代码：</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> wr_en = psel &amp; penable &amp; pwrite; <span class="comment">// 写信号的要求</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(pwdata) <span class="keyword">begin</span></span><br><span class="line">ipwdata = <span class="number">32'b0</span>;</span><br><span class="line">ipwdata [APB_DATA_WIDTH-<span class="number">1</span>:<span class="number">0</span>] = pwdata[APB_DATA_WIDTH-<span class="number">1</span>:<span class="number">0</span>]; <span class="comment">//apb总线上的数据每次发生变化，就将数据传输到输出reg中</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p><ul><li><p>关于读信号的判断</p><p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> rd_en = psel &amp; !penable &amp; !pwrite; <span class="comment">// 读信号要提前产生，因为要求把数据提前放到APB总线上</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据传输过程</span></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> pclk <span class="keyword">or</span> <span class="keyword">negedge</span> presetn) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span>(presetn == <span class="number">1'b0</span>) <span class="keyword">begin</span></span><br><span class="line">prdata &lt;= &#123;APB_DATA_WIDTH&#123;<span class="number">1'b0</span>&#125;&#125;; <span class="comment">//apb 读寄存器中的数据清零</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (rd_en) <span class="keyword">begin</span></span><br><span class="line">prdata &lt;= &#123;<span class="number">16'b0</span>,iprdata&#125;; <span class="comment">// 将读入的数据保存到apb reg中</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="具体的代码链接如下："><a href="#具体的代码链接如下：" class="headerlink" title="具体的代码链接如下："></a>具体的代码链接如下：</h3><p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v" target="_blank" rel="noopener">Biu Ctrl Code</a></p>]]></content>
+      
+      
       <categories>
-        <category>一个IC工程师的自我修养</category>
-        <category>I2C 设计</category>
+          
+          <category> 一个IC工程师的自我修养 </category>
+          
+          <category> I2C 设计 </category>
+          
       </categories>
-      <tags>
-        <tag>I2C 学习</tag>
-        <tag>IC design</tag>
-        <tag>IC 面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>I2C 模块设计 | 协议基础</title>
-    <url>/2020/03/17/I2C-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<blockquote>
-
-<p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
-<a id="more"></a>
-
-
-
-<h2 id="APB-I2C-总线协议"><a href="#APB-I2C-总线协议" class="headerlink" title="APB I2C 总线协议"></a>APB I2C 总线协议</h2><h3 id="I2C-UART-SPI-接口对比"><a href="#I2C-UART-SPI-接口对比" class="headerlink" title="I2C UART SPI 接口对比"></a>I2C UART SPI 接口对比</h3><ul>
-<li>UART 异步接口，需要用波特率发生器来进行同步，传输速率较慢</li>
-<li>SPI 同步接口（Master需要给Slave 提供一个同步时钟）四根信号线（clk/MISO/MOSI）</li>
-<li>I2C 慢同步 ， 半双工（SCL SDA）</li>
-</ul>
-<h3 id="I2C-帧结构"><a href="#I2C-帧结构" class="headerlink" title="I2C 帧结构"></a>I2C 帧结构</h3><p>两根线， SDA-数据线，SCL-时钟线，半双工工作模式。</p>
-<p>结构：</p>
-<ul>
-<li><p>Master：SCL 信号源，控制信息流</p>
-</li>
-<li><p>Slave: 处于等待状态，Master 会通过地址来搜寻所需要的slave，每一个slave都有一个固定的地址，并且地址的方式可以通过固定或者配置来实现。</p>
-</li>
-</ul>
-<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol>
-<li><p>发送起始条件</p>
-</li>
-<li><p>发送接受设备的地址和任务操作；</p>
-</li>
-<li><p>发送或者接受数据</p>
-</li>
-<li><p>接受设备发送相应位 — 应答；</p>
-</li>
-<li><p>发送停止条件</p>
-</li>
-</ol>
-<p>一帧数据8bit， 其中[7:1]为设备地址，而最后一位为数据方向</p>
-<ul>
-<li><p>[7:1] 地址</p>
-</li>
-<li><p><strong>0: 0 — 发送地址，写操作；1 — 接受数据，读操作</strong></p>
-</li>
-</ul>
-<h4 id="起始条件"><a href="#起始条件" class="headerlink" title="起始条件"></a>起始条件</h4><p>当SCL 和SDA是高电平，且 SDA由高电平到低电平切换；</p>
-<p>表示总线上要传输信息；</p>
-<p>总线在起始条件后表示处于忙碌状态；</p>
-<h4 id="停止条件"><a href="#停止条件" class="headerlink" title="停止条件"></a>停止条件</h4><p>当SCL 是高电平时，SDA由低电平向高电平切换时；</p>
-<p>本次通讯结束，总线进入空闲状态。</p>
-<h4 id="位传输要求"><a href="#位传输要求" class="headerlink" title="位传输要求"></a>位传输要求</h4><p>每传输一个数据就产生一个时钟脉冲。并且在高电平时采样数据</p>
-<h4 id="数据传输结构"><a href="#数据传输结构" class="headerlink" title="数据传输结构"></a>数据传输结构</h4><p>数据流： [起始位] [接受数据的地址 6bit] [读写位 ] [数据1, 从7到0，高位先发] [ 应答信号] [数据2, 从7到0，高位先发] [ 应答信号] … [应答] [停止位]</p>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.png" alt=""></p>
-<h3 id="I2C-的响应机制"><a href="#I2C-的响应机制" class="headerlink" title="I2C 的响应机制"></a>I2C 的响应机制</h3><p>Slave 需要在收到数据后给予应答信号，在相应期间，Master需要释放SDA线，而Slave需要将SDA线拉低，表示相应。</p>
-<h4 id="无法响应情况："><a href="#无法响应情况：" class="headerlink" title="无法响应情况："></a>无法响应情况：</h4><ul>
-<li>如果从机没有响应，则主机要使数据线一直保持高电平，产生一个停止或者重复条件。</li>
-<li>如果从机来不及处理数据，可以一直拉低时钟线，使主机处于等待状态</li>
-</ul>
-<p>SCL 的线与逻辑保证了时钟线上的同步，比如说clk1 先拉低，但是clk2 的低电平还没有到，这时候MOS2 打开状态，整个SCL还是处于低电平状态，只有当所有的clk都到达变低后，线才被拉高，SCL同步机制来保证SCL 读取数据的同步性</p>
-<h4 id="总线仲裁"><a href="#总线仲裁" class="headerlink" title="总线仲裁"></a>总线仲裁</h4><p>多个主机使用总线时，当SCL 处于高电平时，根据SDA的电平来进行仲裁；</p>
-<p>规则；当主机需要将总线拉高时，但不能实现 —&gt; 丢失仲裁 —&gt; 退回到设备。</p>
-<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><p>主机接受流程：</p>
-<ol>
-<li>发送起始标志位</li>
-<li>发送从机地址和读信号</li>
-<li>从机接收到信号发送应答标志，开始发数据</li>
-<li>主机接收到数据发送应答信号开始接受下一个数据</li>
-<li>主机不想接受信号就发送一个NACK信号然后停止</li>
-</ol>
-<p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt=""></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> I2C 学习 </tag>
+            
+            <tag> IC design </tag>
+            
+            <tag> IC 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>I2C 模块设计 | 协议基础</title>
+      <link href="/2020/03/17/I2C-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/"/>
+      <url>/2020/03/17/I2C-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p><a id="more"></a><h2 id="APB-I2C-总线协议"><a href="#APB-I2C-总线协议" class="headerlink" title="APB I2C 总线协议"></a>APB I2C 总线协议</h2><h3 id="I2C-UART-SPI-接口对比"><a href="#I2C-UART-SPI-接口对比" class="headerlink" title="I2C UART SPI 接口对比"></a>I2C UART SPI 接口对比</h3><ul><li>UART 异步接口，需要用波特率发生器来进行同步，传输速率较慢</li><li>SPI 同步接口（Master需要给Slave 提供一个同步时钟）四根信号线（clk/MISO/MOSI）</li><li>I2C 慢同步 ， 半双工（SCL SDA）</li></ul><h3 id="I2C-帧结构"><a href="#I2C-帧结构" class="headerlink" title="I2C 帧结构"></a>I2C 帧结构</h3><p>两根线， SDA-数据线，SCL-时钟线，半双工工作模式。</p><p>结构：</p><ul><li><p>Master：SCL 信号源，控制信息流</p></li><li><p>Slave: 处于等待状态，Master 会通过地址来搜寻所需要的slave，每一个slave都有一个固定的地址，并且地址的方式可以通过固定或者配置来实现。</p></li></ul><h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol><li><p>发送起始条件</p></li><li><p>发送接受设备的地址和任务操作；</p></li><li><p>发送或者接受数据</p></li><li><p>接受设备发送相应位 — 应答；</p></li><li><p>发送停止条件</p></li></ol><p>一帧数据8bit， 其中[7:1]为设备地址，而最后一位为数据方向</p><ul><li><p>[7:1] 地址</p></li><li><p><strong>0: 0 — 发送地址，写操作；1 — 接受数据，读操作</strong></p></li></ul><h4 id="起始条件"><a href="#起始条件" class="headerlink" title="起始条件"></a>起始条件</h4><p>当SCL 和SDA是高电平，且 SDA由高电平到低电平切换；</p><p>表示总线上要传输信息；</p><p>总线在起始条件后表示处于忙碌状态；</p><h4 id="停止条件"><a href="#停止条件" class="headerlink" title="停止条件"></a>停止条件</h4><p>当SCL 是高电平时，SDA由低电平向高电平切换时；</p><p>本次通讯结束，总线进入空闲状态。</p><h4 id="位传输要求"><a href="#位传输要求" class="headerlink" title="位传输要求"></a>位传输要求</h4><p>每传输一个数据就产生一个时钟脉冲。并且在高电平时采样数据</p><h4 id="数据传输结构"><a href="#数据传输结构" class="headerlink" title="数据传输结构"></a>数据传输结构</h4><p>数据流： [起始位] [接受数据的地址 6bit] [读写位 ] [数据1, 从7到0，高位先发] [ 应答信号] [数据2, 从7到0，高位先发] [ 应答信号] … [应答] [停止位]</p><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.png" alt=""></p><h3 id="I2C-的响应机制"><a href="#I2C-的响应机制" class="headerlink" title="I2C 的响应机制"></a>I2C 的响应机制</h3><p>Slave 需要在收到数据后给予应答信号，在相应期间，Master需要释放SDA线，而Slave需要将SDA线拉低，表示相应。</p><h4 id="无法响应情况："><a href="#无法响应情况：" class="headerlink" title="无法响应情况："></a>无法响应情况：</h4><ul><li>如果从机没有响应，则主机要使数据线一直保持高电平，产生一个停止或者重复条件。</li><li>如果从机来不及处理数据，可以一直拉低时钟线，使主机处于等待状态</li></ul><p>SCL 的线与逻辑保证了时钟线上的同步，比如说clk1 先拉低，但是clk2 的低电平还没有到，这时候MOS2 打开状态，整个SCL还是处于低电平状态，只有当所有的clk都到达变低后，线才被拉高，SCL同步机制来保证SCL 读取数据的同步性</p><h4 id="总线仲裁"><a href="#总线仲裁" class="headerlink" title="总线仲裁"></a>总线仲裁</h4><p>多个主机使用总线时，当SCL 处于高电平时，根据SDA的电平来进行仲裁；</p><p>规则；当主机需要将总线拉高时，但不能实现 —&gt; 丢失仲裁 —&gt; 退回到设备。</p><h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><p>主机接受流程：</p><ol><li>发送起始标志位</li><li>发送从机地址和读信号</li><li>从机接收到信号发送应答标志，开始发数据</li><li>主机接收到数据发送应答信号开始接受下一个数据</li><li>主机不想接受信号就发送一个NACK信号然后停止</li></ol><p><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt=""></p>]]></content>
+      
+      
       <categories>
-        <category>一个IC工程师的自我修养</category>
-        <category>I2C 设计</category>
+          
+          <category> 一个IC工程师的自我修养 </category>
+          
+          <category> I2C 设计 </category>
+          
       </categories>
-      <tags>
-        <tag>I2C 学习</tag>
-        <tag>IC design</tag>
-        <tag>IC 面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的日常效率软件</title>
-    <url>/2020/03/16/%E6%88%91%E7%9A%84%E6%97%A5%E5%B8%B8%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/</url>
-    <content><![CDATA[<center>「hello ，大家好，我是鱼叔，今天咱们来聊一聊我日常提高效率的一些软件，希望能给大家带来启发。」</center>
-
-<a id="more"></a>
-
-<h3 id="1-Google-Keep"><a href="#1-Google-Keep" class="headerlink" title="1.Google Keep"></a><strong>1.Google Keep</strong></h3><p><img src="https://cdn.sspai.com/attachment/origin/2015/10/22/288694.png" alt="app-icon"></p>
-<p>我对效率的理解是 —「在最短的时间里，尽可能地得到较高的产出」，这就意味着如何能在工作的过程中保持清晰思路非常重要，在这里我首先推荐的软件是Google Keep，一款简约的GTD软件。Keep 作为一款GTD软件，它提供了最简单的功能，那就是建立list和写note。整个Keep 的UI设计是卡片式的，而且支持自己定义颜色，通过不同的颜色你就可以清晰地用来区分不同的task。</p>
-<p>我平常的习惯是工作前打开Keep 列出今天的task 清单，然后在工作期间会把想到的东西在Keep上记录下来作为一个信息缓存区，之后在空闲时进行整理和整合放置到自己的笔记本里。此外，Keep 作为Google 家的产品，支持一键copy到google doc 和云同步，这就意味着你可以在不同平台上访问自己的Keep。 Keep还有一个特点就是支持多人协作，可以将自己的list 和note 分享，让整个team一块参与项目的进展。</p>
-<p><img src="https://cdn.sspai.com/2020/03/06/fbf0f7c8c882ed58f48fee79fb226b61.png" alt="img"></p>
-<h3 id="2-坚果云–-微信文章缓存区"><a href="#2-坚果云–-微信文章缓存区" class="headerlink" title="2. 坚果云– 微信文章缓存区"></a><strong>2. 坚果云– 微信文章缓存区</strong></h3><p><img src="https://cdn.sspai.com/2017/10/24/f9e3fc8c03abcd32668a2f391dca761b.jpg" alt="app-icon"></p>
-<p>坚果云是一款轻巧的个人网盘，在这里我并不只是把它作为网盘用，我将它作为我的微信文章缓存区。通过将微信推送发送给坚果云邮箱的方式来进行保存，我可以在空余时间再好好阅读文章内容，以及相应的信息存储。具体的操作方式可以看下面的链接：</p>
-<p><a href="https://canaan-chen.github.io/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/">用坚果云打造个人微信缓存区</a></p>
-<p>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这…</p>
-<p>查看原文</p>
-<h3 id="3-Wox"><a href="#3-Wox" class="headerlink" title="3.Wox"></a><strong>3.Wox</strong></h3><p><img src="https://cdn.sspai.com/2020/03/06/9f39b54b1b0ebc1126a0d54af169980b.png" alt="img"></p>
-<p>自从换了操作系统后，我一直希望在windows中找到Mac osx 中Alfred 的替代品，而wox完美的实现了这个功能。wox给我提供的快捷之处在于用简单的操作就可以实现较复杂的功能，比如用快捷键唤醒搜索栏后，直接敲到 「g 少数派」就会自动跳转到Google搜索少数派的界面。</p>
-<p><img src="https://cdn.sspai.com/2020/03/06/b3a6dc4cddc6e4a3d25d469175b6d5a9.gif" alt="img"><center>wox 使用示例</center></p>
-<p><strong>4. Notion</strong></p>
-<p><img src="https://cdn.sspai.com/2017/09/25/a4d9c7d76078066f688784db61f9feb4.jpg" alt="app-icon"></p>
-<p>Notion 可以说是 all in one 的笔记软件，支持各种嵌入以及云端同步。Notion是我信息处理的最后一步，包括将Keep 里的note 以及坚果云中缓存着的微信文章等，最后这些信息都会在Notion找到他们自己的位置。此外，Notion 支持各种code 以及网页的内嵌，这让它成为我日常写作的主要工具。</p>
-<p><img src="https://cdn.sspai.com/2020/03/06/a5449c1ee7cca269295efd2e9b9f2309.png" alt="img"></p>
-<h3 id="5-Send-anywhere"><a href="#5-Send-anywhere" class="headerlink" title="5. Send anywhere"></a><strong>5. Send anywhere</strong></h3><p><img src="https://cdn.sspai.com/attachment/origin/2016/04/08/321034.jpg" alt="app-icon"></p>
-<p>Send anywhere 是一个轻量级的传输工具，支持客户端，也支持网页。它会在上传文件后生成一个6位数的传输码，你只需要在另一台设备上输入这个传输码就可以实现文件的下载。</p>
-<h3 id="6-EDA-Playground"><a href="#6-EDA-Playground" class="headerlink" title="6. EDA Playground"></a><strong>6. EDA Playground</strong></h3><p>作为一个硬件工程师，有时候设计小模块时需要进行综合和测试功能，而启用虚拟机使用EDA软件会占用大量的资源,，有种拿牛刀杀鸡的感觉。这时候EDA Playground 作为一个免费的EDA网站，提供了很多公司的综合工具，你只要输入相关的代码就可以在线测试和仿真，为小模块的设计提供了非常方便的测试环境。此外，这个网站还有很多的设计案例，对硬件设计初学者非常友好。</p>
-<p><img src="https://cdn.sspai.com/2020/03/06/800abc9cdbbcd9ee87d18aad2f25b6e4.png" alt="img"></p>
-<h3 id="7-Photopea"><a href="#7-Photopea" class="headerlink" title="7. Photopea"></a><strong>7. Photopea</strong></h3><p>不知道大家有没有遇到这样的情况，当你有修改图片需求时却发现电脑里没有安装Photoshop，这时候我就会经常用Photopea来修图。Photopea 作为一个在线版的PS，基本上可以满足所有的修图要求，而且操作和界面也和PS类似，唯一不足之处可能就是会有广告浮窗。</p>
-<p><img src="https://cdn.sspai.com/2020/03/06/98cad3d6a9e0b57496e27ce585589e94.png" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> I2C 学习 </tag>
+            
+            <tag> IC design </tag>
+            
+            <tag> IC 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的日常效率软件</title>
+      <link href="/2020/03/16/%E6%88%91%E7%9A%84%E6%97%A5%E5%B8%B8%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/"/>
+      <url>/2020/03/16/%E6%88%91%E7%9A%84%E6%97%A5%E5%B8%B8%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<center>「hello ，大家好，我是鱼叔，今天咱们来聊一聊我日常提高效率的一些软件，希望能给大家带来启发。」</center><a id="more"></a><h3 id="1-Google-Keep"><a href="#1-Google-Keep" class="headerlink" title="1.Google Keep"></a><strong>1.Google Keep</strong></h3><p><img src="https://cdn.sspai.com/attachment/origin/2015/10/22/288694.png" alt="app-icon"></p><p>我对效率的理解是 —「在最短的时间里，尽可能地得到较高的产出」，这就意味着如何能在工作的过程中保持清晰思路非常重要，在这里我首先推荐的软件是Google Keep，一款简约的GTD软件。Keep 作为一款GTD软件，它提供了最简单的功能，那就是建立list和写note。整个Keep 的UI设计是卡片式的，而且支持自己定义颜色，通过不同的颜色你就可以清晰地用来区分不同的task。</p><p>我平常的习惯是工作前打开Keep 列出今天的task 清单，然后在工作期间会把想到的东西在Keep上记录下来作为一个信息缓存区，之后在空闲时进行整理和整合放置到自己的笔记本里。此外，Keep 作为Google 家的产品，支持一键copy到google doc 和云同步，这就意味着你可以在不同平台上访问自己的Keep。 Keep还有一个特点就是支持多人协作，可以将自己的list 和note 分享，让整个team一块参与项目的进展。</p><p><img src="https://cdn.sspai.com/2020/03/06/fbf0f7c8c882ed58f48fee79fb226b61.png" alt="img"></p><h3 id="2-坚果云–-微信文章缓存区"><a href="#2-坚果云–-微信文章缓存区" class="headerlink" title="2. 坚果云– 微信文章缓存区"></a><strong>2. 坚果云– 微信文章缓存区</strong></h3><p><img src="https://cdn.sspai.com/2017/10/24/f9e3fc8c03abcd32668a2f391dca761b.jpg" alt="app-icon"></p><p>坚果云是一款轻巧的个人网盘，在这里我并不只是把它作为网盘用，我将它作为我的微信文章缓存区。通过将微信推送发送给坚果云邮箱的方式来进行保存，我可以在空余时间再好好阅读文章内容，以及相应的信息存储。具体的操作方式可以看下面的链接：</p><p><a href="https://canaan-chen.github.io/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/">用坚果云打造个人微信缓存区</a></p><p>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这…</p><p>查看原文</p><h3 id="3-Wox"><a href="#3-Wox" class="headerlink" title="3.Wox"></a><strong>3.Wox</strong></h3><p><img src="https://cdn.sspai.com/2020/03/06/9f39b54b1b0ebc1126a0d54af169980b.png" alt="img"></p><p>自从换了操作系统后，我一直希望在windows中找到Mac osx 中Alfred 的替代品，而wox完美的实现了这个功能。wox给我提供的快捷之处在于用简单的操作就可以实现较复杂的功能，比如用快捷键唤醒搜索栏后，直接敲到 「g 少数派」就会自动跳转到Google搜索少数派的界面。</p><p><img src="https://cdn.sspai.com/2020/03/06/b3a6dc4cddc6e4a3d25d469175b6d5a9.gif" alt="img"><center>wox 使用示例</center></p><p><strong>4. Notion</strong></p><p><img src="https://cdn.sspai.com/2017/09/25/a4d9c7d76078066f688784db61f9feb4.jpg" alt="app-icon"></p><p>Notion 可以说是 all in one 的笔记软件，支持各种嵌入以及云端同步。Notion是我信息处理的最后一步，包括将Keep 里的note 以及坚果云中缓存着的微信文章等，最后这些信息都会在Notion找到他们自己的位置。此外，Notion 支持各种code 以及网页的内嵌，这让它成为我日常写作的主要工具。</p><p><img src="https://cdn.sspai.com/2020/03/06/a5449c1ee7cca269295efd2e9b9f2309.png" alt="img"></p><h3 id="5-Send-anywhere"><a href="#5-Send-anywhere" class="headerlink" title="5. Send anywhere"></a><strong>5. Send anywhere</strong></h3><p><img src="https://cdn.sspai.com/attachment/origin/2016/04/08/321034.jpg" alt="app-icon"></p><p>Send anywhere 是一个轻量级的传输工具，支持客户端，也支持网页。它会在上传文件后生成一个6位数的传输码，你只需要在另一台设备上输入这个传输码就可以实现文件的下载。</p><h3 id="6-EDA-Playground"><a href="#6-EDA-Playground" class="headerlink" title="6. EDA Playground"></a><strong>6. EDA Playground</strong></h3><p>作为一个硬件工程师，有时候设计小模块时需要进行综合和测试功能，而启用虚拟机使用EDA软件会占用大量的资源,，有种拿牛刀杀鸡的感觉。这时候EDA Playground 作为一个免费的EDA网站，提供了很多公司的综合工具，你只要输入相关的代码就可以在线测试和仿真，为小模块的设计提供了非常方便的测试环境。此外，这个网站还有很多的设计案例，对硬件设计初学者非常友好。</p><p><img src="https://cdn.sspai.com/2020/03/06/800abc9cdbbcd9ee87d18aad2f25b6e4.png" alt="img"></p><h3 id="7-Photopea"><a href="#7-Photopea" class="headerlink" title="7. Photopea"></a><strong>7. Photopea</strong></h3><p>不知道大家有没有遇到这样的情况，当你有修改图片需求时却发现电脑里没有安装Photoshop，这时候我就会经常用Photopea来修图。Photopea 作为一个在线版的PS，基本上可以满足所有的修图要求，而且操作和界面也和PS类似，唯一不足之处可能就是会有广告浮窗。</p><p><img src="https://cdn.sspai.com/2020/03/06/98cad3d6a9e0b57496e27ce585589e94.png" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>效率</category>
+          
+          <category> 效率 </category>
+          
       </categories>
-      <tags>
-        <tag>软件推荐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何写好一份文书</title>
-    <url>/2020/03/16/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E4%BB%BD%E6%96%87%E4%B9%A6/</url>
-    <content><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p>
-<a id="more"></a>
-
-<p>接下去我会围绕这个问题给出我在实际申请时的解决方案，在文章末尾处还会给大家一份《推荐信指南》的电子版书籍，点击链接就可以下载。</p>
-<p>谈及文书，文书一般涉及到的三个内容:<strong>PS</strong>（Personal Statement）、<strong>CV</strong>（Curriculum Vitae）、<strong>RL</strong>（Reference Letter）。其中感觉相对比较重要的是PS，即个人陈述，我其实更喜欢把它叫做自我介绍。</p>
-<h2 id="Personal-Statement"><a href="#Personal-Statement" class="headerlink" title="-Personal Statement-"></a><strong>-Personal Statement-</strong></h2><p>怎样的PS是才算是比较不错的呢？这就需要首先从Msc授课型硕士的目的开始讲起，Msc是为了培养适合工作的硕士，一般都采用授课的教学方式，可以类比国内的专硕，但是又有很大区别。Msc的学时为1到2年，根据地区和专业不同又有所区别。</p>
-<p>Msc的初衷是为了培养你的工作能力，所以你的PS里需要体现到你对你未来的职业规划，包括未来的工作方向，工作区域之类。这一点在很多文书上是容易忽略。在这里，我会给出两个PS的框架，一份是我在一次公开课上做的笔记，另一份是前辈们总结的。两个都是英文的方式表达，因为懒得翻译，不感冒的小伙伴可以直接跳过哈。推荐第一个框架。</p>
-<h3 id="1st-Sample-Outline-for-PS"><a href="#1st-Sample-Outline-for-PS" class="headerlink" title="-1st Sample Outline for PS -"></a><strong>-1st Sample Outline for PS</strong> <strong>-</strong></h3><p><strong>Introductory paragraph</strong>：</p>
-<ul>
-<li>introduce your area of interest or research question</li>
-<li>discuss a problem your profession may help address</li>
-</ul>
-<p><strong>2nd paragraph</strong> Review your undergraduate coursework</p>
-<ul>
-<li>focus on your major discipline</li>
-<li>highlight the courses that prepare you for the program</li>
-<li>identify any gap in your training to be filled by the master program</li>
-<li>emphasise the skills and knowledge developed</li>
-<li>connect the dots across the courses.</li>
-</ul>
-<p><strong>3rd paragraph</strong> Review your undergraduate project experience</p>
-<ul>
-<li>focus on your 1-2 project</li>
-<li>adopt IMRD(introduction, method ,result ,discussion )</li>
-<li>highlight the skill development and other learning experience</li>
-<li>discuss your inspiration and desire for further studies</li>
-<li>relate to the master program whenever possible.</li>
-</ul>
-<p><strong>4th paragraph</strong> your career plan</p>
-<ul>
-<li>your career interested</li>
-<li>how you developed the interest in such a career (related the experience discussed earlier)</li>
-<li>what skills and experience do you still need to implement such a career plan.</li>
-</ul>
-<p><strong>5th paragraph</strong> Why choose the target master program</p>
-<ul>
-<li>the specific courses that may strengthen you as a professional</li>
-<li>the faculty members you would like to work with for your thesis</li>
-<li>other learning opportunities that can help you accomplish you career goals</li>
-<li>why you will be an asset to the program.</li>
-</ul>
-<p><strong>6th paragraph</strong> Conclusion: reiterate the main points and summarise your main arguments.</p>
-<hr>
-<h3 id="2nd-Sample-Outline-of-PS"><a href="#2nd-Sample-Outline-of-PS" class="headerlink" title="-2nd Sample Outline of PS-"></a><strong>-2nd Sample Outline of PS-</strong></h3><h4 id="1st-Paragraph"><a href="#1st-Paragraph" class="headerlink" title="1st Paragraph"></a><strong>1st Paragraph</strong></h4><p>Describe the area of research that interests you and why. If you have already done some research work in this area, be sure to mention it. Also, explain why you think you are suitable for this area. You may also describe competitions in the area that you have done well in and special academic attainments. For example, a double major in mathematics and computer science probably set you apart from students who only studied computer science. If you have nothing special to say, then just mention briefly how you came to choose this area.</p>
-<h4 id="2nd-Paragraph"><a href="#2nd-Paragraph" class="headerlink" title="2nd Paragraph"></a><strong>2nd Paragraph</strong></h4><p>Describe research programs you have worked on (one paragraph per program.)</p>
-<ol>
-<li>What did you find?</li>
-<li>What did you learn?</li>
-<li>What approaches did you try?</li>
-<li>Did these approaches work or not?</li>
-</ol>
-<h4 id="3rd-Paragraph"><a href="#3rd-Paragraph" class="headerlink" title="3rd Paragraph"></a><strong>3rd Paragraph</strong></h4><p>Explain why you feel you need a Masters degree or PhD.</p>
-<h4 id="4th-Paragraph"><a href="#4th-Paragraph" class="headerlink" title="4th Paragraph"></a><strong>4th Paragraph</strong></h4><p>Tell the reader why you want to go to that particular university. Make it easy for them:</p>
-<ol>
-<li>If you want to work with a particular person or persons tell them who you want to work with and why.</li>
-<li>If you want to work in a particular area, tell them why you want to work in that area in their university.</li>
-<li>If there is no particular person you want to work with or particular area you want to work in, explain why you would like to join their program.</li>
-</ol>
-<h4 id="5th-Paragraph"><a href="#5th-Paragraph" class="headerlink" title="5th Paragraph"></a><strong>5th Paragraph</strong></h4><p>You can also state what papers you have read from that university and what you enjoyed about them or how they inspired you. Lastly, tell them what you hope to gain from their university.</p>
-<p>一些总结的tips：</p>
-<ol>
-<li>确保你的PS控制在一到两页内，因为你是在给一个很忙的人看。</li>
-<li>不要说你小时候想当科学家的故事，因为对于教授他们而言毫无意义。</li>
-<li>尽可能地在文书中体现你所想申请的专业的相关信息，包括它的课程或者未来就业情况，这样可以表现你确实对这个他们的信息很了解，并且很渴望去读书。</li>
-<li>把自己的PS多给身边的人看一看，然后根据他们的意见有选择性地进行修改。</li>
-</ol>
-<hr>
-<h2 id="Curriculum-Vitae"><a href="#Curriculum-Vitae" class="headerlink" title="-Curriculum Vitae-"></a><strong>-Curriculum Vitae-</strong></h2><p>CV的话就是个人简历，要求精炼控制在一页之内，能让招生办的人看了你的简历就能大致知道你是否能被录取，可以理解为CV是脱水版的PS。我这里就Po上我删减版的CV框架给大家参考形式。</p>
-<p><img src="https://cdn.sspai.com/2020/01/13/0028c0daf285279b8a1f650e555d2e1f.png" alt="img"></p>
-<h2 id="Reference-Letter"><a href="#Reference-Letter" class="headerlink" title="-Reference Letter-"></a><strong>-Reference Letter-</strong></h2><p>RL是推荐信，一般学校的申请要求是提供两封来自老师的推荐信，当然如果你有实习的话，你也可以让你的实习主任给你写一份推荐信。原则上来说，给学生写推荐信是大学老师的一个职责，但是考虑到国内的实际情况，第一老师没那么多时间给你写推荐信，第二老师的英语水平有限而且对你的了解也没那么清楚。</p>
-<p>因此实际的操作方法是，自己以老师的口吻写推荐信，然后让老师阅览无误后签字。这样问题其实就转变为找怎样的老师给签字。</p>
-<p>首先，必须要找和自己比较熟悉的老师，因为推荐信里要求说明老师和学生是怎么认识的，认识有多久了之类的问题，只有比较熟悉的老师写的推荐信会比较有说服力。</p>
-<p>其次，如果可能的话，找和你申请的学校有相关经历的老师，比如你想申请东京大学，而你的老师中有一个是在日本留过学的话，就可以联系他“写推荐信”。</p>
-<p>关于大牛的推荐信，如果你能联系到你们专业里的大牛老师给你写推荐信，那就更好了，不过我觉得对于申请Msc项目来说，推荐信更多只是辅助作用，如果申请Mphil和Phd，那么一封大牛的推荐信会帮助很多。</p>
-<p>更多的推荐信细节可以下载链接里的<a href="https://www.jianguoyun.com/p/DYNwZ58QtvuCCBirr8gC" target="_blank" rel="noopener">《推荐信写作指南》</a></p>
-<p><strong>- END -</strong></p>
-<p><img src="https://cdn.sspai.com/2020/01/13/5ce030a0f608b220a7e15dad56f0aace.gif" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 软件推荐 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何写好一份文书</title>
+      <link href="/2020/03/16/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E4%BB%BD%E6%96%87%E4%B9%A6/"/>
+      <url>/2020/03/16/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E4%BB%BD%E6%96%87%E4%B9%A6/</url>
+      
+        <content type="html"><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p><a id="more"></a><p>接下去我会围绕这个问题给出我在实际申请时的解决方案，在文章末尾处还会给大家一份《推荐信指南》的电子版书籍，点击链接就可以下载。</p><p>谈及文书，文书一般涉及到的三个内容:<strong>PS</strong>（Personal Statement）、<strong>CV</strong>（Curriculum Vitae）、<strong>RL</strong>（Reference Letter）。其中感觉相对比较重要的是PS，即个人陈述，我其实更喜欢把它叫做自我介绍。</p><h2 id="Personal-Statement"><a href="#Personal-Statement" class="headerlink" title="-Personal Statement-"></a><strong>-Personal Statement-</strong></h2><p>怎样的PS是才算是比较不错的呢？这就需要首先从Msc授课型硕士的目的开始讲起，Msc是为了培养适合工作的硕士，一般都采用授课的教学方式，可以类比国内的专硕，但是又有很大区别。Msc的学时为1到2年，根据地区和专业不同又有所区别。</p><p>Msc的初衷是为了培养你的工作能力，所以你的PS里需要体现到你对你未来的职业规划，包括未来的工作方向，工作区域之类。这一点在很多文书上是容易忽略。在这里，我会给出两个PS的框架，一份是我在一次公开课上做的笔记，另一份是前辈们总结的。两个都是英文的方式表达，因为懒得翻译，不感冒的小伙伴可以直接跳过哈。推荐第一个框架。</p><h3 id="1st-Sample-Outline-for-PS"><a href="#1st-Sample-Outline-for-PS" class="headerlink" title="-1st Sample Outline for PS -"></a><strong>-1st Sample Outline for PS</strong> <strong>-</strong></h3><p><strong>Introductory paragraph</strong>：</p><ul><li>introduce your area of interest or research question</li><li>discuss a problem your profession may help address</li></ul><p><strong>2nd paragraph</strong> Review your undergraduate coursework</p><ul><li>focus on your major discipline</li><li>highlight the courses that prepare you for the program</li><li>identify any gap in your training to be filled by the master program</li><li>emphasise the skills and knowledge developed</li><li>connect the dots across the courses.</li></ul><p><strong>3rd paragraph</strong> Review your undergraduate project experience</p><ul><li>focus on your 1-2 project</li><li>adopt IMRD(introduction, method ,result ,discussion )</li><li>highlight the skill development and other learning experience</li><li>discuss your inspiration and desire for further studies</li><li>relate to the master program whenever possible.</li></ul><p><strong>4th paragraph</strong> your career plan</p><ul><li>your career interested</li><li>how you developed the interest in such a career (related the experience discussed earlier)</li><li>what skills and experience do you still need to implement such a career plan.</li></ul><p><strong>5th paragraph</strong> Why choose the target master program</p><ul><li>the specific courses that may strengthen you as a professional</li><li>the faculty members you would like to work with for your thesis</li><li>other learning opportunities that can help you accomplish you career goals</li><li>why you will be an asset to the program.</li></ul><p><strong>6th paragraph</strong> Conclusion: reiterate the main points and summarise your main arguments.</p><hr><h3 id="2nd-Sample-Outline-of-PS"><a href="#2nd-Sample-Outline-of-PS" class="headerlink" title="-2nd Sample Outline of PS-"></a><strong>-2nd Sample Outline of PS-</strong></h3><h4 id="1st-Paragraph"><a href="#1st-Paragraph" class="headerlink" title="1st Paragraph"></a><strong>1st Paragraph</strong></h4><p>Describe the area of research that interests you and why. If you have already done some research work in this area, be sure to mention it. Also, explain why you think you are suitable for this area. You may also describe competitions in the area that you have done well in and special academic attainments. For example, a double major in mathematics and computer science probably set you apart from students who only studied computer science. If you have nothing special to say, then just mention briefly how you came to choose this area.</p><h4 id="2nd-Paragraph"><a href="#2nd-Paragraph" class="headerlink" title="2nd Paragraph"></a><strong>2nd Paragraph</strong></h4><p>Describe research programs you have worked on (one paragraph per program.)</p><ol><li>What did you find?</li><li>What did you learn?</li><li>What approaches did you try?</li><li>Did these approaches work or not?</li></ol><h4 id="3rd-Paragraph"><a href="#3rd-Paragraph" class="headerlink" title="3rd Paragraph"></a><strong>3rd Paragraph</strong></h4><p>Explain why you feel you need a Masters degree or PhD.</p><h4 id="4th-Paragraph"><a href="#4th-Paragraph" class="headerlink" title="4th Paragraph"></a><strong>4th Paragraph</strong></h4><p>Tell the reader why you want to go to that particular university. Make it easy for them:</p><ol><li>If you want to work with a particular person or persons tell them who you want to work with and why.</li><li>If you want to work in a particular area, tell them why you want to work in that area in their university.</li><li>If there is no particular person you want to work with or particular area you want to work in, explain why you would like to join their program.</li></ol><h4 id="5th-Paragraph"><a href="#5th-Paragraph" class="headerlink" title="5th Paragraph"></a><strong>5th Paragraph</strong></h4><p>You can also state what papers you have read from that university and what you enjoyed about them or how they inspired you. Lastly, tell them what you hope to gain from their university.</p><p>一些总结的tips：</p><ol><li>确保你的PS控制在一到两页内，因为你是在给一个很忙的人看。</li><li>不要说你小时候想当科学家的故事，因为对于教授他们而言毫无意义。</li><li>尽可能地在文书中体现你所想申请的专业的相关信息，包括它的课程或者未来就业情况，这样可以表现你确实对这个他们的信息很了解，并且很渴望去读书。</li><li>把自己的PS多给身边的人看一看，然后根据他们的意见有选择性地进行修改。</li></ol><hr><h2 id="Curriculum-Vitae"><a href="#Curriculum-Vitae" class="headerlink" title="-Curriculum Vitae-"></a><strong>-Curriculum Vitae-</strong></h2><p>CV的话就是个人简历，要求精炼控制在一页之内，能让招生办的人看了你的简历就能大致知道你是否能被录取，可以理解为CV是脱水版的PS。我这里就Po上我删减版的CV框架给大家参考形式。</p><p><img src="https://cdn.sspai.com/2020/01/13/0028c0daf285279b8a1f650e555d2e1f.png" alt="img"></p><h2 id="Reference-Letter"><a href="#Reference-Letter" class="headerlink" title="-Reference Letter-"></a><strong>-Reference Letter-</strong></h2><p>RL是推荐信，一般学校的申请要求是提供两封来自老师的推荐信，当然如果你有实习的话，你也可以让你的实习主任给你写一份推荐信。原则上来说，给学生写推荐信是大学老师的一个职责，但是考虑到国内的实际情况，第一老师没那么多时间给你写推荐信，第二老师的英语水平有限而且对你的了解也没那么清楚。</p><p>因此实际的操作方法是，自己以老师的口吻写推荐信，然后让老师阅览无误后签字。这样问题其实就转变为找怎样的老师给签字。</p><p>首先，必须要找和自己比较熟悉的老师，因为推荐信里要求说明老师和学生是怎么认识的，认识有多久了之类的问题，只有比较熟悉的老师写的推荐信会比较有说服力。</p><p>其次，如果可能的话，找和你申请的学校有相关经历的老师，比如你想申请东京大学，而你的老师中有一个是在日本留过学的话，就可以联系他“写推荐信”。</p><p>关于大牛的推荐信，如果你能联系到你们专业里的大牛老师给你写推荐信，那就更好了，不过我觉得对于申请Msc项目来说，推荐信更多只是辅助作用，如果申请Mphil和Phd，那么一封大牛的推荐信会帮助很多。</p><p>更多的推荐信细节可以下载链接里的<a href="https://www.jianguoyun.com/p/DYNwZ58QtvuCCBirr8gC" target="_blank" rel="noopener">《推荐信写作指南》</a></p><p><strong>- END -</strong></p><p><img src="https://cdn.sspai.com/2020/01/13/5ce030a0f608b220a7e15dad56f0aace.gif" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>留学这件小事</category>
+          
+          <category> 留学这件小事 </category>
+          
       </categories>
-      <tags>
-        <tag>留学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何挑一杯不错的速溶咖啡</title>
-    <url>/2020/03/16/%E5%A6%82%E4%BD%95%E6%8C%91%E4%B8%80%E6%9D%AF%E4%B8%8D%E9%94%99%E7%9A%84%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1/</url>
-    <content><![CDATA[<center>在现磨咖啡当道的今天，速溶咖啡似乎已经进入了咖啡鄙视链的最底端，秉着「存在即合理」的理念，咱们来聊一聊速溶咖啡，以及如何选取一款不错的速溶咖啡。</center>
-
-<a id="more"></a>
-
-<h2 id="我和速溶咖啡的故事"><a href="#我和速溶咖啡的故事" class="headerlink" title="我和速溶咖啡的故事"></a>我和速溶咖啡的故事</h2><p>鱼叔是一个咖啡爱好者，或者换句话，是一个咖啡因依赖患者。我从初中时期就开始喝咖啡，当然那时候条件有限，喝的是最廉价的雀巢 1+2 原味。虽然是速溶咖啡，但我喝出了各种花样，用热牛奶直接冲速溶，或者是拿冰块冰摇做一杯冰咖啡等等。速溶咖啡为我打开了一扇门，而我真正开始了解咖啡是在大学期间在咖啡馆兼职的时候。那时候我作为一名学徒开始接触现磨咖啡，从挑豆子磨粉，再到打奶泡拉花，我发现现磨咖啡才是真正的王者，支撑起整个咖啡世界的精彩。于是我开始非常鄙视速溶咖啡，觉得它缺乏一种艺术，是一个工业速成品。一杯好的咖啡涵盖了咖啡师投入的专注，就拿手冲咖啡来说，咖啡师要量粉、量水温，要细心得浇水，要把握闷蒸的时间等，这些细节才让我觉得咖啡是一个很棒的东西。</p>
-<p><img src="https://cdn.sspai.com/2020/01/17/846208f1e9f1fadae137c5eb0ba383fa.png" alt="img"></p>
-<p>然而啪啪打脸的是，当我在新加坡留学的时候又开始喜欢起了速溶咖啡，最简单的理由便宜、方便和稳定。</p>
-<ul>
-<li>便宜：很容易理解，相比于现磨，速溶咖啡它的优势就是减少了人工成本，相对便宜。</li>
-<li>方便：在快节奏的生活里，有时候没时间或者地方去买一杯咖啡，这时候一杯不错的速溶咖啡可以立马让你恢复工作状态。</li>
-<li>稳定：速溶的口味可以保持一个很稳定的状态，而现磨口味则有很大的变化因素，鱼叔曾经就买到过很难喝的现磨。</li>
-</ul>
-<blockquote>
-<p>速溶咖啡在 1890 年由新西兰人 David Strang 所发明并登记专利，1901 年由一个在美国芝加哥工作的日本科学家加藤サトリ做改良。</p>
-<p>乔治·华盛顿发明了大规模生产速溶咖啡的技术，并在 1910 年将其推向市场。</p>
-<p>为了应对咖啡豆过剩问题，巴西政府与雀巢公司在 1938 年发展出了更先进的喷雾干燥法用于速溶咖啡制造。具体做法是用热的蒸汽使咖啡豆中的水分蒸发，留下干燥的咖啡提取物。速溶咖啡能够很快的溶化在热水中，而且在储运过程中占用的空间和体积更小，更耐储存，因此在大众市场广受欢迎。</p>
-<p>速溶咖啡最早使用是在第二次世界大战的战场上，盟军士兵使用速溶咖啡作为日常饮品，在一定程度上提高了效率。</p>
-<p>—维基百科</p>
-</blockquote>
-<h2 id="如何挑选一杯速溶"><a href="#如何挑选一杯速溶" class="headerlink" title="如何挑选一杯速溶"></a>如何挑选一杯速溶</h2><p>谈到挑速溶咖啡，我们先来科普一个知识点，关于咖啡豆的品种。</p>
-<p>咖啡市场上的咖啡豆主要为两种：阿拉比卡（Arabica）咖啡豆 和罗布斯塔（Robusta）咖啡豆。其中阿拉比卡咖啡豆风味较好，通常作为精品豆和单品豆的原料，而罗布斯塔咖啡豆风味不足而且咖啡因含量较高偏苦，通常作为拼豆或者咖啡因提取原料。通过以上两个对比，其实大家应该也容易得出结论阿拉比卡的豆子偏贵，罗布斯塔的比较便宜，因此速溶咖啡商经常会将罗布斯塔豆子作为速溶咖啡的原料来降低成本。因此挑选速溶咖啡的第一点就是看它的 <strong>配料表中罗布斯塔的占比</strong>，占比越小说明该咖啡越好，当然最好挑纯阿拉比卡豆子的速溶咖啡。</p>
-<p>第二点看 <strong>其他的掺杂物</strong>。咖啡商为了让大家能接受速溶咖啡，就经常往里面加一些其他调味品来中和苦味，毕竟罗布斯塔比较苦。通常的调味品有糖、植脂末、乳化剂等。其中要注意的是植脂末，俗称“奶精”，这种人工添加剂是一种反式脂肪酸会提升血脂，不利于人体健康。因此大家看到含植脂末的速溶咖啡就统一别买了吧，相应的“咖啡伴侣”也不建议购买。如果咖啡苦口怎么办，鱼叔建议兑新鲜的牛奶，一方面中和口感，另一方面还能补钙来弥补咖啡带来的钙流失。</p>
-<p><img src="https://cdn.sspai.com/2020/01/17/eee7a48855e8fe3b619aeea87fb955d2.png" alt="img"></p>
-<h2 id="推荐几款速溶咖啡"><a href="#推荐几款速溶咖啡" class="headerlink" title="推荐几款速溶咖啡"></a>推荐几款速溶咖啡</h2><p>其实注重了咖啡豆的品种和添加剂成分之后就比较容易挑选咖啡了，在这此之上的就是进阶挑咖啡豆的风味了。鱼叔认为速溶咖啡谈风味其实是有点勉强了，因为基本上在制作过程中豆子风味都会被破坏掉，唯一还可以挑选的就是咖啡因强度，一般来说烘焙越久的咖啡豆越苦咖啡因含量也就越高，这一点会在速溶咖啡的包装上体现。</p>
-<p>\1. 雀巢醇品系列咖啡</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：混合咖啡豆（含罗布斯塔豆子）</li>
-<li>口感：偏苦涩</li>
-</ul>
-<p><img src="https://cdn.sspai.com/2020/01/17/7ec140fbde301149826a9273399a32a5.png" alt="img"></p>
-<p>\2. 雀巢 GOLD 咖啡</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：阿拉比卡咖啡豆</li>
-<li>口感：酸苦交融</li>
-</ul>
-<p><img src="https://cdn.sspai.com/2020/01/17/2ee683751ef85f369441ecbe454478d8.png" alt="img"></p>
-<p>\3. 雀巢 GOLD 产地系列</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：阿拉比卡咖啡豆</li>
-<li>口感：略有风味感</li>
-</ul>
-<p><img src="https://cdn.sspai.com/2020/01/17/925631b36da452fb133eac15835861ac.png" alt="img"></p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可能看了推荐的朋友会说，为什么我推荐的都是纯黑咖啡。事实上，我比较鼓励的速溶咖啡也只是限于黑咖啡，因为各种所谓的速溶拿铁和摩卡其实都是加了很多添加剂的，即使雀巢推出了纯奶粉拿铁，我也还是建议自己买黑咖啡兑牛奶，这样会来的比较健康。当然，有条件的朋友可以直接上挂耳咖啡或者胶囊咖啡。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 留学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何挑一杯不错的速溶咖啡</title>
+      <link href="/2020/03/16/%E5%A6%82%E4%BD%95%E6%8C%91%E4%B8%80%E6%9D%AF%E4%B8%8D%E9%94%99%E7%9A%84%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1/"/>
+      <url>/2020/03/16/%E5%A6%82%E4%BD%95%E6%8C%91%E4%B8%80%E6%9D%AF%E4%B8%8D%E9%94%99%E7%9A%84%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1/</url>
+      
+        <content type="html"><![CDATA[<center>在现磨咖啡当道的今天，速溶咖啡似乎已经进入了咖啡鄙视链的最底端，秉着「存在即合理」的理念，咱们来聊一聊速溶咖啡，以及如何选取一款不错的速溶咖啡。</center><a id="more"></a><h2 id="我和速溶咖啡的故事"><a href="#我和速溶咖啡的故事" class="headerlink" title="我和速溶咖啡的故事"></a>我和速溶咖啡的故事</h2><p>鱼叔是一个咖啡爱好者，或者换句话，是一个咖啡因依赖患者。我从初中时期就开始喝咖啡，当然那时候条件有限，喝的是最廉价的雀巢 1+2 原味。虽然是速溶咖啡，但我喝出了各种花样，用热牛奶直接冲速溶，或者是拿冰块冰摇做一杯冰咖啡等等。速溶咖啡为我打开了一扇门，而我真正开始了解咖啡是在大学期间在咖啡馆兼职的时候。那时候我作为一名学徒开始接触现磨咖啡，从挑豆子磨粉，再到打奶泡拉花，我发现现磨咖啡才是真正的王者，支撑起整个咖啡世界的精彩。于是我开始非常鄙视速溶咖啡，觉得它缺乏一种艺术，是一个工业速成品。一杯好的咖啡涵盖了咖啡师投入的专注，就拿手冲咖啡来说，咖啡师要量粉、量水温，要细心得浇水，要把握闷蒸的时间等，这些细节才让我觉得咖啡是一个很棒的东西。</p><p><img src="https://cdn.sspai.com/2020/01/17/846208f1e9f1fadae137c5eb0ba383fa.png" alt="img"></p><p>然而啪啪打脸的是，当我在新加坡留学的时候又开始喜欢起了速溶咖啡，最简单的理由便宜、方便和稳定。</p><ul><li>便宜：很容易理解，相比于现磨，速溶咖啡它的优势就是减少了人工成本，相对便宜。</li><li>方便：在快节奏的生活里，有时候没时间或者地方去买一杯咖啡，这时候一杯不错的速溶咖啡可以立马让你恢复工作状态。</li><li>稳定：速溶的口味可以保持一个很稳定的状态，而现磨口味则有很大的变化因素，鱼叔曾经就买到过很难喝的现磨。</li></ul><blockquote><p>速溶咖啡在 1890 年由新西兰人 David Strang 所发明并登记专利，1901 年由一个在美国芝加哥工作的日本科学家加藤サトリ做改良。</p><p>乔治·华盛顿发明了大规模生产速溶咖啡的技术，并在 1910 年将其推向市场。</p><p>为了应对咖啡豆过剩问题，巴西政府与雀巢公司在 1938 年发展出了更先进的喷雾干燥法用于速溶咖啡制造。具体做法是用热的蒸汽使咖啡豆中的水分蒸发，留下干燥的咖啡提取物。速溶咖啡能够很快的溶化在热水中，而且在储运过程中占用的空间和体积更小，更耐储存，因此在大众市场广受欢迎。</p><p>速溶咖啡最早使用是在第二次世界大战的战场上，盟军士兵使用速溶咖啡作为日常饮品，在一定程度上提高了效率。</p><p>—维基百科</p></blockquote><h2 id="如何挑选一杯速溶"><a href="#如何挑选一杯速溶" class="headerlink" title="如何挑选一杯速溶"></a>如何挑选一杯速溶</h2><p>谈到挑速溶咖啡，我们先来科普一个知识点，关于咖啡豆的品种。</p><p>咖啡市场上的咖啡豆主要为两种：阿拉比卡（Arabica）咖啡豆 和罗布斯塔（Robusta）咖啡豆。其中阿拉比卡咖啡豆风味较好，通常作为精品豆和单品豆的原料，而罗布斯塔咖啡豆风味不足而且咖啡因含量较高偏苦，通常作为拼豆或者咖啡因提取原料。通过以上两个对比，其实大家应该也容易得出结论阿拉比卡的豆子偏贵，罗布斯塔的比较便宜，因此速溶咖啡商经常会将罗布斯塔豆子作为速溶咖啡的原料来降低成本。因此挑选速溶咖啡的第一点就是看它的 <strong>配料表中罗布斯塔的占比</strong>，占比越小说明该咖啡越好，当然最好挑纯阿拉比卡豆子的速溶咖啡。</p><p>第二点看 <strong>其他的掺杂物</strong>。咖啡商为了让大家能接受速溶咖啡，就经常往里面加一些其他调味品来中和苦味，毕竟罗布斯塔比较苦。通常的调味品有糖、植脂末、乳化剂等。其中要注意的是植脂末，俗称“奶精”，这种人工添加剂是一种反式脂肪酸会提升血脂，不利于人体健康。因此大家看到含植脂末的速溶咖啡就统一别买了吧，相应的“咖啡伴侣”也不建议购买。如果咖啡苦口怎么办，鱼叔建议兑新鲜的牛奶，一方面中和口感，另一方面还能补钙来弥补咖啡带来的钙流失。</p><p><img src="https://cdn.sspai.com/2020/01/17/eee7a48855e8fe3b619aeea87fb955d2.png" alt="img"></p><h2 id="推荐几款速溶咖啡"><a href="#推荐几款速溶咖啡" class="headerlink" title="推荐几款速溶咖啡"></a>推荐几款速溶咖啡</h2><p>其实注重了咖啡豆的品种和添加剂成分之后就比较容易挑选咖啡了，在这此之上的就是进阶挑咖啡豆的风味了。鱼叔认为速溶咖啡谈风味其实是有点勉强了，因为基本上在制作过程中豆子风味都会被破坏掉，唯一还可以挑选的就是咖啡因强度，一般来说烘焙越久的咖啡豆越苦咖啡因含量也就越高，这一点会在速溶咖啡的包装上体现。</p><p>\1. 雀巢醇品系列咖啡</p><ul><li>类型：黑咖啡</li><li>成分：混合咖啡豆（含罗布斯塔豆子）</li><li>口感：偏苦涩</li></ul><p><img src="https://cdn.sspai.com/2020/01/17/7ec140fbde301149826a9273399a32a5.png" alt="img"></p><p>\2. 雀巢 GOLD 咖啡</p><ul><li>类型：黑咖啡</li><li>成分：阿拉比卡咖啡豆</li><li>口感：酸苦交融</li></ul><p><img src="https://cdn.sspai.com/2020/01/17/2ee683751ef85f369441ecbe454478d8.png" alt="img"></p><p>\3. 雀巢 GOLD 产地系列</p><ul><li>类型：黑咖啡</li><li>成分：阿拉比卡咖啡豆</li><li>口感：略有风味感</li></ul><p><img src="https://cdn.sspai.com/2020/01/17/925631b36da452fb133eac15835861ac.png" alt="img"></p><hr><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可能看了推荐的朋友会说，为什么我推荐的都是纯黑咖啡。事实上，我比较鼓励的速溶咖啡也只是限于黑咖啡，因为各种所谓的速溶拿铁和摩卡其实都是加了很多添加剂的，即使雀巢推出了纯奶粉拿铁，我也还是建议自己买黑咖啡兑牛奶，这样会来的比较健康。当然，有条件的朋友可以直接上挂耳咖啡或者胶囊咖啡。</p>]]></content>
+      
+      
       <categories>
-        <category>鱼叔的视界</category>
+          
+          <category> 鱼叔的视界 </category>
+          
       </categories>
-      <tags>
-        <tag>咖啡</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>每日一技 | 用坚果云打造你的微信文章缓存库</title>
-    <url>/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/</url>
-    <content><![CDATA[<center>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这篇精彩的推送保存到哪里。鱼叔在这里给大家推荐一个好的方法，用坚果云打造一个个人的微信文章缓存库。</center>
-
-<a id="more"></a>
-
-<p><strong>Step 1</strong> : 打开坚果云app, 在右下角“设置”中的功能部分开启邮件抽屉。(注意，坚果云会要求同意访问通讯录的权限)</p>
-<p><img src="https://cdn.sspai.com/2020/01/13/b9403d15da469d44b88ed12912fc9806.png" alt="img"></p>
-<p><strong>Step 2</strong> : 点击微信推送右上角的分享按钮，在选项中选择邮件，邮件对象打坚果就会弹出“坚果邮件抽屉”，然后选择发送，一会儿会有邮件提示保存成功。</p>
-<p><img src="https://cdn.sspai.com/2020/01/13/756357f3e29097ea3f2df78ad703a637.gif" alt="img"></p>
-<p><strong>Step 3</strong> : 文章会自动保存在我的坚果云文件夹里的 Email Box 里，并且以pdf的方式呈现出来。坚果云支持多设备同步，这样就可以在电脑上方便查看文章了。</p>
-<p><img src="https://cdn.sspai.com/2020/01/13/0b64fce705a6c37388220a74e0ad36ae.png" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 咖啡 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>每日一技 | 用坚果云打造你的微信文章缓存库</title>
+      <link href="/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/"/>
+      <url>/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/</url>
+      
+        <content type="html"><![CDATA[<center>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这篇精彩的推送保存到哪里。鱼叔在这里给大家推荐一个好的方法，用坚果云打造一个个人的微信文章缓存库。</center><a id="more"></a><p><strong>Step 1</strong> : 打开坚果云app, 在右下角“设置”中的功能部分开启邮件抽屉。(注意，坚果云会要求同意访问通讯录的权限)</p><p><img src="https://cdn.sspai.com/2020/01/13/b9403d15da469d44b88ed12912fc9806.png" alt="img"></p><p><strong>Step 2</strong> : 点击微信推送右上角的分享按钮，在选项中选择邮件，邮件对象打坚果就会弹出“坚果邮件抽屉”，然后选择发送，一会儿会有邮件提示保存成功。</p><p><img src="https://cdn.sspai.com/2020/01/13/756357f3e29097ea3f2df78ad703a637.gif" alt="img"></p><p><strong>Step 3</strong> : 文章会自动保存在我的坚果云文件夹里的 Email Box 里，并且以pdf的方式呈现出来。坚果云支持多设备同步，这样就可以在电脑上方便查看文章了。</p><p><img src="https://cdn.sspai.com/2020/01/13/0b64fce705a6c37388220a74e0ad36ae.png" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>效率</category>
+          
+          <category> 效率 </category>
+          
       </categories>
-      <tags>
-        <tag>每日一技</tag>
-        <tag>坚果云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于留学中介，鱼叔有几句话要说</title>
-    <url>/2020/03/16/%E5%85%B3%E4%BA%8E%E7%95%99%E5%AD%A6%E4%B8%AD%E4%BB%8B%EF%BC%8C%E9%B1%BC%E5%8F%94%E6%9C%89%E5%87%A0%E5%8F%A5%E8%AF%9D%E8%A6%81%E8%AF%B4/</url>
-    <content><![CDATA[<center>最近又有同学来问我出国留学要不要找中介，对于中介我有几句话要说。</center>
-
-<a id="more"></a>
-
-<p><em>- Part 1 -</em></p>
-<p>我相信每一个准备出国的小伙伴都有过找中介的想法，但是说真的，中介这事我真不能给你什么很实在性的建议，比如“xx中介好，yy中介不好，xx中介的xx老师好，只要你去找这个中介，就肯定可以申的上”。我不希望你们找我咨询的时候，希冀我能给你们说出这么明确指向型的唬人的话。如果我真这么说了，那么就说明我收了该中介的钱给他打广告。</p>
-<p>所以，不要来找我给你推荐留学机构，因为我对中介这个市场的了解还是很薄弱的，我只能给下定决心找中介的同学给出以下几个建议：</p>
-<ul>
-<li>一分钱一分货，不要贪便宜；</li>
-<li>货比三家；</li>
-<li>一个负责任的中介老师比一个好的中介更重要；</li>
-<li>付钱前的中介和付钱后的中介是两个不同的中介；</li>
-<li>中介不能为你包办所有事，你的所有硬件条件的提升都需要靠自己；</li>
-<li>对你想去的专业和学校有一定了解的基础之后，再去找中介避免被牵着鼻子走。</li>
-</ul>
-<p>- <em>Part 2</em> -</p>
-<p>对于那些还在犹豫要不要找中介的同学，我接下去会以我自身的经历来给你阐述，中介在我的申请上究竟起了哪些作用，然后你可以再看看自己是否真的需要一个中介。</p>
-<p>在申请路上，我咨询过三家中介，最终签了一家，具体是哪一家我就不说了。在这里还是很感谢我的中介老师，她是一个很负责的老师基本上对我的微信都是秒回的，这一点印证了上面提到的一点“好的老师反而尤其重要”。</p>
-<p>找中介的初衷和大家也是一样的，担心文书不过关，对自己英语能力的不自信。其实中介能提供的最有价值的也就是文书，包括推荐信、PS、CV。我是17年4月份左右签的中介，在此之前我是先把雅思成绩给考了，并且过线后才去中介签约。</p>
-<p>在找中介之前，我其实已经把自己有所意向的专业和学校给圈好了的，至于这方面的信息该从哪里获取，我的第一建议就是直接<strong>去看这所学校的官网</strong>，去看他们学校上的该专业的录取要求。而我和中介的咨询过程其实就是个<strong>信息的补充过程</strong>，把我在网上得到的信息和中介提供给我的信息进行一个比对，然后逐渐在自己的脑海里有个大致的录取概率问题，以及接下去一段时间所需要提升的方向。</p>
-<p><strong>签约这件事永远不用太着急</strong>。只要没交钱，中介永远会不间断地给你打电话，温柔地问候你要不要他们的服务。签约之前最好地就是把几个时间点说清楚，比如文书什么时候完成、申请什么时候开始、个人的英语成绩什么时候前要达标之类的，这样可以有所依据地去催促中介，是的，中介是要催的，不要以为交完钱就可以不管了，真正对自己负责的仍然是自己。</p>
-<p>如何判断这个中介适不适合你呢，就看他以往的成功案例里有没有和你类似的情况。这方面其实我是吃过亏的，我的理想学校是TUM－ASIA，是NTU和TUM合办的一个项目，在签约的时候，中介和我说这个项目需要在申请的时候递交学位证，所以对于应届生是没法申请的。因此我前期基本放弃这个项目了，不过在九月份又突然和我说可以申请了，然后我又加紧准备APS的审核，至于申请开放的时间点也是我提醒中介的。庆幸的是，自己依旧成功录取了，不过反思的是在签约时没有很好的审核中介的专业性，至少是对这个项目的了解程度还有限，不过相信有了我这一届后，应该以后会好很多。这里还是得强调自己要对自己负责。</p>
-<p><img src="https://cdn.sspai.com/2020/01/07/dc8ef972bed032df994917df36c51836.jpg" alt="img">请输入图片标题</p>
-<p>- <em>Part 3</em> -</p>
-<p><strong>签约后的你该如何和中介合作？</strong></p>
-<ol>
-<li>跟中介明确准备申请的学校和专业，只有目标明确后才可以做后期的战略部署。</li>
-<li>根据申请的目标提升个人的背景，包括GPA、英语成绩、实习等。</li>
-<li>时间规划，这是一个比较重要的东西，包括什么时候中介给你写文书, 什么时候学校开放申请，以及什么时候拿到雅思托福成绩等。</li>
-<li>持续性得和老师沟通，跟进进度，不要做一个交完钱就撒手的掌柜。这样一方面可以让中介了解你的进度，另一方面你也可以通过中介获取一些其他资源，比如免费的雅思培训，或者来自以前学长学姐们的课程指导。</li>
-</ol>
-<p>- <em>Part 4</em> -</p>
-<p>接下去我会给出自己的一个申请的时间表，大家可以参考一下然后规划自己的申请时间：</p>
-<blockquote>
-<p>17年：</p>
-<p>3月份    考完雅思，6.5过线<br>4月份    签约中介<br>5-7月份 刷分<br>9月份    考完GRE<br>             准备好APS材料并且递交<br>             中介写好文书并且反馈和修改<br>10月份  找老师签好推荐信<br>              递交港科的申请<br>11月份   面试APS<br>              港科下Offer<br>              递交TUM-Asia 的shenq<br>12月份   TUM-Asia 邮寄材料<br>18年：<br>1月份     拿到TUM-Asia 的offer   </p>
-</blockquote>
-<p>由时间点可知，中介并不是在你签约后就开始给你写文书的，而是在你快开放申请的时候才会给你写。注意一点是，中介是帮我申请新加坡，香港属于我拿中介的文书修改后自己操作申请的，因此递交申请的时间搁置到了十月份，一般香港九月份就开放了申请，所以准备去香港读研的同学要在八月份就将材料整理完毕，九月份一开放就申请，香港的录取属于先到先得，早申请可以早下offer。</p>
-<p>- <em>Part 5</em> -</p>
-<p>如果你今年大一，对于未来还比较迷惑的话，好好学习提高成绩，好的成绩永远可以给你提供更多选择的空间。</p>
-<p>如果你今年大二，想毕业后去留学的话，同样好好学习，大二不需要太早去考英语成绩，因为雅思和托福成绩的有效时间为2年，可以开始规划想去的学校和专业。</p>
-<p>如果你今年大三，距离申请季还有半年，抓紧这半年的时间提高自己的硬件条件。</p>
-<p>总结，整体感觉中介对于我的帮助没有想象中这么大，仅供参考。对于那些准备申请跨度较大的专业的同学，找一个有经验的中介还是有一定必要性的，因为你需要他们为你分析如何提高除了英语和绩点之外的竞争力。</p>
-<p><strong>敲黑板：不要单方面撕毁合同！</strong>不要因为一时和中介老师的不愉快沟通就决定不要中介服务了，或者不申请之类的，这样要不回钱的。</p>
-<p>- <em>END</em> -</p>
-<p>在文章末尾处，给大家推荐一个纪录片<a href="http://movie.douban.com/subject/27617405/" target="_blank" rel="noopener">《世界的孩子》</a>。讲述的是中国留学生在美国读高中的现状，很生动地表现了两个国家的教育体系的区别。</p>
-<p>存在即合理，并不否认我们的高考制度，因为我感觉自己是高考制度的受益者，但是未来教育维度的多样化肯定是一个大趋势。希望的是当我们这一代成为家长之后，可以不再以成绩和排名作为考核孩子的唯一标准。</p>
-<p><img src="https://cdn.sspai.com/2020/01/07/8c9bf6cb94b1354df8e926834eb34088.gif" alt="img">请输入图片标题</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 每日一技 </tag>
+            
+            <tag> 坚果云 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于留学中介，鱼叔有几句话要说</title>
+      <link href="/2020/03/16/%E5%85%B3%E4%BA%8E%E7%95%99%E5%AD%A6%E4%B8%AD%E4%BB%8B%EF%BC%8C%E9%B1%BC%E5%8F%94%E6%9C%89%E5%87%A0%E5%8F%A5%E8%AF%9D%E8%A6%81%E8%AF%B4/"/>
+      <url>/2020/03/16/%E5%85%B3%E4%BA%8E%E7%95%99%E5%AD%A6%E4%B8%AD%E4%BB%8B%EF%BC%8C%E9%B1%BC%E5%8F%94%E6%9C%89%E5%87%A0%E5%8F%A5%E8%AF%9D%E8%A6%81%E8%AF%B4/</url>
+      
+        <content type="html"><![CDATA[<center>最近又有同学来问我出国留学要不要找中介，对于中介我有几句话要说。</center><a id="more"></a><p><em>- Part 1 -</em></p><p>我相信每一个准备出国的小伙伴都有过找中介的想法，但是说真的，中介这事我真不能给你什么很实在性的建议，比如“xx中介好，yy中介不好，xx中介的xx老师好，只要你去找这个中介，就肯定可以申的上”。我不希望你们找我咨询的时候，希冀我能给你们说出这么明确指向型的唬人的话。如果我真这么说了，那么就说明我收了该中介的钱给他打广告。</p><p>所以，不要来找我给你推荐留学机构，因为我对中介这个市场的了解还是很薄弱的，我只能给下定决心找中介的同学给出以下几个建议：</p><ul><li>一分钱一分货，不要贪便宜；</li><li>货比三家；</li><li>一个负责任的中介老师比一个好的中介更重要；</li><li>付钱前的中介和付钱后的中介是两个不同的中介；</li><li>中介不能为你包办所有事，你的所有硬件条件的提升都需要靠自己；</li><li>对你想去的专业和学校有一定了解的基础之后，再去找中介避免被牵着鼻子走。</li></ul><p>- <em>Part 2</em> -</p><p>对于那些还在犹豫要不要找中介的同学，我接下去会以我自身的经历来给你阐述，中介在我的申请上究竟起了哪些作用，然后你可以再看看自己是否真的需要一个中介。</p><p>在申请路上，我咨询过三家中介，最终签了一家，具体是哪一家我就不说了。在这里还是很感谢我的中介老师，她是一个很负责的老师基本上对我的微信都是秒回的，这一点印证了上面提到的一点“好的老师反而尤其重要”。</p><p>找中介的初衷和大家也是一样的，担心文书不过关，对自己英语能力的不自信。其实中介能提供的最有价值的也就是文书，包括推荐信、PS、CV。我是17年4月份左右签的中介，在此之前我是先把雅思成绩给考了，并且过线后才去中介签约。</p><p>在找中介之前，我其实已经把自己有所意向的专业和学校给圈好了的，至于这方面的信息该从哪里获取，我的第一建议就是直接<strong>去看这所学校的官网</strong>，去看他们学校上的该专业的录取要求。而我和中介的咨询过程其实就是个<strong>信息的补充过程</strong>，把我在网上得到的信息和中介提供给我的信息进行一个比对，然后逐渐在自己的脑海里有个大致的录取概率问题，以及接下去一段时间所需要提升的方向。</p><p><strong>签约这件事永远不用太着急</strong>。只要没交钱，中介永远会不间断地给你打电话，温柔地问候你要不要他们的服务。签约之前最好地就是把几个时间点说清楚，比如文书什么时候完成、申请什么时候开始、个人的英语成绩什么时候前要达标之类的，这样可以有所依据地去催促中介，是的，中介是要催的，不要以为交完钱就可以不管了，真正对自己负责的仍然是自己。</p><p>如何判断这个中介适不适合你呢，就看他以往的成功案例里有没有和你类似的情况。这方面其实我是吃过亏的，我的理想学校是TUM－ASIA，是NTU和TUM合办的一个项目，在签约的时候，中介和我说这个项目需要在申请的时候递交学位证，所以对于应届生是没法申请的。因此我前期基本放弃这个项目了，不过在九月份又突然和我说可以申请了，然后我又加紧准备APS的审核，至于申请开放的时间点也是我提醒中介的。庆幸的是，自己依旧成功录取了，不过反思的是在签约时没有很好的审核中介的专业性，至少是对这个项目的了解程度还有限，不过相信有了我这一届后，应该以后会好很多。这里还是得强调自己要对自己负责。</p><p><img src="https://cdn.sspai.com/2020/01/07/dc8ef972bed032df994917df36c51836.jpg" alt="img">请输入图片标题</p><p>- <em>Part 3</em> -</p><p><strong>签约后的你该如何和中介合作？</strong></p><ol><li>跟中介明确准备申请的学校和专业，只有目标明确后才可以做后期的战略部署。</li><li>根据申请的目标提升个人的背景，包括GPA、英语成绩、实习等。</li><li>时间规划，这是一个比较重要的东西，包括什么时候中介给你写文书, 什么时候学校开放申请，以及什么时候拿到雅思托福成绩等。</li><li>持续性得和老师沟通，跟进进度，不要做一个交完钱就撒手的掌柜。这样一方面可以让中介了解你的进度，另一方面你也可以通过中介获取一些其他资源，比如免费的雅思培训，或者来自以前学长学姐们的课程指导。</li></ol><p>- <em>Part 4</em> -</p><p>接下去我会给出自己的一个申请的时间表，大家可以参考一下然后规划自己的申请时间：</p><blockquote><p>17年：</p><p>3月份    考完雅思，6.5过线<br>4月份    签约中介<br>5-7月份 刷分<br>9月份    考完GRE<br>             准备好APS材料并且递交<br>             中介写好文书并且反馈和修改<br>10月份  找老师签好推荐信<br>              递交港科的申请<br>11月份   面试APS<br>              港科下Offer<br>              递交TUM-Asia 的shenq<br>12月份   TUM-Asia 邮寄材料<br>18年：<br>1月份     拿到TUM-Asia 的offer   </p></blockquote><p>由时间点可知，中介并不是在你签约后就开始给你写文书的，而是在你快开放申请的时候才会给你写。注意一点是，中介是帮我申请新加坡，香港属于我拿中介的文书修改后自己操作申请的，因此递交申请的时间搁置到了十月份，一般香港九月份就开放了申请，所以准备去香港读研的同学要在八月份就将材料整理完毕，九月份一开放就申请，香港的录取属于先到先得，早申请可以早下offer。</p><p>- <em>Part 5</em> -</p><p>如果你今年大一，对于未来还比较迷惑的话，好好学习提高成绩，好的成绩永远可以给你提供更多选择的空间。</p><p>如果你今年大二，想毕业后去留学的话，同样好好学习，大二不需要太早去考英语成绩，因为雅思和托福成绩的有效时间为2年，可以开始规划想去的学校和专业。</p><p>如果你今年大三，距离申请季还有半年，抓紧这半年的时间提高自己的硬件条件。</p><p>总结，整体感觉中介对于我的帮助没有想象中这么大，仅供参考。对于那些准备申请跨度较大的专业的同学，找一个有经验的中介还是有一定必要性的，因为你需要他们为你分析如何提高除了英语和绩点之外的竞争力。</p><p><strong>敲黑板：不要单方面撕毁合同！</strong>不要因为一时和中介老师的不愉快沟通就决定不要中介服务了，或者不申请之类的，这样要不回钱的。</p><p>- <em>END</em> -</p><p>在文章末尾处，给大家推荐一个纪录片<a href="http://movie.douban.com/subject/27617405/" target="_blank" rel="noopener">《世界的孩子》</a>。讲述的是中国留学生在美国读高中的现状，很生动地表现了两个国家的教育体系的区别。</p><p>存在即合理，并不否认我们的高考制度，因为我感觉自己是高考制度的受益者，但是未来教育维度的多样化肯定是一个大趋势。希望的是当我们这一代成为家长之后，可以不再以成绩和排名作为考核孩子的唯一标准。</p><p><img src="https://cdn.sspai.com/2020/01/07/8c9bf6cb94b1354df8e926834eb34088.gif" alt="img">请输入图片标题</p>]]></content>
+      
+      
       <categories>
-        <category>留学这件小事</category>
+          
+          <category> 留学这件小事 </category>
+          
       </categories>
-      <tags>
-        <tag>留学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>另类反战片 - 《JoJo Rabbit》</title>
-    <url>/2020/03/16/%E5%8F%A6%E7%B1%BB%E5%8F%8D%E6%88%98%E7%89%87-%E3%80%8AJoJo-Rabbit%E3%80%8B/</url>
-    <content><![CDATA[<p>近期我去电影院看了一部蛮有意思的反战片《Jojo Rabbit》(中文翻译：少年乔乔的异想世界)，在这里推荐给大家。刚开始看到这个电影名的时候，我以为只是给孩子看的小朋友电影，很难和战争片联系在一起，但是在看电影的时候才发现这是一部以儿童视角拍的反战片, 充满着满满的黑色幽默。</p>
-<a id="more"></a>
-
-<p><img src="https://cdn.sspai.com/2020/01/09/1d14b40fc7aa00e9e1155ef8d71bb7f3.jpg" alt="img"></p>
-<h3 id="故事梗概"><a href="#故事梗概" class="headerlink" title="故事梗概"></a><strong>故事梗概</strong></h3><p>电影的故事背景发生在二战末期的德国，主人公乔乔是一个十岁的德国男孩，像其它男孩一样在童子军军营里接受德国纳粹的思想教育。他有一个幻想的希特勒朋友，这个希特勒搞笑亲民和真实的希特勒完全不同。由于一次失误的手榴弹训练导致自己受伤，乔乔只能退出童子军做幕后的文职人员，后来在家中养伤的时候发现自己家里藏着一个犹太人，并且发觉自己的母亲是一个隐藏的反战分子，乔乔陷入要不要告发自己家里人的深深矛盾里。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/71e402294a278a8dee0926f1c62d7cc9.jpg" alt="img">请输入图片标题</p>
-<h3 id="关于兔子的解读"><a href="#关于兔子的解读" class="headerlink" title="关于兔子的解读"></a><strong>关于兔子的解读</strong></h3><p>在电影中其实出现过三次兔子。第一只兔子出现在乔乔的训练营中，乔乔被要求用武力去杀死兔子，结果他做不到然后放兔子走被众人嘲笑；第二只兔子出现在他饥饿到处找吃的时候，在雪地里他看到了兔子却没有抓它充饥；第三只兔子出现在他的画册里，里面画着一只在笼子里的兔子，最后他克服了内心的自私打开“笼子”，放出了那只“兔子”。</p>
-<p>就我个人的理解，兔子象征着乔乔的本心，即使在那个纳粹狂热的年代，他也没有失去内心里的那份善良。第三只“兔子”之所以打引号，是因为它代表着那个藏在他家里的犹太女孩，当女孩问他外面战况如何时，他撒了个谎说德国纳粹赢了，希望她能一直藏在他家里。事实上，这是一段内心的心里斗争，他喜欢这个女孩不希望她离开，但是他又不想限制她的自由，当然最后他还是选择打开了“笼子”，带女孩出去。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/3c2b452782a40056eb4f9fe833bd14d2.jpg" alt="img"></p>
-<h3 id="高光母亲-–-黑暗里的明灯"><a href="#高光母亲-–-黑暗里的明灯" class="headerlink" title="高光母亲 – 黑暗里的明灯"></a><strong>高光母亲 – 黑暗里的明灯</strong></h3><p>电影中有一个很美好的角色就是乔乔的母亲罗茜（由斯嘉丽扮演）。乔乔的父亲去远方打仗了，家里全靠母亲一个人支撑着。这位母亲时尚靓丽，非常反感战争但是却又不得不假装支持自己的孩子去当纳粹。她常说的一句话就是，你只是一个十岁的孩子，是喜欢爬树又老掉下来的年纪，而不是拿着枪拿着刀的年纪。令人比较深刻的一个桥段是乔乔在桌上和罗茜吵起来，罗茜立马用石灰擦在脸上装胡子，然后穿起一件大衣扮演乔乔的父亲去教训他，这样一个风趣的母亲其实在尽她的努力去保护乔乔的童年。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/004ce73d6df08f33aa27986fa9a65fab.png" alt="img"></p>
-<p>当然这样一个美好的人往往会成为战争片里牺牲的角色。罗茜最后因为偷偷发反战的纸条而被抓起来吊死，而这一幕导演用了一个很独特的手法来描绘：乔乔被一只漂亮的蝴蝶吸引，然后在追蝴蝶的路上不小心来到了刑法场，看到了一双熟悉的鞋子垂挂在空着，才发现是自己的母亲，他很想帮他的母亲把鞋带给系上，却发现他一直都还没学会系鞋带。鞋带其实是电影中的一个线索，象征着乔乔的成长，从最初的一直让母亲系鞋带，到母亲去世时自己都没法帮她系鞋带，再到最后战争结束时帮犹太女孩系鞋带，这一些列的变化也说明了这个孩子的成长。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/efd5d5c377fa7f4ad12e8255e9999000.jpg" alt="img"></p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="反战主题的黑色幽默"><a href="#反战主题的黑色幽默" class="headerlink" title="反战主题的黑色幽默"></a><strong>反战主题的黑色幽默</strong></h3><p>作为一部幽默的反战片，这部电影中有很多带有讽刺意味的喜剧元素，最明显的就是一帮十岁的小男孩拿着各种巨大的武器去冲锋，这种强烈反差感会给人带来笑点也会让人反思战争对孩子的伤害,世界和平才能给孩子一个更好的成长环境。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/b3b2fc0079c8c4cc95623139c62add27.gif" alt="img"></p>
-<p>另一个幽默点应该就是乔乔幻想的希特勒朋友，和大众想象的希特勒不同，这位元首很搞笑，不断得给乔乔意见，其实从另一个角度讲，这是乔乔内心里纳粹思想的具象化。从最初不断听取希特勒的意见再到后来直接踢走他，这是乔乔内心成长的表现，变得不再受外界狂热思想的干扰。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/750d5780cc9308b6e7a86357121dab29.gif" alt="img"></p>
-<p><img src="https://cdn.sspai.com/2020/01/09/a604904922394721357a263acd9b93e6.jpg" alt="img"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>无论是作为喜剧片还是反战片，《JoJo Rabbit》都是一部不错的电影，推荐大家有空的时候可以去看一下。</p>
-<p><img src="https://cdn.sspai.com/2020/01/09/f9e2bc1fc7ccda80d744aa89534e9e12.gif" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 留学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>另类反战片 - 《JoJo Rabbit》</title>
+      <link href="/2020/03/16/%E5%8F%A6%E7%B1%BB%E5%8F%8D%E6%88%98%E7%89%87-%E3%80%8AJoJo-Rabbit%E3%80%8B/"/>
+      <url>/2020/03/16/%E5%8F%A6%E7%B1%BB%E5%8F%8D%E6%88%98%E7%89%87-%E3%80%8AJoJo-Rabbit%E3%80%8B/</url>
+      
+        <content type="html"><![CDATA[<p>近期我去电影院看了一部蛮有意思的反战片《Jojo Rabbit》(中文翻译：少年乔乔的异想世界)，在这里推荐给大家。刚开始看到这个电影名的时候，我以为只是给孩子看的小朋友电影，很难和战争片联系在一起，但是在看电影的时候才发现这是一部以儿童视角拍的反战片, 充满着满满的黑色幽默。</p><a id="more"></a><p><img src="https://cdn.sspai.com/2020/01/09/1d14b40fc7aa00e9e1155ef8d71bb7f3.jpg" alt="img"></p><h3 id="故事梗概"><a href="#故事梗概" class="headerlink" title="故事梗概"></a><strong>故事梗概</strong></h3><p>电影的故事背景发生在二战末期的德国，主人公乔乔是一个十岁的德国男孩，像其它男孩一样在童子军军营里接受德国纳粹的思想教育。他有一个幻想的希特勒朋友，这个希特勒搞笑亲民和真实的希特勒完全不同。由于一次失误的手榴弹训练导致自己受伤，乔乔只能退出童子军做幕后的文职人员，后来在家中养伤的时候发现自己家里藏着一个犹太人，并且发觉自己的母亲是一个隐藏的反战分子，乔乔陷入要不要告发自己家里人的深深矛盾里。</p><p><img src="https://cdn.sspai.com/2020/01/09/71e402294a278a8dee0926f1c62d7cc9.jpg" alt="img">请输入图片标题</p><h3 id="关于兔子的解读"><a href="#关于兔子的解读" class="headerlink" title="关于兔子的解读"></a><strong>关于兔子的解读</strong></h3><p>在电影中其实出现过三次兔子。第一只兔子出现在乔乔的训练营中，乔乔被要求用武力去杀死兔子，结果他做不到然后放兔子走被众人嘲笑；第二只兔子出现在他饥饿到处找吃的时候，在雪地里他看到了兔子却没有抓它充饥；第三只兔子出现在他的画册里，里面画着一只在笼子里的兔子，最后他克服了内心的自私打开“笼子”，放出了那只“兔子”。</p><p>就我个人的理解，兔子象征着乔乔的本心，即使在那个纳粹狂热的年代，他也没有失去内心里的那份善良。第三只“兔子”之所以打引号，是因为它代表着那个藏在他家里的犹太女孩，当女孩问他外面战况如何时，他撒了个谎说德国纳粹赢了，希望她能一直藏在他家里。事实上，这是一段内心的心里斗争，他喜欢这个女孩不希望她离开，但是他又不想限制她的自由，当然最后他还是选择打开了“笼子”，带女孩出去。</p><p><img src="https://cdn.sspai.com/2020/01/09/3c2b452782a40056eb4f9fe833bd14d2.jpg" alt="img"></p><h3 id="高光母亲-–-黑暗里的明灯"><a href="#高光母亲-–-黑暗里的明灯" class="headerlink" title="高光母亲 – 黑暗里的明灯"></a><strong>高光母亲 – 黑暗里的明灯</strong></h3><p>电影中有一个很美好的角色就是乔乔的母亲罗茜（由斯嘉丽扮演）。乔乔的父亲去远方打仗了，家里全靠母亲一个人支撑着。这位母亲时尚靓丽，非常反感战争但是却又不得不假装支持自己的孩子去当纳粹。她常说的一句话就是，你只是一个十岁的孩子，是喜欢爬树又老掉下来的年纪，而不是拿着枪拿着刀的年纪。令人比较深刻的一个桥段是乔乔在桌上和罗茜吵起来，罗茜立马用石灰擦在脸上装胡子，然后穿起一件大衣扮演乔乔的父亲去教训他，这样一个风趣的母亲其实在尽她的努力去保护乔乔的童年。</p><p><img src="https://cdn.sspai.com/2020/01/09/004ce73d6df08f33aa27986fa9a65fab.png" alt="img"></p><p>当然这样一个美好的人往往会成为战争片里牺牲的角色。罗茜最后因为偷偷发反战的纸条而被抓起来吊死，而这一幕导演用了一个很独特的手法来描绘：乔乔被一只漂亮的蝴蝶吸引，然后在追蝴蝶的路上不小心来到了刑法场，看到了一双熟悉的鞋子垂挂在空着，才发现是自己的母亲，他很想帮他的母亲把鞋带给系上，却发现他一直都还没学会系鞋带。鞋带其实是电影中的一个线索，象征着乔乔的成长，从最初的一直让母亲系鞋带，到母亲去世时自己都没法帮她系鞋带，再到最后战争结束时帮犹太女孩系鞋带，这一些列的变化也说明了这个孩子的成长。</p><p><img src="https://cdn.sspai.com/2020/01/09/efd5d5c377fa7f4ad12e8255e9999000.jpg" alt="img"></p><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="反战主题的黑色幽默"><a href="#反战主题的黑色幽默" class="headerlink" title="反战主题的黑色幽默"></a><strong>反战主题的黑色幽默</strong></h3><p>作为一部幽默的反战片，这部电影中有很多带有讽刺意味的喜剧元素，最明显的就是一帮十岁的小男孩拿着各种巨大的武器去冲锋，这种强烈反差感会给人带来笑点也会让人反思战争对孩子的伤害,世界和平才能给孩子一个更好的成长环境。</p><p><img src="https://cdn.sspai.com/2020/01/09/b3b2fc0079c8c4cc95623139c62add27.gif" alt="img"></p><p>另一个幽默点应该就是乔乔幻想的希特勒朋友，和大众想象的希特勒不同，这位元首很搞笑，不断得给乔乔意见，其实从另一个角度讲，这是乔乔内心里纳粹思想的具象化。从最初不断听取希特勒的意见再到后来直接踢走他，这是乔乔内心成长的表现，变得不再受外界狂热思想的干扰。</p><p><img src="https://cdn.sspai.com/2020/01/09/750d5780cc9308b6e7a86357121dab29.gif" alt="img"></p><p><img src="https://cdn.sspai.com/2020/01/09/a604904922394721357a263acd9b93e6.jpg" alt="img"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>无论是作为喜剧片还是反战片，《JoJo Rabbit》都是一部不错的电影，推荐大家有空的时候可以去看一下。</p><p><img src="https://cdn.sspai.com/2020/01/09/f9e2bc1fc7ccda80d744aa89534e9e12.gif" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>影评文章</category>
+          
+          <category> 影评文章 </category>
+          
       </categories>
-      <tags>
-        <tag>影评</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《1917》— 我在里面看到了战争</title>
-    <url>/2020/03/16/%E3%80%8A1917%E3%80%8B%E2%80%94-%E6%88%91%E5%9C%A8%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E4%BA%86%E6%88%98%E4%BA%89/</url>
-    <content><![CDATA[<blockquote>
-<p> 在第77届金球奖颁奖典礼上，导演萨姆·门德斯凭借《1917》爆冷获得最佳导演奖和最佳剧情奖。</p>
-</blockquote>
-<p><img src="https://cdn.sspai.com/2020/01/15/38a9232caabaf678a382008c1ce67ee9.jpg?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1" alt="img"></p>
-<a id="more"></a>
-
-<p><img src="https://cdn.sspai.com/2020/01/15/04620a4f4a47cfc58ade23ab9236d680.png" alt="img"></p>
-<p><img src="https://cdn.sspai.com/2020/01/15/265934ddf15163899634a9d95549f2be.png" alt="img">请输入图片标题</p>
-<p>在讲述这部电影之前，我先简单说一下自己看完电影后的感受。我是在新加坡观看的这部电影（国内可能得再过一段时间上映），起初是因为看剧照的时候发现有卷福，就立马对这部篇子产生了浓厚的兴趣，但是在观影的时候才发现卷福只是一个简单客串（略有失望）。整部电影带给我的第一感觉就是意犹未尽，没有太多的剧情转折，结果也跟预料的一样，甚至是电影结束后我还坐着在想结束了吗？但这一点并不影响我对这部电影的看法，因为这就是根据一个真实故事改编的，导演也是在努力去还原战场的情况，正如我在题目中提到的，在这部电影里我看到了战争的样子，导演带给了我们一种战争浸入式的体验。</p>
-<p><img src="https://cdn.sspai.com/2020/01/15/74803cdaaa1788860d597cfe82ee2724.png" alt="img"></p>
-<p>整部电影的剧情很简单，故事发生在1917年4月6日，也就是一战时期。两个士兵接收到任务在第二天凌晨之前到前线传递一封信 ———— “取消下一次进攻，因为德军有埋伏”。中途一个士兵A不幸去世了,士兵B继续执行任务，最后士兵B及时完成了任务，使前线1600名士兵存活下来，并且受士兵A的嘱托将他去世的消息告诉了在前线打仗的A的兄长。整个电影故事就一直围绕着送信这条路展开，其实换一个角度看，《1917》更像是一部公路电影。</p>
-<ul>
-<li>Tips :<strong>公路电影</strong>（英语：Road Movie）或称为公路片是一种将故事主题或背景设定在公路上的电影类型，剧中的主角往往是为了某些原因而展开一段旅程，剧情会随着旅程进展而深入描述主角的内心世界。</li>
-</ul>
-<p><img src="https://cdn.sspai.com/2020/01/15/f0f323c8ebd6eefef5ac72a5ed53dc99.png" alt="img"></p>
-<p>电影最厉害的一个部分是它的<strong>长镜头设计</strong>。其实当谈到长镜头的时候，笔者特意去搜查了相关资料去查证，发现长镜头的拍摄很难，因为是一镜到底所以必须要让演员和导演达成非常好的默契，如果中途出现了差错则整段要重新拍摄。相应的，这样的长镜头视角会使画面更加流畅自然，更加容易让观影者沉入其中。这就相当考验导演的功夫了，事实表明导演萨姆·门德斯出色地完成了这个任务。</p>
-<ul>
-<li>Tips: 长镜头（Long Take，或称为一镜到底、不中断镜头或长时间镜头）是一种拍摄手法，它相对于剪接式（蒙太奇）的拍摄方法。——维基百科</li>
-</ul>
-<p><img src="https://cdn.sspai.com/2020/01/15/660425a51f26b4b26744a1da2cf936b9.png" alt="img"></p>
-<p>相比于一般的战争片，这部电影显得过分安静了，没有宏大的炮火厮杀，有的只是德军退去后空空的战壕，破旧的楼房，以及路边腐烂的尸体，但就是这些安静的东西直接有力地控诉了战争的残酷。这其实是一部<strong>披着战争外衣的文艺片</strong>，导演很平静得在讲一些不平静的事。</p>
-<p><img src="https://cdn.sspai.com/2020/01/15/1e08a500a1cde56e28a1372cdab9afdf.png" alt="img"></p>
-<p>《1917》带给人对于战争的感觉是沉浸式的，因为观影者很容易能代入主角的情绪里，就像我朋友和我一块儿看的时候说的—“很像真人版刺激战场”。至于为什么这种代入感可以那么强，我给出两个原因：</p>
-<ol>
-<li>整个长镜头画面把重心都聚焦在主角身上，没有其他的东西会使人分心，这样观影者很容易把自己代入到主角身上。</li>
-<li>场景的渲染。导演在场景的布置上非常用心，无论是空无一人的战壕还是还是毫无生机的小镇，都渲染出一种凄凉令人胆寒的感觉，此外用音乐去烘托主角的紧张感，可以很好地带领观影者的情绪。</li>
-</ol>
-<p><img src="https://cdn.sspai.com/2020/01/15/f159a03c95a593a0a2484f945f16b5a7.png" alt="img"></p>
-<hr>
-<p><strong>最后</strong></p>
-<p>我更希望的是大家能以看一部文艺片的方式去看这部电影，静静体会导演巧妙的拍摄手法。另外，这部片子具化了我想象中的战争，让我对战争的残酷性有了更深刻的理解，和平才是最重要的。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《1917》— 我在里面看到了战争</title>
+      <link href="/2020/03/16/%E3%80%8A1917%E3%80%8B%E2%80%94-%E6%88%91%E5%9C%A8%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E4%BA%86%E6%88%98%E4%BA%89/"/>
+      <url>/2020/03/16/%E3%80%8A1917%E3%80%8B%E2%80%94-%E6%88%91%E5%9C%A8%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E4%BA%86%E6%88%98%E4%BA%89/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p> 在第77届金球奖颁奖典礼上，导演萨姆·门德斯凭借《1917》爆冷获得最佳导演奖和最佳剧情奖。</p></blockquote><p><img src="https://cdn.sspai.com/2020/01/15/38a9232caabaf678a382008c1ce67ee9.jpg?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1" alt="img"></p><a id="more"></a><p><img src="https://cdn.sspai.com/2020/01/15/04620a4f4a47cfc58ade23ab9236d680.png" alt="img"></p><p><img src="https://cdn.sspai.com/2020/01/15/265934ddf15163899634a9d95549f2be.png" alt="img">请输入图片标题</p><p>在讲述这部电影之前，我先简单说一下自己看完电影后的感受。我是在新加坡观看的这部电影（国内可能得再过一段时间上映），起初是因为看剧照的时候发现有卷福，就立马对这部篇子产生了浓厚的兴趣，但是在观影的时候才发现卷福只是一个简单客串（略有失望）。整部电影带给我的第一感觉就是意犹未尽，没有太多的剧情转折，结果也跟预料的一样，甚至是电影结束后我还坐着在想结束了吗？但这一点并不影响我对这部电影的看法，因为这就是根据一个真实故事改编的，导演也是在努力去还原战场的情况，正如我在题目中提到的，在这部电影里我看到了战争的样子，导演带给了我们一种战争浸入式的体验。</p><p><img src="https://cdn.sspai.com/2020/01/15/74803cdaaa1788860d597cfe82ee2724.png" alt="img"></p><p>整部电影的剧情很简单，故事发生在1917年4月6日，也就是一战时期。两个士兵接收到任务在第二天凌晨之前到前线传递一封信 ———— “取消下一次进攻，因为德军有埋伏”。中途一个士兵A不幸去世了,士兵B继续执行任务，最后士兵B及时完成了任务，使前线1600名士兵存活下来，并且受士兵A的嘱托将他去世的消息告诉了在前线打仗的A的兄长。整个电影故事就一直围绕着送信这条路展开，其实换一个角度看，《1917》更像是一部公路电影。</p><ul><li>Tips :<strong>公路电影</strong>（英语：Road Movie）或称为公路片是一种将故事主题或背景设定在公路上的电影类型，剧中的主角往往是为了某些原因而展开一段旅程，剧情会随着旅程进展而深入描述主角的内心世界。</li></ul><p><img src="https://cdn.sspai.com/2020/01/15/f0f323c8ebd6eefef5ac72a5ed53dc99.png" alt="img"></p><p>电影最厉害的一个部分是它的<strong>长镜头设计</strong>。其实当谈到长镜头的时候，笔者特意去搜查了相关资料去查证，发现长镜头的拍摄很难，因为是一镜到底所以必须要让演员和导演达成非常好的默契，如果中途出现了差错则整段要重新拍摄。相应的，这样的长镜头视角会使画面更加流畅自然，更加容易让观影者沉入其中。这就相当考验导演的功夫了，事实表明导演萨姆·门德斯出色地完成了这个任务。</p><ul><li>Tips: 长镜头（Long Take，或称为一镜到底、不中断镜头或长时间镜头）是一种拍摄手法，它相对于剪接式（蒙太奇）的拍摄方法。——维基百科</li></ul><p><img src="https://cdn.sspai.com/2020/01/15/660425a51f26b4b26744a1da2cf936b9.png" alt="img"></p><p>相比于一般的战争片，这部电影显得过分安静了，没有宏大的炮火厮杀，有的只是德军退去后空空的战壕，破旧的楼房，以及路边腐烂的尸体，但就是这些安静的东西直接有力地控诉了战争的残酷。这其实是一部<strong>披着战争外衣的文艺片</strong>，导演很平静得在讲一些不平静的事。</p><p><img src="https://cdn.sspai.com/2020/01/15/1e08a500a1cde56e28a1372cdab9afdf.png" alt="img"></p><p>《1917》带给人对于战争的感觉是沉浸式的，因为观影者很容易能代入主角的情绪里，就像我朋友和我一块儿看的时候说的—“很像真人版刺激战场”。至于为什么这种代入感可以那么强，我给出两个原因：</p><ol><li>整个长镜头画面把重心都聚焦在主角身上，没有其他的东西会使人分心，这样观影者很容易把自己代入到主角身上。</li><li>场景的渲染。导演在场景的布置上非常用心，无论是空无一人的战壕还是还是毫无生机的小镇，都渲染出一种凄凉令人胆寒的感觉，此外用音乐去烘托主角的紧张感，可以很好地带领观影者的情绪。</li></ol><p><img src="https://cdn.sspai.com/2020/01/15/f159a03c95a593a0a2484f945f16b5a7.png" alt="img"></p><hr><p><strong>最后</strong></p><p>我更希望的是大家能以看一部文艺片的方式去看这部电影，静静体会导演巧妙的拍摄手法。另外，这部片子具化了我想象中的战争，让我对战争的残酷性有了更深刻的理解，和平才是最重要的。</p>]]></content>
+      
+      
       <categories>
-        <category>影评文章</category>
+          
+          <category> 影评文章 </category>
+          
       </categories>
-      <tags>
-        <tag>影评</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>新加坡留学 | 关于我为什么要去新加坡留学</title>
-    <url>/2020/03/16/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8E%BB%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%95%99%E5%AD%A6/</url>
-    <content><![CDATA[<center>提起留学，大家的刻板印象基本上都是贵，富二代才能去。事实上留学这件事确实是需要一定的经济投入，但这并不表明只有富二代才能去，现在的工薪家庭也是可以支撑起一个孩子的留学花费。就我个人的经历来言，我的家庭并不富裕，父母都是工薪阶层，但是他们依然支持我去海外攻读硕士学位，我对他们非常的感激。至于我为什么选择新加坡去留学，我会分成以下几个点为大家讲解。（注意：这篇文章的目的不是为了鼓励大家去留学，而是希望给那些有想法想出国的同学做一个参考）</center>
-
-<a id="more"></a>
-
-<h3 id="新加坡鱼尾狮"><a href="#新加坡鱼尾狮" class="headerlink" title="新加坡鱼尾狮"></a><strong>新加坡鱼尾狮</strong></h3><p><img src="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p>
-<h3 id="Point-1-性价比"><a href="#Point-1-性价比" class="headerlink" title="Point 1 : 性价比"></a><strong>Point 1 : 性价比</strong></h3><p>第一个要提的就是新加坡留学的性价比。相比于美国和英国，新加坡的留学费用和生活成本会低很多，学校食堂平均一顿饭的价位在20rmb到50rmb之间，对学生来说已经是很友好的了。除此之外，一些高校会提供宿舍让学生申请，平均价位大概是2500rmb一个月，已经是相当的便宜了。</p>
-<p>关于学费，新加坡政府还为留学生提供了一个就业协议，可以免除将近80%的学费，而相应的学生毕业后要在新加坡工作三年（适合打算毕业后就留坡工作的同学）。另外，当地的银行还可以为留学生提供90%学费的免息贷款，可见新加坡为了呼吁大家来留学也是下了很多功夫的。如果一个学生签署了就业协议和免息贷款，那他基本上只要花费相应的生活费就可以来留学了，这对于工薪家庭是一个很好的消息。（注意事项：不是每一个专业都可以签署就业协议，具体的情况要去查看相应学校的官网）</p>
-<h3 id="Point-2-学校质量"><a href="#Point-2-学校质量" class="headerlink" title="Point 2 : 学校质量"></a><strong>Point 2 : 学校质量</strong></h3><p>说起留学，大家比较关心的肯定就是学校的质量了，毕竟留学生多了后，各种海外高校参差不齐。这里笔者推荐的两所高校是<strong>新加坡南洋理工大学(NTU)和新加坡国立大学(NUS)</strong>。这两所高校的名声估计大家也是有所了解，根据最新的2020QS世界大学排名, 两所大学并列第11名。当然排名只是作为参考的一个标准，就我个人的学习体会，这两所大学的老师还是相当负责任的，并且学校名声被很多企业所认可。给打个比方，NTU 和 NUS 有点像新加坡的清华和北大。</p>
-<p><img src="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p>
-<p>2020 QS 世界大学排名</p>
-<h3 id="Point-3-社会氛围容易融入"><a href="#Point-3-社会氛围容易融入" class="headerlink" title="Point 3 : 社会氛围容易融入"></a><strong>Point 3 : 社会氛围容易融入</strong></h3><p>在来新加坡留学前我没有出过国，因此很多时候担心留学后会不习惯外面的生活。事实上，新加坡将近70%是华人，大家都会说汉语，基本的生活购物没有任何问题。也许有人会问，这样经常性的说汉语是不是没法提高自己的外语水平？这里必须得承认，新加坡的外语氛围没有欧美来的浓厚，但这并不表明你的外语没法提高。所有的授课形式都是英文的，教授也都喜欢用英文和学生交流，在纯英文环境的熏陶下，其实外语水平也是在不断提升的。</p>
-<p>关于饮食方面，在饮食上新加坡是一个多种文化交融集齐了各地美食的地方，无论是中餐西餐，还是印度餐马来餐，你都可以在这小小的地方找到你想要吃的食物。值得一提的是，很多国内比较流行的餐厅在新加坡都有分店，比如海底捞、喜茶、谭鱼头等。</p>
-<p><img src="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p>
-<p>新加坡美食–辣椒螃蟹</p>
-<h3 id="Point-4-安全性"><a href="#Point-4-安全性" class="headerlink" title="Point 4 : 安全性"></a><strong>Point 4 : 安全性</strong></h3><p>出门在外最重要的是讲究安全，新加坡可以号称是全球最安全的国家之一了，这也是我当初考虑来新加坡留学的重要原因。新加坡到底有多安全？给大家举个例子，新加坡法律规定晚上10.30后不允许任何超市和零售店卖酒，这种严格的法令使这里根本没有什么深夜醉汉，极大地保障了人们夜晚出行的安全。其实当初在申请学校时也曾考虑过香港，不过最后还是被新加坡的安全性给打动了，现在看来确实是一个很明智的选择。</p>
-<h3 id="Point-5-申请难度"><a href="#Point-5-申请难度" class="headerlink" title="Point 5: 申请难度"></a><strong>Point 5: 申请难度</strong></h3><p>关于申请难度的问题其实是因人而异的，每个人的背景和特点不同因此很难一概而论。在这里我给出一个针对理工科比较平均的申请背景条件：雅思6.5，平均分80+，本科学校985&amp;211会给予加分。新加坡学校的申请我个人觉得不难，建议自己DIY而不是找中介。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>这篇文章只是简单得介绍了一下我当初选择新加坡留学的几个点，笔者最后选择的是 南洋理工大学和慕尼黑工业大学合办的芯片设计专业，可以同时体会到德国和新加坡的教育。如果对联合培养专业有兴趣的可以给我留言，我会一一答复。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 影评 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新加坡留学 | 关于我为什么要去新加坡留学</title>
+      <link href="/2020/03/16/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8E%BB%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%95%99%E5%AD%A6/"/>
+      <url>/2020/03/16/%E5%85%B3%E4%BA%8E%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8E%BB%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%95%99%E5%AD%A6/</url>
+      
+        <content type="html"><![CDATA[<center>提起留学，大家的刻板印象基本上都是贵，富二代才能去。事实上留学这件事确实是需要一定的经济投入，但这并不表明只有富二代才能去，现在的工薪家庭也是可以支撑起一个孩子的留学花费。就我个人的经历来言，我的家庭并不富裕，父母都是工薪阶层，但是他们依然支持我去海外攻读硕士学位，我对他们非常的感激。至于我为什么选择新加坡去留学，我会分成以下几个点为大家讲解。（注意：这篇文章的目的不是为了鼓励大家去留学，而是希望给那些有想法想出国的同学做一个参考）</center><a id="more"></a><h3 id="新加坡鱼尾狮"><a href="#新加坡鱼尾狮" class="headerlink" title="新加坡鱼尾狮"></a><strong>新加坡鱼尾狮</strong></h3><p><img src="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p><h3 id="Point-1-性价比"><a href="#Point-1-性价比" class="headerlink" title="Point 1 : 性价比"></a><strong>Point 1 : 性价比</strong></h3><p>第一个要提的就是新加坡留学的性价比。相比于美国和英国，新加坡的留学费用和生活成本会低很多，学校食堂平均一顿饭的价位在20rmb到50rmb之间，对学生来说已经是很友好的了。除此之外，一些高校会提供宿舍让学生申请，平均价位大概是2500rmb一个月，已经是相当的便宜了。</p><p>关于学费，新加坡政府还为留学生提供了一个就业协议，可以免除将近80%的学费，而相应的学生毕业后要在新加坡工作三年（适合打算毕业后就留坡工作的同学）。另外，当地的银行还可以为留学生提供90%学费的免息贷款，可见新加坡为了呼吁大家来留学也是下了很多功夫的。如果一个学生签署了就业协议和免息贷款，那他基本上只要花费相应的生活费就可以来留学了，这对于工薪家庭是一个很好的消息。（注意事项：不是每一个专业都可以签署就业协议，具体的情况要去查看相应学校的官网）</p><h3 id="Point-2-学校质量"><a href="#Point-2-学校质量" class="headerlink" title="Point 2 : 学校质量"></a><strong>Point 2 : 学校质量</strong></h3><p>说起留学，大家比较关心的肯定就是学校的质量了，毕竟留学生多了后，各种海外高校参差不齐。这里笔者推荐的两所高校是<strong>新加坡南洋理工大学(NTU)和新加坡国立大学(NUS)</strong>。这两所高校的名声估计大家也是有所了解，根据最新的2020QS世界大学排名, 两所大学并列第11名。当然排名只是作为参考的一个标准，就我个人的学习体会，这两所大学的老师还是相当负责任的，并且学校名声被很多企业所认可。给打个比方，NTU 和 NUS 有点像新加坡的清华和北大。</p><p><img src="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p><p>2020 QS 世界大学排名</p><h3 id="Point-3-社会氛围容易融入"><a href="#Point-3-社会氛围容易融入" class="headerlink" title="Point 3 : 社会氛围容易融入"></a><strong>Point 3 : 社会氛围容易融入</strong></h3><p>在来新加坡留学前我没有出过国，因此很多时候担心留学后会不习惯外面的生活。事实上，新加坡将近70%是华人，大家都会说汉语，基本的生活购物没有任何问题。也许有人会问，这样经常性的说汉语是不是没法提高自己的外语水平？这里必须得承认，新加坡的外语氛围没有欧美来的浓厚，但这并不表明你的外语没法提高。所有的授课形式都是英文的，教授也都喜欢用英文和学生交流，在纯英文环境的熏陶下，其实外语水平也是在不断提升的。</p><p>关于饮食方面，在饮食上新加坡是一个多种文化交融集齐了各地美食的地方，无论是中餐西餐，还是印度餐马来餐，你都可以在这小小的地方找到你想要吃的食物。值得一提的是，很多国内比较流行的餐厅在新加坡都有分店，比如海底捞、喜茶、谭鱼头等。</p><p><img src="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1"></p><p>新加坡美食–辣椒螃蟹</p><h3 id="Point-4-安全性"><a href="#Point-4-安全性" class="headerlink" title="Point 4 : 安全性"></a><strong>Point 4 : 安全性</strong></h3><p>出门在外最重要的是讲究安全，新加坡可以号称是全球最安全的国家之一了，这也是我当初考虑来新加坡留学的重要原因。新加坡到底有多安全？给大家举个例子，新加坡法律规定晚上10.30后不允许任何超市和零售店卖酒，这种严格的法令使这里根本没有什么深夜醉汉，极大地保障了人们夜晚出行的安全。其实当初在申请学校时也曾考虑过香港，不过最后还是被新加坡的安全性给打动了，现在看来确实是一个很明智的选择。</p><h3 id="Point-5-申请难度"><a href="#Point-5-申请难度" class="headerlink" title="Point 5: 申请难度"></a><strong>Point 5: 申请难度</strong></h3><p>关于申请难度的问题其实是因人而异的，每个人的背景和特点不同因此很难一概而论。在这里我给出一个针对理工科比较平均的申请背景条件：雅思6.5，平均分80+，本科学校985&amp;211会给予加分。新加坡学校的申请我个人觉得不难，建议自己DIY而不是找中介。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>这篇文章只是简单得介绍了一下我当初选择新加坡留学的几个点，笔者最后选择的是 南洋理工大学和慕尼黑工业大学合办的芯片设计专业，可以同时体会到德国和新加坡的教育。如果对联合培养专业有兴趣的可以给我留言，我会一一答复。</p>]]></content>
+      
+      
       <categories>
-        <category>留学这件小事</category>
+          
+          <category> 留学这件小事 </category>
+          
       </categories>
-      <tags>
-        <tag>留学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>简单加法器的设计</title>
-    <url>/2020/03/15/%E7%AE%80%E5%8D%95%E5%8A%A0%E6%B3%95%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<center>前言 | 加法器是逻辑设计里比较基础的一个模块，</center>
-
-<center>本文将会就加法器的原理，设计方法和电路仿真来进行讲述。</center>
-
-<a id="more"></a>
-
-<h2 id="1-半加器"><a href="#1-半加器" class="headerlink" title="1. 半加器"></a>1. 半加器</h2><p>半加器只有两个输入，一个输出，不存在进位项，因此一个半加器的真值表如下：</p>
-
-
-<p>根据真值表，我们可以得出逻辑表达式：<br>$$<br>sum = a  \oplus b<br>$$</p>
-<p>$$<br>cout = a  \bullet b<br>$$</p>
-<h2 id="2-全加器"><a href="#2-全加器" class="headerlink" title="2. 全加器"></a>2. 全加器</h2><p>全加器的输入中包含来自上一个加法器的进位项，因此全加器的输入为a、b、c_in，输出为sum、c_out。</p>
-
-
-<p>根据真值表，（通过画卡诺图）我们得出它的逻辑表达式：<br>$$<br>sum = a’b’\bullet cin + a’b\bullet cin’+ ab’\bullet cin’ + ab\bullet cin<br>$$</p>
-<p>$$<br>cout = a’b\bullet cin+ab’\bullet cin +ab\bullet cin’+ ab\bullet cin<br>$$</p>
-<p>通过化简，我们可以得到比较简单的表达方式：<br>$$<br>sum = a \oplus b \oplus cin<br>$$</p>
-<p>$$<br>cout = (a \oplus b) \bullet cin +ab<br>$$</p>
-<p>通过以上的表达方式，我们可以用半加器来搭建一个全加器（面试常考题）：</p>
-
-
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="keyword">module</span> add_half (<span class="keyword">output</span> c_out,sum, <span class="keyword">input</span> a,b);</span><br><span class="line">  <span class="keyword">xor</span> M1 (sum, a, b);</span><br><span class="line">  <span class="keyword">and</span> M2 (c_out,a,b);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> add_full(<span class="keyword">output</span> sum,c_out, <span class="keyword">input</span> c_in,a,b);</span><br><span class="line">  <span class="keyword">wire</span> w1,w2,w3;</span><br><span class="line">  </span><br><span class="line">  add_half M1 (w1,w2,a,b);</span><br><span class="line">  add_half M2 (sum,w3,c_in,w1);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">or</span> M3(c_out,w3,w2);</span><br><span class="line">  </span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 留学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>简单加法器的设计</title>
+      <link href="/2020/03/15/%E7%AE%80%E5%8D%95%E5%8A%A0%E6%B3%95%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2020/03/15/%E7%AE%80%E5%8D%95%E5%8A%A0%E6%B3%95%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<center>前言 | 加法器是逻辑设计里比较基础的一个模块，</center><center>本文将会就加法器的原理，设计方法和电路仿真来进行讲述。</center><a id="more"></a><h2 id="1-半加器"><a href="#1-半加器" class="headerlink" title="1. 半加器"></a>1. 半加器</h2><p>半加器只有两个输入，一个输出，不存在进位项，因此一个半加器的真值表如下：</p><p>根据真值表，我们可以得出逻辑表达式：<br>$$<br>sum = a  \oplus b<br>$$</p><p>$$<br>cout = a  \bullet b<br>$$</p><h2 id="2-全加器"><a href="#2-全加器" class="headerlink" title="2. 全加器"></a>2. 全加器</h2><p>全加器的输入中包含来自上一个加法器的进位项，因此全加器的输入为a、b、c_in，输出为sum、c_out。</p><p>根据真值表，（通过画卡诺图）我们得出它的逻辑表达式：<br>$$<br>sum = a’b’\bullet cin + a’b\bullet cin’+ ab’\bullet cin’ + ab\bullet cin<br>$$</p><p>$$<br>cout = a’b\bullet cin+ab’\bullet cin +ab\bullet cin’+ ab\bullet cin<br>$$</p><p>通过化简，我们可以得到比较简单的表达方式：<br>$$<br>sum = a \oplus b \oplus cin<br>$$</p><p>$$<br>cout = (a \oplus b) \bullet cin +ab<br>$$</p><p>通过以上的表达方式，我们可以用半加器来搭建一个全加器（面试常考题）：</p><h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="keyword">module</span> add_half (<span class="keyword">output</span> c_out,sum, <span class="keyword">input</span> a,b);</span><br><span class="line">  <span class="keyword">xor</span> M1 (sum, a, b);</span><br><span class="line">  <span class="keyword">and</span> M2 (c_out,a,b);</span><br><span class="line"><span class="keyword">endmodule</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> add_full(<span class="keyword">output</span> sum,c_out, <span class="keyword">input</span> c_in,a,b);</span><br><span class="line">  <span class="keyword">wire</span> w1,w2,w3;</span><br><span class="line">  </span><br><span class="line">  add_half M1 (w1,w2,a,b);</span><br><span class="line">  add_half M2 (sum,w3,c_in,w1);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">or</span> M3(c_out,w3,w2);</span><br><span class="line">  </span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>一个IC工程师的自我修养</category>
+          
+          <category> 一个IC工程师的自我修养 </category>
+          
       </categories>
-      <tags>
-        <tag>IC design</tag>
-        <tag>加法器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>异步fifo的设计</title>
-    <url>/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<center> 这篇文章主要讲解了如何设计一个异步Fifo. </center>
-
-<a id="more"></a>
-
-<h2 id="1-资料"><a href="#1-资料" class="headerlink" title="1. 资料"></a>1. 资料</h2><p><a href="https://zhuanlan.zhihu.com/p/42991844" target="_blank" rel="noopener">异步FIFO设计（1）</a></p>
-<p><a href="https://blog.csdn.net/deng_d1/article/details/50179677" target="_blank" rel="noopener">异步FIFO设计原理及Verliog源代码_网络_deng_d1的博客-CSDN博客</a></p>
-<h2 id="2-原理介绍"><a href="#2-原理介绍" class="headerlink" title="2. 原理介绍"></a>2. 原理介绍</h2>
-
-<h3 id="2-1-使用FIFO的情况"><a href="#2-1-使用FIFO的情况" class="headerlink" title="2.1 使用FIFO的情况"></a>2.1 使用FIFO的情况</h3><ul>
-<li>两个不同时钟域进行数据传输时可以用FIFO</li>
-<li>对于不同宽度的数据接口也可以用FIFO， 例如单片机8位输出，而DSP 16位数据输入。</li>
-</ul>
-<h3 id="2-2-FIFO的相关参数"><a href="#2-2-FIFO的相关参数" class="headerlink" title="2.2 FIFO的相关参数"></a>2.2 FIFO的相关参数</h3><ul>
-<li>FIFO的宽度：表示FIFO进行一次读写操作的数据位。</li>
-<li>FIFO的深度：指的是FIFO能存储多少个N位的数据，N为宽度。</li>
-<li>满标志：FIFO已满或将要满时由FIFO的状态电路送出的一个信号，以阻止FIFO的写操作继续向FIFO中写数据而造成溢出（overflow）</li>
-<li>空标志：FIFO已空或将要空时由FIFO的状态电路送出的一个信号，以阻止FIFO的读操作继续从FIFO中读出数据而造成无效数据的读出（underflow）。</li>
-<li>读时钟：读数据所遵循的时钟。</li>
-<li>写时钟：写操作所需要遵循的时钟。</li>
-<li>读指针：指向下一个读出地址。读完后自动加1</li>
-<li>写指针：指向下一个写入地址，写完后自动加1</li>
-</ul>
-<h3 id="2-3-空满状态的判断"><a href="#2-3-空满状态的判断" class="headerlink" title="2.3 空满状态的判断"></a>2.3 空满状态的判断</h3><p><a href="https://blog.csdn.net/zyn1347806/article/details/79626452" target="_blank" rel="noopener">FIFO空满判断与地址转换的思考_网络_zyn1347806的博客-CSDN博客</a></p>
-<p><a href="https://www.cnblogs.com/xh13dream/p/9265042.html" target="_blank" rel="noopener">异步fifo设计（1）</a></p>
-<ul>
-<li>用格雷码来作地址判断（多引入一位作位判断，比如设计深度为8，宽度为8的异步FIFO，设计其指针位数为4,即 n+1） <ul>
-<li>当最高位和次高位相同时，其余位相同认为是读空</li>
-<li>当最高位和次高位不同时，其余位相同认为是写满</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-4-读空标志位的产生"><a href="#2-4-读空标志位的产生" class="headerlink" title="2.4 读空标志位的产生"></a>2.4 读空标志位的产生</h3><p><a href="https://www.sohu.com/a/114158723_458015" target="_blank" rel="noopener">异步FIFO设计(非常详细，图文并茂，值得一看！）</a></p>
-<p>FIFO中存在两种指针，rd_ptr 和 wr_ptr。只有两种状态下FIFO才会为空：</p>
-<ul>
-<li>系统复位，读写指针都被清空。</li>
-<li>读出速度大于写入速度，读地址赶上写地址。</li>
-</ul>
-<p>空标志位的产生要在读时钟域里完成，这样不至于FIFO为空时，而空标志位还没有发生，但是可能发生FIFO里已经有数据了，但是空标志位还是没有被撤销，不过就算在最坏的情况下，空标志撤销也只是滞后3个周期（因为会需要时钟的同步，经过两级触发器）。还有一种情况，就是空标志比较逻辑检测到读地址和写地址相同后，紧接着发生写操作，导致写地址加1，由于同步模块的滞后性，导致没法及时更新写地址，会产生一个虚假的空信号，称作“虚空”。</p>
-<h3 id="2-5-读满标志位的产生"><a href="#2-5-读满标志位的产生" class="headerlink" title="2.5 读满标志位的产生"></a>2.5 读满标志位的产生</h3><p>读满状态可以理解为，读地址超写地址一圈，两个地址仍然在同一个地方，这时候引入指示位来进行区别和判断。</p>
-<p>读满状态判断：</p>
-<ol>
-<li><p><strong>最高位相异，因为两个指针速度不同， 写超前于读。</strong></p>
-</li>
-<li><p><strong>出去最高位，次高位取反后两者相同。比如：写指针已经走了一圈了跑到3，此时写指针：1110，而读指针第一次走到3，指针数值为：0010。⇒ 发现最高位和次高位均不同，表示满状态。</strong></p>
-</li>
-<li><p><strong>相应的，如果最高位和次高位均相同则表示空状态。</strong></p>
-
-
-</li>
-</ol>
-<h2 id="3-代码的实现"><a href="#3-代码的实现" class="headerlink" title="3.代码的实现"></a>3.代码的实现</h2><p>这里以一个8x8的fifo作为案例来进行代码的设计，之后再做一个fifo的封装实现自定义化模块。</p>
-<h3 id="3-1-格雷码转换"><a href="#3-1-格雷码转换" class="headerlink" title="3.1 格雷码转换"></a>3.1 格雷码转换</h3><p>需要用Gray Code来实现地址，从而降低亚稳态。</p>
-<p>基本的转换关系：</p>
-<ul>
-<li>二进制转格雷码： <ul>
-<li>G[ n-1 ] = b[ n - 1 ] （最高位）</li>
-<li>G [i] = b [ i ] ^ b [i + 1]</li>
-</ul>
-</li>
-<li>格雷码转换二进制： <ul>
-<li>b[n-1] = G [n-1]</li>
-<li>b [ i ] = G [ i ]^ G [i+1] ^ ……^ G[ n - 1] = G [ i ] ^ b[ i + 1 ]</li>
-</ul>
-</li>
-</ul>
-<p>EDA link: <a href="https://www.edaplayground.com/x/4QrG" target="_blank" rel="noopener">https://www.edaplayground.com/x/4QrG</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sample of Binary to Gray</span><br><span class="line">module B2G (</span><br><span class="line">		B,   &#x2F;&#x2F; B input binary</span><br><span class="line">		G    &#x2F;&#x2F; output Gray</span><br><span class="line">);</span><br><span class="line">input wire [3:0] B;</span><br><span class="line">output reg [3:0] G;</span><br><span class="line">always @(*) begin &#x2F;&#x2F; 使用always时，要加@</span><br><span class="line">		G [3] &#x3D; B [3];</span><br><span class="line">		G [2] &#x3D; B[2] ^ B[3];</span><br><span class="line">		G [1] &#x3D; B[1] ^ B[2];</span><br><span class="line">		G [0] &#x3D; B[0] ^ B[1];</span><br><span class="line">end</span><br><span class="line">endmodule</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;TestBench</span><br><span class="line">module tb ();</span><br><span class="line">  reg [3:0] B,G;</span><br><span class="line">  reg [2:0] i;</span><br><span class="line">&#x2F;&#x2F;  reg clk;</span><br><span class="line">  initial begin</span><br><span class="line">    $dumpfile(&quot;dump.vcd&quot;);&#x2F;&#x2F; dump waive</span><br><span class="line">    $dumpvars(1, tb);</span><br><span class="line">    B &#x3D; 0;</span><br><span class="line">    i &#x3D; 0;</span><br><span class="line">    #10;</span><br><span class="line">    B &#x3D;1; #10;</span><br><span class="line">   for (i&#x3D;0; i&lt;&#x3D;7; i &#x3D; i+1) begin</span><br><span class="line">		   B &#x3D; B +1;</span><br><span class="line">			  #10;</span><br><span class="line">   end</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">  B2G dut(</span><br><span class="line">    .B(B),</span><br><span class="line">    .G(G)</span><br><span class="line">  );</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-2-写模块控制"><a href="#3-2-写模块控制" class="headerlink" title="3.2 写模块控制"></a>3.2 写模块控制</h3><p>写模块的功能</p>
-<ul>
-<li>写信号来的时候，写指针地址加1</li>
-<li>将wr 指针和rd 指针进行比较，看是否写满了。其中注意的是，满状态要将读指针同步到写时钟里，需要进行同步后再比较。</li>
-</ul>
-<p>输入信号：wr_clk, wr_en, wr_rst_n, rd_add_glay</p>
-<p>输出信号：wr_add_bin, wr_add_glay</p>
-<p>EDA link <a href="https://www.edaplayground.com/x/5565" target="_blank" rel="noopener">https://www.edaplayground.com/x/5565</a></p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"><span class="keyword">module</span> wr_ctrl (</span><br><span class="line">		<span class="keyword">input</span> wr_clk,</span><br><span class="line">        <span class="keyword">input</span> wr_rst_n,</span><br><span class="line">		<span class="keyword">input</span> wr_en,</span><br><span class="line"> 		 <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay,</span><br><span class="line"> 		 <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin,</span><br><span class="line"> 		 <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay,</span><br><span class="line">		<span class="keyword">output</span> <span class="keyword">reg</span> wr_full</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r1;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r2;</span><br><span class="line"><span class="comment">// 地址增加模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> wr_clk <span class="keyword">or</span> <span class="keyword">negedge</span> wr_rst_n <span class="keyword">or</span> <span class="keyword">posedge</span> wr_en) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (wr_en) <span class="keyword">begin</span> <span class="comment">// 所有的操作都是在始能下开始的</span></span><br><span class="line">	<span class="keyword">if</span> (!wr_rst_n) <span class="keyword">begin</span> <span class="comment">//复位操作</span></span><br><span class="line">		wr_add_bin_r &lt;= <span class="number">0</span>; <span class="comment">//地址指针复位</span></span><br><span class="line">		wr_full &lt;= <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!wr_full) <span class="keyword">begin</span> <span class="comment">//不满情况下</span></span><br><span class="line">       wr_add_bin_r &lt;= wr_add_bin_r + <span class="number">1</span>;<span class="comment">// 地址加1</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//调用格雷码转换</span></span><br><span class="line">B2G wr_B2G(</span><br><span class="line">	<span class="variable">.B</span> (wr_add_bin_r),</span><br><span class="line">	<span class="variable">.G</span> (wr_add_glay_r)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断满状态，如果格雷码首两位和读地址互异，则满</span></span><br><span class="line"><span class="comment">//同步读地址</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> wr_clk) <span class="keyword">begin</span></span><br><span class="line">	&#123;rd_add_glay_r2,rd_add_glay_r1&#125; &lt;= &#123;rd_add_glay_r1, rd_add_glay&#125; ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">  <span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">    wr_full = (rd_add_glay_r2[<span class="number">3</span>]^wr_add_glay_r[<span class="number">3</span>]) &amp;&amp; (rd_add_glay_r2[<span class="number">2</span>]^wr_add_glay_r[<span class="number">2</span>]) &amp;&amp; (rd_add_glay_r2[<span class="number">1</span>:<span class="number">0</span>] == wr_add_glay_r [<span class="number">1</span>:<span class="number">0</span>]); <span class="comment">// 首两位互异，且后几位相同</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> wr_add_bin = wr_add_bin_r;</span><br><span class="line"><span class="keyword">assign</span> wr_add_glay = wr_add_glay_r;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-3-读模块控制"><a href="#3-3-读模块控制" class="headerlink" title="3.3 读模块控制"></a>3.3 读模块控制</h3><p>功能代码和写模块相似，只是空标志的判断条件不同，要求两个地址完全相同才可以。</p>
-<p>EDA Link:  <a href="https://www.edaplayground.com/x/3tfy" target="_blank" rel="noopener">https://www.edaplayground.com/x/3tfy</a></p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"><span class="keyword">module</span> rd_ctrl (</span><br><span class="line">		<span class="keyword">input</span> rd_clk,</span><br><span class="line">     <span class="keyword">input</span> rd_rst_n,</span><br><span class="line">		<span class="keyword">input</span> rd_en,</span><br><span class="line"> 		 <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay,</span><br><span class="line"> 		 <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin,</span><br><span class="line"> 		 <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay,</span><br><span class="line">		<span class="keyword">output</span> <span class="keyword">reg</span> rd_empty</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r1;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r2;</span><br><span class="line"><span class="comment">// 地址增加模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> rd_clk <span class="keyword">or</span> <span class="keyword">negedge</span> rd_rst_n <span class="keyword">or</span> <span class="keyword">posedge</span> rd_en) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (rd_en) <span class="keyword">begin</span> <span class="comment">// 所有的操作都是在始能下开始的</span></span><br><span class="line">	<span class="keyword">if</span> (!rd_rst_n) <span class="keyword">begin</span> <span class="comment">//复位操作</span></span><br><span class="line">		rd_add_bin_r &lt;= <span class="number">0</span>; <span class="comment">//地址指针复位</span></span><br><span class="line">		rd_empty &lt;= <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!rd_empty) <span class="keyword">begin</span> <span class="comment">//不满情况下</span></span><br><span class="line">       rd_add_bin_r &lt;= rd_add_bin_r + <span class="number">1</span>;<span class="comment">// 地址加1</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//调用格雷码转换</span></span><br><span class="line">B2G rd_B2G(</span><br><span class="line">	<span class="variable">.B</span> (rd_add_bin_r),</span><br><span class="line">	<span class="variable">.G</span> (rd_add_glay_r)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断满状态，如果格雷码首两位和读地址互异，则满</span></span><br><span class="line"><span class="comment">//同步读地址</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> rd_clk) <span class="keyword">begin</span></span><br><span class="line">	&#123;wr_add_glay_r2,wr_add_glay_r1&#125; &lt;= &#123;wr_add_glay_r1, wr_add_glay&#125; ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">  <span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">    rd_empty = wr_add_glay_r2 == rd_add_glay_r ; <span class="comment">// 地址相同时，表示读空</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> rd_add_bin = rd_add_bin_r;</span><br><span class="line"><span class="keyword">assign</span> rd_add_glay = rd_add_glay_r;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-4-FIFO-Mem-Ctrl"><a href="#3-4-FIFO-Mem-Ctrl" class="headerlink" title="3.4 FIFO Mem Ctrl"></a>3.4 FIFO Mem Ctrl</h3><p>主体部分会建立一个FIFO的mem，并且输入数据和读出数据。</p>
-<p>控制模块功能简介：</p>
-<ul>
-<li>根据地址将对应的数据存储或者读取</li>
-<li>EDA link <a href="https://www.edaplayground.com/x/bWf" target="_blank" rel="noopener">https://www.edaplayground.com/x/bWf</a></li>
-</ul>
-<p>Bug ： 因为弄错数组的写法，导致出现了bug reg [wordsize : 0] array_name [0 : arraysize]; 其中第二个是0-size，例如需要生成8x8 size的数组，应该为 reg [7:0] mem [0:7] 不是 reg [7:0] mem [2:0] ;</p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span> fifo_mem (</span><br><span class="line">		<span class="keyword">input</span> wr_clk,</span><br><span class="line">		<span class="keyword">input</span> rd_clk,</span><br><span class="line">  <span class="keyword">input</span> rst_n,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">7</span>:<span class="number">0</span>] wdata,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin, <span class="comment">//写地址</span></span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin, <span class="comment">//读地址</span></span><br><span class="line">		<span class="keyword">input</span> wr_full,</span><br><span class="line">		<span class="keyword">input</span> rd_empty,</span><br><span class="line">	<span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] rdata</span><br><span class="line"></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立一个8x8的reg</span></span><br><span class="line">  <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] fifo_mem [<span class="number">0</span>:<span class="number">7</span>]; <span class="comment">//建立一个宽度为8深度也为8的mem</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] wr_add; <span class="comment">//内部3位地址</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] rd_add; <span class="comment">//内部3位地址</span></span><br><span class="line">  <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] i;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">assign</span> wr_add = wr_add_bin [<span class="number">2</span>:<span class="number">0</span>];</span><br><span class="line"><span class="keyword">assign</span> rd_add = rd_add_bin [<span class="number">2</span>:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">always</span> @(<span class="keyword">negedge</span> rst_n) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (!rst_n) <span class="keyword">begin</span></span><br><span class="line">      <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;=<span class="number">7</span> ; i = i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">        fifo_mem [i] &lt;= <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">      </span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> wr_clk) <span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">if</span> (!wr_full) <span class="keyword">begin</span></span><br><span class="line">			fifo_mem [wr_add] &lt;= wdata;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> rd_clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (!rd_empty) </span><br><span class="line">			rdata &lt;= fifo_mem [rd_add] ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-5-Top-level-各模块集成"><a href="#3-5-Top-level-各模块集成" class="headerlink" title="3.5 Top level 各模块集成"></a>3.5 Top level 各模块集成</h3><p>EDA link : <a href="https://www.edaplayground.com/x/6Mfp" target="_blank" rel="noopener">https://www.edaplayground.com/x/6Mfp</a></p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "fifo_mem.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "wr_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "rd_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> fifo(</span><br><span class="line">	<span class="keyword">input</span> wr_clk,</span><br><span class="line">	<span class="keyword">input</span> rd_clk,</span><br><span class="line">	<span class="keyword">input</span> rst_n,</span><br><span class="line">	<span class="keyword">input</span> wr_en,</span><br><span class="line">	<span class="keyword">input</span> rd_en,</span><br><span class="line">	<span class="keyword">input</span> [<span class="number">7</span>:<span class="number">0</span>] data_i,</span><br><span class="line">  	<span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] data_o,</span><br><span class="line">  	<span class="keyword">output</span> <span class="keyword">reg</span> full, <span class="comment">// 用于控制数据的输入</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin;</span><br><span class="line"><span class="keyword">wire</span> empty;</span><br><span class="line"><span class="keyword">wire</span> wr_rst_n,rd_rst_n;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> wr_rst_n = rst_n;</span><br><span class="line"><span class="keyword">assign</span> rd_rst_n = rst_n;</span><br><span class="line"></span><br><span class="line">fifo_mem dut(</span><br><span class="line">    <span class="variable">.rst_n</span> (rst_n),</span><br><span class="line">    <span class="variable">.wr_clk</span> (wr_clk),</span><br><span class="line">    <span class="variable">.rd_clk</span> (rd_clk),</span><br><span class="line">    <span class="variable">.wdata</span> (data_i),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line">    <span class="variable">.wr_full</span>(full),</span><br><span class="line">    <span class="variable">.rd_empty</span>(empty),</span><br><span class="line">    <span class="variable">.rdata</span>(data_o)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">wr_ctrl write(</span><br><span class="line">    <span class="variable">.wr_clk</span>(wr_clk),</span><br><span class="line">    <span class="variable">.wr_rst_n</span>(wr_rst_n),</span><br><span class="line">    <span class="variable">.wr_en</span>(wr_en),</span><br><span class="line">    <span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line">    <span class="variable">.wr_full</span>(full)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">rd_ctrl read (</span><br><span class="line">		<span class="variable">.rd_clk</span>(rd_clk),</span><br><span class="line">    <span class="variable">.rd_rst_n</span>(rd_rst_n),</span><br><span class="line">		<span class="variable">.rd_en</span>(rd_en),</span><br><span class="line"> 		<span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line"> 		<span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line"> 		<span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line">		<span class="variable">.rd_empty</span>(empty)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> IC design </tag>
+            
+            <tag> 加法器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>异步fifo的设计</title>
+      <link href="/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2020/03/15/%E5%BC%82%E6%AD%A5fifo%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<center> 这篇文章主要讲解了如何设计一个异步Fifo. </center><a id="more"></a><h2 id="1-资料"><a href="#1-资料" class="headerlink" title="1. 资料"></a>1. 资料</h2><p><a href="https://zhuanlan.zhihu.com/p/42991844" target="_blank" rel="noopener">异步FIFO设计（1）</a></p><p><a href="https://blog.csdn.net/deng_d1/article/details/50179677" target="_blank" rel="noopener">异步FIFO设计原理及Verliog源代码_网络_deng_d1的博客-CSDN博客</a></p><h2 id="2-原理介绍"><a href="#2-原理介绍" class="headerlink" title="2. 原理介绍"></a>2. 原理介绍</h2><h3 id="2-1-使用FIFO的情况"><a href="#2-1-使用FIFO的情况" class="headerlink" title="2.1 使用FIFO的情况"></a>2.1 使用FIFO的情况</h3><ul><li>两个不同时钟域进行数据传输时可以用FIFO</li><li>对于不同宽度的数据接口也可以用FIFO， 例如单片机8位输出，而DSP 16位数据输入。</li></ul><h3 id="2-2-FIFO的相关参数"><a href="#2-2-FIFO的相关参数" class="headerlink" title="2.2 FIFO的相关参数"></a>2.2 FIFO的相关参数</h3><ul><li>FIFO的宽度：表示FIFO进行一次读写操作的数据位。</li><li>FIFO的深度：指的是FIFO能存储多少个N位的数据，N为宽度。</li><li>满标志：FIFO已满或将要满时由FIFO的状态电路送出的一个信号，以阻止FIFO的写操作继续向FIFO中写数据而造成溢出（overflow）</li><li>空标志：FIFO已空或将要空时由FIFO的状态电路送出的一个信号，以阻止FIFO的读操作继续从FIFO中读出数据而造成无效数据的读出（underflow）。</li><li>读时钟：读数据所遵循的时钟。</li><li>写时钟：写操作所需要遵循的时钟。</li><li>读指针：指向下一个读出地址。读完后自动加1</li><li>写指针：指向下一个写入地址，写完后自动加1</li></ul><h3 id="2-3-空满状态的判断"><a href="#2-3-空满状态的判断" class="headerlink" title="2.3 空满状态的判断"></a>2.3 空满状态的判断</h3><p><a href="https://blog.csdn.net/zyn1347806/article/details/79626452" target="_blank" rel="noopener">FIFO空满判断与地址转换的思考_网络_zyn1347806的博客-CSDN博客</a></p><p><a href="https://www.cnblogs.com/xh13dream/p/9265042.html" target="_blank" rel="noopener">异步fifo设计（1）</a></p><ul><li>用格雷码来作地址判断（多引入一位作位判断，比如设计深度为8，宽度为8的异步FIFO，设计其指针位数为4,即 n+1） <ul><li>当最高位和次高位相同时，其余位相同认为是读空</li><li>当最高位和次高位不同时，其余位相同认为是写满</li></ul></li></ul><h3 id="2-4-读空标志位的产生"><a href="#2-4-读空标志位的产生" class="headerlink" title="2.4 读空标志位的产生"></a>2.4 读空标志位的产生</h3><p><a href="https://www.sohu.com/a/114158723_458015" target="_blank" rel="noopener">异步FIFO设计(非常详细，图文并茂，值得一看！）</a></p><p>FIFO中存在两种指针，rd_ptr 和 wr_ptr。只有两种状态下FIFO才会为空：</p><ul><li>系统复位，读写指针都被清空。</li><li>读出速度大于写入速度，读地址赶上写地址。</li></ul><p>空标志位的产生要在读时钟域里完成，这样不至于FIFO为空时，而空标志位还没有发生，但是可能发生FIFO里已经有数据了，但是空标志位还是没有被撤销，不过就算在最坏的情况下，空标志撤销也只是滞后3个周期（因为会需要时钟的同步，经过两级触发器）。还有一种情况，就是空标志比较逻辑检测到读地址和写地址相同后，紧接着发生写操作，导致写地址加1，由于同步模块的滞后性，导致没法及时更新写地址，会产生一个虚假的空信号，称作“虚空”。</p><h3 id="2-5-读满标志位的产生"><a href="#2-5-读满标志位的产生" class="headerlink" title="2.5 读满标志位的产生"></a>2.5 读满标志位的产生</h3><p>读满状态可以理解为，读地址超写地址一圈，两个地址仍然在同一个地方，这时候引入指示位来进行区别和判断。</p><p>读满状态判断：</p><ol><li><p><strong>最高位相异，因为两个指针速度不同， 写超前于读。</strong></p></li><li><p><strong>出去最高位，次高位取反后两者相同。比如：写指针已经走了一圈了跑到3，此时写指针：1110，而读指针第一次走到3，指针数值为：0010。⇒ 发现最高位和次高位均不同，表示满状态。</strong></p></li><li><p><strong>相应的，如果最高位和次高位均相同则表示空状态。</strong></p></li></ol><h2 id="3-代码的实现"><a href="#3-代码的实现" class="headerlink" title="3.代码的实现"></a>3.代码的实现</h2><p>这里以一个8x8的fifo作为案例来进行代码的设计，之后再做一个fifo的封装实现自定义化模块。</p><h3 id="3-1-格雷码转换"><a href="#3-1-格雷码转换" class="headerlink" title="3.1 格雷码转换"></a>3.1 格雷码转换</h3><p>需要用Gray Code来实现地址，从而降低亚稳态。</p><p>基本的转换关系：</p><ul><li>二进制转格雷码： <ul><li>G[ n-1 ] = b[ n - 1 ] （最高位）</li><li>G [i] = b [ i ] ^ b [i + 1]</li></ul></li><li>格雷码转换二进制： <ul><li>b[n-1] = G [n-1]</li><li>b [ i ] = G [ i ]^ G [i+1] ^ ……^ G[ n - 1] = G [ i ] ^ b[ i + 1 ]</li></ul></li></ul><p>EDA link: <a href="https://www.edaplayground.com/x/4QrG" target="_blank" rel="noopener">https://www.edaplayground.com/x/4QrG</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;sample of Binary to Gray</span><br><span class="line">module B2G (</span><br><span class="line">B,   &#x2F;&#x2F; B input binary</span><br><span class="line">G    &#x2F;&#x2F; output Gray</span><br><span class="line">);</span><br><span class="line">input wire [3:0] B;</span><br><span class="line">output reg [3:0] G;</span><br><span class="line">always @(*) begin &#x2F;&#x2F; 使用always时，要加@</span><br><span class="line">G [3] &#x3D; B [3];</span><br><span class="line">G [2] &#x3D; B[2] ^ B[3];</span><br><span class="line">G [1] &#x3D; B[1] ^ B[2];</span><br><span class="line">G [0] &#x3D; B[0] ^ B[1];</span><br><span class="line">end</span><br><span class="line">endmodule</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;TestBench</span><br><span class="line">module tb ();</span><br><span class="line">  reg [3:0] B,G;</span><br><span class="line">  reg [2:0] i;</span><br><span class="line">&#x2F;&#x2F;  reg clk;</span><br><span class="line">  initial begin</span><br><span class="line">    $dumpfile(&quot;dump.vcd&quot;);&#x2F;&#x2F; dump waive</span><br><span class="line">    $dumpvars(1, tb);</span><br><span class="line">    B &#x3D; 0;</span><br><span class="line">    i &#x3D; 0;</span><br><span class="line">    #10;</span><br><span class="line">    B &#x3D;1; #10;</span><br><span class="line">   for (i&#x3D;0; i&lt;&#x3D;7; i &#x3D; i+1) begin</span><br><span class="line">   B &#x3D; B +1;</span><br><span class="line">  #10;</span><br><span class="line">   end</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">  B2G dut(</span><br><span class="line">    .B(B),</span><br><span class="line">    .G(G)</span><br><span class="line">  );</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure><h3 id="3-2-写模块控制"><a href="#3-2-写模块控制" class="headerlink" title="3.2 写模块控制"></a>3.2 写模块控制</h3><p>写模块的功能</p><ul><li>写信号来的时候，写指针地址加1</li><li>将wr 指针和rd 指针进行比较，看是否写满了。其中注意的是，满状态要将读指针同步到写时钟里，需要进行同步后再比较。</li></ul><p>输入信号：wr_clk, wr_en, wr_rst_n, rd_add_glay</p><p>输出信号：wr_add_bin, wr_add_glay</p><p>EDA link <a href="https://www.edaplayground.com/x/5565" target="_blank" rel="noopener">https://www.edaplayground.com/x/5565</a></p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"><span class="keyword">module</span> wr_ctrl (</span><br><span class="line"><span class="keyword">input</span> wr_clk,</span><br><span class="line">        <span class="keyword">input</span> wr_rst_n,</span><br><span class="line"><span class="keyword">input</span> wr_en,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay,</span><br><span class="line">  <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin,</span><br><span class="line">  <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay,</span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span> wr_full</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r1;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r2;</span><br><span class="line"><span class="comment">// 地址增加模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> wr_clk <span class="keyword">or</span> <span class="keyword">negedge</span> wr_rst_n <span class="keyword">or</span> <span class="keyword">posedge</span> wr_en) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (wr_en) <span class="keyword">begin</span> <span class="comment">// 所有的操作都是在始能下开始的</span></span><br><span class="line"><span class="keyword">if</span> (!wr_rst_n) <span class="keyword">begin</span> <span class="comment">//复位操作</span></span><br><span class="line">wr_add_bin_r &lt;= <span class="number">0</span>; <span class="comment">//地址指针复位</span></span><br><span class="line">wr_full &lt;= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!wr_full) <span class="keyword">begin</span> <span class="comment">//不满情况下</span></span><br><span class="line">       wr_add_bin_r &lt;= wr_add_bin_r + <span class="number">1</span>;<span class="comment">// 地址加1</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//调用格雷码转换</span></span><br><span class="line">B2G wr_B2G(</span><br><span class="line"><span class="variable">.B</span> (wr_add_bin_r),</span><br><span class="line"><span class="variable">.G</span> (wr_add_glay_r)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断满状态，如果格雷码首两位和读地址互异，则满</span></span><br><span class="line"><span class="comment">//同步读地址</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> wr_clk) <span class="keyword">begin</span></span><br><span class="line">&#123;rd_add_glay_r2,rd_add_glay_r1&#125; &lt;= &#123;rd_add_glay_r1, rd_add_glay&#125; ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">  <span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">    wr_full = (rd_add_glay_r2[<span class="number">3</span>]^wr_add_glay_r[<span class="number">3</span>]) &amp;&amp; (rd_add_glay_r2[<span class="number">2</span>]^wr_add_glay_r[<span class="number">2</span>]) &amp;&amp; (rd_add_glay_r2[<span class="number">1</span>:<span class="number">0</span>] == wr_add_glay_r [<span class="number">1</span>:<span class="number">0</span>]); <span class="comment">// 首两位互异，且后几位相同</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> wr_add_bin = wr_add_bin_r;</span><br><span class="line"><span class="keyword">assign</span> wr_add_glay = wr_add_glay_r;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure><h3 id="3-3-读模块控制"><a href="#3-3-读模块控制" class="headerlink" title="3.3 读模块控制"></a>3.3 读模块控制</h3><p>功能代码和写模块相似，只是空标志的判断条件不同，要求两个地址完全相同才可以。</p><p>EDA Link:  <a href="https://www.edaplayground.com/x/3tfy" target="_blank" rel="noopener">https://www.edaplayground.com/x/3tfy</a></p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"><span class="keyword">module</span> rd_ctrl (</span><br><span class="line"><span class="keyword">input</span> rd_clk,</span><br><span class="line">     <span class="keyword">input</span> rd_rst_n,</span><br><span class="line"><span class="keyword">input</span> rd_en,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay,</span><br><span class="line">  <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin,</span><br><span class="line">  <span class="keyword">output</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay,</span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span> rd_empty</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay_r;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r1;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay_r2;</span><br><span class="line"><span class="comment">// 地址增加模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> rd_clk <span class="keyword">or</span> <span class="keyword">negedge</span> rd_rst_n <span class="keyword">or</span> <span class="keyword">posedge</span> rd_en) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (rd_en) <span class="keyword">begin</span> <span class="comment">// 所有的操作都是在始能下开始的</span></span><br><span class="line"><span class="keyword">if</span> (!rd_rst_n) <span class="keyword">begin</span> <span class="comment">//复位操作</span></span><br><span class="line">rd_add_bin_r &lt;= <span class="number">0</span>; <span class="comment">//地址指针复位</span></span><br><span class="line">rd_empty &lt;= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!rd_empty) <span class="keyword">begin</span> <span class="comment">//不满情况下</span></span><br><span class="line">       rd_add_bin_r &lt;= rd_add_bin_r + <span class="number">1</span>;<span class="comment">// 地址加1</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//调用格雷码转换</span></span><br><span class="line">B2G rd_B2G(</span><br><span class="line"><span class="variable">.B</span> (rd_add_bin_r),</span><br><span class="line"><span class="variable">.G</span> (rd_add_glay_r)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断满状态，如果格雷码首两位和读地址互异，则满</span></span><br><span class="line"><span class="comment">//同步读地址</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> rd_clk) <span class="keyword">begin</span></span><br><span class="line">&#123;wr_add_glay_r2,wr_add_glay_r1&#125; &lt;= &#123;wr_add_glay_r1, wr_add_glay&#125; ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">  <span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">    rd_empty = wr_add_glay_r2 == rd_add_glay_r ; <span class="comment">// 地址相同时，表示读空</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">assign</span> rd_add_bin = rd_add_bin_r;</span><br><span class="line"><span class="keyword">assign</span> rd_add_glay = rd_add_glay_r;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure><h3 id="3-4-FIFO-Mem-Ctrl"><a href="#3-4-FIFO-Mem-Ctrl" class="headerlink" title="3.4 FIFO Mem Ctrl"></a>3.4 FIFO Mem Ctrl</h3><p>主体部分会建立一个FIFO的mem，并且输入数据和读出数据。</p><p>控制模块功能简介：</p><ul><li>根据地址将对应的数据存储或者读取</li><li>EDA link <a href="https://www.edaplayground.com/x/bWf" target="_blank" rel="noopener">https://www.edaplayground.com/x/bWf</a></li></ul><p>Bug ： 因为弄错数组的写法，导致出现了bug reg [wordsize : 0] array_name [0 : arraysize]; 其中第二个是0-size，例如需要生成8x8 size的数组，应该为 reg [7:0] mem [0:7] 不是 reg [7:0] mem [2:0] ;</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> fifo_mem (</span><br><span class="line"><span class="keyword">input</span> wr_clk,</span><br><span class="line"><span class="keyword">input</span> rd_clk,</span><br><span class="line">  <span class="keyword">input</span> rst_n,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">7</span>:<span class="number">0</span>] wdata,</span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin, <span class="comment">//写地址</span></span><br><span class="line">  <span class="keyword">input</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin, <span class="comment">//读地址</span></span><br><span class="line"><span class="keyword">input</span> wr_full,</span><br><span class="line"><span class="keyword">input</span> rd_empty,</span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] rdata</span><br><span class="line"></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立一个8x8的reg</span></span><br><span class="line">  <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] fifo_mem [<span class="number">0</span>:<span class="number">7</span>]; <span class="comment">//建立一个宽度为8深度也为8的mem</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] wr_add; <span class="comment">//内部3位地址</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] rd_add; <span class="comment">//内部3位地址</span></span><br><span class="line">  <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] i;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">assign</span> wr_add = wr_add_bin [<span class="number">2</span>:<span class="number">0</span>];</span><br><span class="line"><span class="keyword">assign</span> rd_add = rd_add_bin [<span class="number">2</span>:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">always</span> @(<span class="keyword">negedge</span> rst_n) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (!rst_n) <span class="keyword">begin</span></span><br><span class="line">      <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;=<span class="number">7</span> ; i = i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">        fifo_mem [i] &lt;= <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">      </span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> wr_clk) <span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">if</span> (!wr_full) <span class="keyword">begin</span></span><br><span class="line">fifo_mem [wr_add] &lt;= wdata;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> rd_clk) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (!rd_empty) </span><br><span class="line">rdata &lt;= fifo_mem [rd_add] ;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure><h3 id="3-5-Top-level-各模块集成"><a href="#3-5-Top-level-各模块集成" class="headerlink" title="3.5 Top level 各模块集成"></a>3.5 Top level 各模块集成</h3><p>EDA link : <a href="https://www.edaplayground.com/x/6Mfp" target="_blank" rel="noopener">https://www.edaplayground.com/x/6Mfp</a></p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Code your design here</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "fifo_mem.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "wr_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "rd_ctrl.v"</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">include</span> "B2G.v"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> fifo(</span><br><span class="line"><span class="keyword">input</span> wr_clk,</span><br><span class="line"><span class="keyword">input</span> rd_clk,</span><br><span class="line"><span class="keyword">input</span> rst_n,</span><br><span class="line"><span class="keyword">input</span> wr_en,</span><br><span class="line"><span class="keyword">input</span> rd_en,</span><br><span class="line"><span class="keyword">input</span> [<span class="number">7</span>:<span class="number">0</span>] data_i,</span><br><span class="line">  <span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] data_o,</span><br><span class="line">  <span class="keyword">output</span> <span class="keyword">reg</span> full, <span class="comment">// 用于控制数据的输入</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_glay;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] wr_add_bin;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] rd_add_bin;</span><br><span class="line"><span class="keyword">wire</span> empty;</span><br><span class="line"><span class="keyword">wire</span> wr_rst_n,rd_rst_n;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> wr_rst_n = rst_n;</span><br><span class="line"><span class="keyword">assign</span> rd_rst_n = rst_n;</span><br><span class="line"></span><br><span class="line">fifo_mem dut(</span><br><span class="line">    <span class="variable">.rst_n</span> (rst_n),</span><br><span class="line">    <span class="variable">.wr_clk</span> (wr_clk),</span><br><span class="line">    <span class="variable">.rd_clk</span> (rd_clk),</span><br><span class="line">    <span class="variable">.wdata</span> (data_i),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line">    <span class="variable">.wr_full</span>(full),</span><br><span class="line">    <span class="variable">.rd_empty</span>(empty),</span><br><span class="line">    <span class="variable">.rdata</span>(data_o)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">wr_ctrl write(</span><br><span class="line">    <span class="variable">.wr_clk</span>(wr_clk),</span><br><span class="line">    <span class="variable">.wr_rst_n</span>(wr_rst_n),</span><br><span class="line">    <span class="variable">.wr_en</span>(wr_en),</span><br><span class="line">    <span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line">    <span class="variable">.wr_add_bin</span>(wr_add_bin),</span><br><span class="line">    <span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line">    <span class="variable">.wr_full</span>(full)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">rd_ctrl read (</span><br><span class="line"><span class="variable">.rd_clk</span>(rd_clk),</span><br><span class="line">    <span class="variable">.rd_rst_n</span>(rd_rst_n),</span><br><span class="line"><span class="variable">.rd_en</span>(rd_en),</span><br><span class="line"> <span class="variable">.wr_add_glay</span>(wr_add_glay),</span><br><span class="line"> <span class="variable">.rd_add_bin</span>(rd_add_bin),</span><br><span class="line"> <span class="variable">.rd_add_glay</span>(rd_add_glay),</span><br><span class="line"><span class="variable">.rd_empty</span>(empty)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>一个IC工程师的自我修养</category>
+          
+          <category> 一个IC工程师的自我修养 </category>
+          
       </categories>
-      <tags>
-        <tag>IC design</tag>
-        <tag>FIFO</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> IC design </tag>
+            
+            <tag> FIFO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
