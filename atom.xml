@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://unclefish-cc.github.io</id>
+    <title>UncleFish&apos;s Blog</title>
+    <updated>2020-04-12T16:20:43.386Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://unclefish-cc.github.io"/>
+    <link rel="self" href="https://unclefish-cc.github.io/atom.xml"/>
+    <subtitle>Never give up, and you will see hope.</subtitle>
+    <logo>https://unclefish-cc.github.io/images/avatar.png</logo>
+    <icon>https://unclefish-cc.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, UncleFish&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[浅谈hugo建站]]></title>
+        <id>https://unclefish-cc.github.io/浅谈hugo建站/</id>
+        <link href="https://unclefish-cc.github.io/浅谈hugo建站/">
+        </link>
+        <updated>2020-04-10T03:03:08.000Z</updated>
+        <summary type="html"><![CDATA[<p>「大家好，我是鱼叔，前不久我刚用hexo搭建完我的博客，但是最近在隔离期无所事事，秉着“生命在于折腾”的精神，我又将博客从Hexo迁移到了Hugo上，这篇文章主要讲为什么我要选择Hugo，以及Hugo搭建博客的一些tips。」</p>
+<p>HUGO 博客链接：http://unclefish.ink/my_blog.github.io/</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>「大家好，我是鱼叔，前不久我刚用hexo搭建完我的博客，但是最近在隔离期无所事事，秉着“生命在于折腾”的精神，我又将博客从Hexo迁移到了Hugo上，这篇文章主要讲为什么我要选择Hugo，以及Hugo搭建博客的一些tips。」</p>
+<p>HUGO 博客链接：http://unclefish.ink/my_blog.github.io/</p>
+<!--more-->
+<h3 id="为什么选择hugo">为什么选择Hugo</h3>
+<p>现在主流的博客大多都是Hexo 加 Github Page，甚至说再绝对一点，常常点开一篇文章就是Hexo Next 主题的模板。这个其实很容易理解，因为hexo比较容易上手，并且有很稳定、功能齐全的主题（说的就是你，Next），那么在这样一个强有力的竞争对手下，Hugo 又是如何生存下来，并且吸引到用户的呢？</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200409141402.png" alt="" loading="lazy"></figure>
+<p>首先，第一点得提的就是Hugo 打出的标语 -- “The world’s fastest framework for building websites”。Hugo 依靠Go语言进行开发，号称世界上最快的构建网站工具，到底有多快？根据相关博主提供的数据，他200篇左右的博文用Hexo 需要10分钟去生成静态网页，而Hugo 只需要10秒。就我个人的体验来说，Hugo确实大大加快了网页生成的速度，平常增加一篇博文然后再生成渲染需要4秒左右，而Hugo基本上是1秒内完成。正是依赖于Hugo 快速生成的特点，调试方便成了Hugo的第二大特点。基本上我在源文件处修改的内容可以实时地显示在网页上，而不用再次敲代码生成再预览，这对于博主来说简直就是一个福音。</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/04/09/39e11e09980ac738c1deb091d1bb2436.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="img" loading="lazy"></figure>
+<h3 id="hugo-目前存在的问题">Hugo 目前存在的问题</h3>
+<p>Hugo 在传播度上不及Hexo，相应的搭建教程及bug修复上也没有Hexo来的齐全，因此会要求用户有一定的代码能力和debug能力。此外，从Hexo迁移到Hugo会存在一定的时间成本，因为两者的markdown文件中对于Front Matter 的格式定义不同，因此需要修改每篇博文的该部分（当然用脚本去修改是最好的）。最后，是主题问题，Hugo上面还没有像Next一样完善成熟的主题，不过这也让大家不会一窝蜂地选取同一个样式（Hugo的主题样式还是很多的，官网提供了将近300个主题，选择犹豫症慎入）。</p>
+<p>如果你看完上面我的使用感受，对Hugo还感兴趣的话就可以接着往下看技术部分。</p>
+<hr>
+<h3 id="技术部分">技术部分</h3>
+<h4 id="1-安装-git-和-go">1. 安装 Git 和 Go</h4>
+<p>使用Hugo前需要安装<a href="https://git-scm.com/">Git</a> 和 <a href="https://golang.org/dl/">Go</a> 语言开发环境，点击对应网址下载安装包即可。</p>
+<h4 id="2-安装hugo">2. 安装Hugo</h4>
+<p>网上存在很多用工具安装的方式，我这里讲述一个我认为最简单的方式，不用涉及太多的代码（本方法针对pc）。</p>
+<p>（1）在Hugo的<a href="https://github.com/gohugoio/hugo/releases">官网</a>中选择想要的版本下载zip，将其中的hugo.exe文件解压到想要的地方，比如 <code>C:\Hugo\bin</code>。</p>
+<p>（2）将Hugo添加到Windows的环境变量 <code>PATH</code>中。具体添加方法可参考<a href="https://jingyan.baidu.com/article/8ebacdf02d3c2949f65cd5d0.html">Windows 10 如何添加环境变量</a>。</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.gif" alt="" loading="lazy"></figure>
+<p>（3）添加完<code>PATH</code>后，打开Git Bash 输入 <code>hugo version</code> 出现<code>hugo static site generator</code>相关信息表示安装完成。</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200409131219.png" alt="" loading="lazy"></figure>
+<h4 id="3-生成博客">3. 生成博客</h4>
+<p>（1）打开Git Bash 输入<code>hugo new site &quot;你的文件名字&quot;</code>，便可以生成一个用于存放博客的文件夹。</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200409131452.png" alt="" loading="lazy"></figure>
+<p>（2）安装主题。</p>
+<p>不同于hexo，hugo没有自带主题，所以建立完文件夹后要导入主题文件。导入主题方式和hexo相似，可以用<code>git clone</code> 的方式，也可以到相应主题的github中下载zip文件然后解压到自己博客的<code>themes</code>文件夹中。</p>
+<p>推荐几个主题：<a href="https://themes.gohugo.io/hugo-theme-pure/">Pure</a>、<a href="https://themes.gohugo.io/hugo-theme-even/">Even</a>、<a href="https://themes.gohugo.io/hugo-coder/">Coder</a></p>
+<p>官网主题库：<a href="https://themes.gohugo.io/">Hugo Themes</a></p>
+<p>（3）配置文件</p>
+<p>Hugo配置文件放置在源文件下，并且支持三种格式：toml，yaml，yml。这个配置文件可以直接从主题文件中的exampleSite 里copy到博客文件夹下，然后进行修改。</p>
+<ul>
+<li>注意点1：有些主题没有提供相应的配置文件，得进行自己修改，不建议选用这类主题。</li>
+<li>注意点2：配置文件中要确保里面的主题名字和你<code>themes</code>文件夹中相应的主题文件夹名字一样，比如我的主题是pure，那么配置文件里的<code>theme = pure</code>，并且themes 文件夹中也有一个pure的文件夹。这是为了保证工具能依据名字找到相应的主题文件。</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/4.gif" alt="" loading="lazy"></figure>
+<p>（4）生成博文</p>
+<p>在 Git Bash 中输入 <code>hugo new posts/xxxx.md</code>，这时候就会在文件夹 <code>content/posts</code>形成你要的markdown文件，打开进行编辑即可。</p>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/5.gif" alt="" loading="lazy"></figure>
+<p>（5）渲染查看效果</p>
+<p>在博客文件夹中打开Git Bash，输入 <code>hugo server</code>，然后打开 http://localhost:1313/ 来查看效果。注意，markdown文件中的 <code>front matter</code> 部分有一个<code>draft</code> 参数，如果<code>draft</code>设置为<code>true</code> 则可正常渲染，如果设置为<code>false</code>则不予以渲染。相应的如果想查看全部效果则输入<code>hugo server -D</code> 表示将草稿文件也进行渲染。</p>
+<h4 id="4-代码托管">4. 代码托管</h4>
+<p>这里主要以GitHub 作为代码托管，假定你已经建立了一个xxx.github.io的一个仓库。官方提供了三四种<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">上传方式</a>，本文采用生成docs的方式进行部署，个人认为这种方式比较简单明了。</p>
+<p>（1）修改配置文件。在配置文件config.toml中添加<code>publishDir = docs</code>，其他格式的配置文件类似。</p>
+<p>（2）打开Git Bash，输入<code>hugo</code>，就会发现博客文件中出现了docs文件夹，这是因为hugo将网页的信息都存储在docs里，而不是public中。</p>
+<p>（3）在博客文件夹中，打开Git Bash，依次输入以下代码（注意 git remote add 后跟随自己github的对应地址）：</p>
+<pre><code class="language-git">git remote add origin  https://github.com/xxxxx/xxxx.github.io.git
+git add .
+git commit -m &quot;first commit&quot;
+git push -u origin master
+</code></pre>
+<p>（4）在GitHub对应的仓库设置中，将Github Pages source改成branch/docs 。</p>
+<figure data-type="image" tabindex="8"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200409140359.png" alt="" loading="lazy"></figure>
+<p>（5）这时候点击网址会发现内容已经成功渲染了，但是跳转连接出现问题，这是因为我们没有在配置文件中的<code>baseURL</code>中更新我们未来发布的网址链接。因此我们将GitHub Pages 对应的网址进行复制然后添加到配置文件的第一个 <code>baseURL</code>中，重新进行第二步和第三步即可。</p>
+<hr>
+<h3 id="总结">总结</h3>
+<p>到这里就说完了我所有的操作过程，Hugo 的快速生成特性很适合那些拥有大量博文的博主，从长远的角度来看，伴随着博文数量的增加，Hugo的这个优势也会越来越明显。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何在windows 体验极致模仿Mac os系统桌面]]></title>
+        <id>https://unclefish-cc.github.io/如何在windows-体验极致模仿Mac-os系统桌面/</id>
+        <link href="https://unclefish-cc.github.io/如何在windows-体验极致模仿Mac-os系统桌面/">
+        </link>
+        <updated>2020-04-05T16:23:26.000Z</updated>
+        <content type="html"><![CDATA[<p>大家好，我是鱼叔，今天在这里聊一下如何在windows上体验极致模仿的Mac os 系统桌面。<!--more--><br>
+其实很多人都有这样的疑问，既然欣赏Mac os系统，那为什么要买pc呢，与其在pc上捣鼓让它变得像mac，还不如直接买一台macbook。当然，在经济条件允许的条件下，最香的方法就是直接买一个mac，本文适用于那些想在pc端体验Mac os桌面的用户，以及那些习惯mac系统但是因为现实条件使用pc的用户。</p>
+<p>先上效果图：</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405200214.png" alt="img" loading="lazy"></figure>
+<h2 id="工具介绍">工具介绍</h2>
+<blockquote>
+<p>工具：Mydock Myfinder</p>
+</blockquote>
+<p>本文所使用的工具是 Mydock 和 Myfinder。 不同于大家熟悉的rocketdock，这个软件的安装更加快捷方便，直接在<a href="https://www.mydockfinder.com/">官网</a>中下载，然后解压运行exe文件即可（注意事项：最好用edge 浏览器下载，chrome会把文件视为病毒而拒绝下载）。</p>
+<h2 id="mydock">Mydock</h2>
+<p>在下载完成后，点击运行dock.exe，你就会发现桌面已经出现了类似mac os系统的dock。</p>
+<h3 id="在dock上添加相关的应用和文件">在dock上添加相关的应用和文件</h3>
+<p>初始化的dock上只有finder、Launchpad和废纸篓，为了丰富应用，Mydock 提供了两种添加的方式：</p>
+<ol>
+<li>直接将桌面上的应用icon拖到dock上；</li>
+<li>打开你想要的添加的软件，这时候dock上会显示出那个软件的图标，然后右击图标选择“在Dock中保留”。</li>
+</ol>
+<p>添加文件或者文件夹也是相同的方法。</p>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405201247.png" alt="img" loading="lazy"></figure>
+<h3 id="launchpad-的设置">Launchpad 的设置</h3>
+<p>我在Launchpad中体会到了官网所说的“极致模仿”，当我打开这个Launchpad的时候，显示图是这样的:</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405201648.png" alt="img" loading="lazy"></figure>
+<p>这不就是mac os 吗？看到这个效果图的时候，我是惊呆的。当然这和真实mac下的Launchpad还是不一样，里面的软件不是自动生成的，用户需要手动添加自己应用，只需要右键Launchpad，点击“添加图标” ，将所用放的软件拖进去即可。</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405201936.png" alt="img" loading="lazy"></figure>
+<p>不要以为这样就结束了，开发者还给Launchpad提供了一个设置选项，右键dock选择“dock偏好设置”，在其他选项中，有一个“使用开始菜单代替Launchpad”的选项，当你勾选这个选项时，你就会发现点击Launchpad，桌面会弹出windows的开始菜单，这简直是非常考虑pc用户的使用习惯了。</p>
+<p><img src="https://cdn.sspai.com/2020/04/06/dc2ca271af8041cea3c4a6b3bcc22cac.gif" alt="img" loading="lazy">请输入图片标题</p>
+<h3 id="提供个性化的logo更替功能">提供个性化的logo更替功能</h3>
+<p>不满意软件自带的logo，或者想要自己弄一个统一风格的dock？Mydock为想要个性化的用户提供了自定义logo的功能，只需要右键相应dock上的软件，点击“设置此图标”，将你想用的logo png 文件拖到指定地方即可。</p>
+<h3 id="消息提醒方式">消息提醒方式</h3>
+<p>Mydock 让消息提醒以方块的形式从右边弹出，很好地模拟了Mac os 消息提醒的方式。但是因为软件没法读取微信等通信工具中具体的消息数量，因此在dock中的消息数量不是很精确。</p>
+<p><img src="https://cdn.sspai.com/2020/04/05/16c5592ef2f437f6cdcc0dcde1baf3f4.jpg" alt="img" loading="lazy">图片来自官网</p>
+<h3 id="相关的设置">相关的设置</h3>
+<p>为了更加贴近Mac os系统，dock 在偏好设置中提供了很多设置，由于功能较多，就不全部细讲，我会挑几个我觉得比较实用的功能来进行介绍。</p>
+<ol>
+<li>通用选项里主要用于设置Dock 上的图标大小，以及图标间距和dock所处位置。</li>
+<li>高级选项中主要为使用时的习惯设置，包括动画效果，以及渲染效果等。推荐其中勾选“开机自启动”和“自动隐藏任务栏”选项。 <img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405204356.png" alt="img" loading="lazy"></li>
+<li>其他选项中值得关注的设置是“开始菜单代替Launchpad” 以及 “全局模糊效果”。</li>
+</ol>
+<h2 id="myfinder">Myfinder</h2>
+<p>Myfinder的安装和Mydock 相似，直接运行exe文件即可，随后就会发现自己的桌面上方出现了类似Mac os的finder栏。Myfinder 提供了对电脑信息的实时监控，包括CPU、硬盘空间、内存占有量等，同时还支持显示托盘（再也不用担心windows任务栏消失后，找不到在后台运行的软件了）。</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405231634.png" alt="img" loading="lazy"></figure>
+<p>Myfinder 还有一个很有趣的设计，它保留了一个Siri标志，用鼠标点击后会弹出windows的Cortana语音助手，另外Myfinder上的搜索功能会自动将输入的内容用于百度搜索，和实际的Mac os 操作还是有区别的。</p>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405232502.png" alt="img" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200405232638.png" alt="myfinder的搜索栏" loading="lazy"></figure>
+<h2 id="使用体验总结">使用体验总结</h2>
+<p>Mydock 和 Myfinder 带给我整体的使用体验是很惊艳的，没有复杂的操作设置，简单的下载和安装就能带来极其逼真的Mac os桌面模拟体验。除此之外，它的很多细节设计大大地提高了用户体验，有一种Windows和Mac os的融合感。最后，不得不说的还是它的极致模拟带给用户沉浸式的体验，将Mac os的桌面基本原封不动地给搬到了pc上。当然，这款软件还是有一些问题，比如会占用一定的内存，以及有时候会莫名其妙地奔溃，不过相信这款软件会不断地被优化。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[hexo Next 主题修改tips]]></title>
+        <id>https://unclefish-cc.github.io/hexo-Next-主题修改tips/</id>
+        <link href="https://unclefish-cc.github.io/hexo-Next-主题修改tips/">
+        </link>
+        <updated>2020-04-04T07:01:48.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
+<!--more-->
+<h2 id="1-如何让文章置顶">1. 如何让文章置顶</h2>
+<h3 id="博文置顶">博文置顶</h3>
+<p>在gitbash里输入以下代码加入置顶插件。</p>
+<pre><code class="language-py">$ npm uninstall hexo-generator-index --save
+$ npm install hexo-generator-index-pin-top --save
+</code></pre>
+<p>然后在文章的<code>Front-matter</code>中加上<code>top:true</code>即可实现置顶。</p>
+<h3 id="置顶标志体现">置顶标志体现</h3>
+<p>实现置顶后如果没有置顶标志就会表现得很奇怪，这时候我们需要添加相关的置顶标志来实现。</p>
+<p>打开/blog/theme/next/layout/_macro 中的<code>post.swig</code> 文件，定位到 <code>&lt;div class=&quot;post-block&quot;&gt;</code>下，添加如下代码：</p>
+<pre><code>{% if post.top %}
+            &lt;i class=&quot;fa fa-thumb-tack&quot;&gt;&lt;/i&gt;
+            &lt;font color=7D26CD&gt;置顶&lt;/font&gt;
+            &lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;
+ {% endif %}
+</code></pre>
+<h2 id="2-增加博客背景图片">2. 增加博客背景图片</h2>
+<ol>
+<li>在<code>themes/next/source/css/_custom/custom.styl</code>中添加CSS样式</li>
+</ol>
+<p>文件位置：hexo/themes/next/source/css/_custom/custom.styl// 背景图片</p>
+<pre><code class="language-css">body::before {
+    background-image: url(https://背景图.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    content: &quot; &quot;;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+</code></pre>
+<p>2）jquery-backstretch插件</p>
+<p>文件位置：hexo/themes/next/layout/_layout.swig</p>
+<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js&quot;&gt;&lt;/script&gt;
++  &lt;script&gt;
++  $(&quot;body&quot;).backstretch(&quot;https://背景图.jpg&quot;);
++  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>加入到文件最后面前面即可。</p>
+<h2 id="3-博客内容透明度调整">3. 博客内容透明度调整</h2>
+<p>NexT主题的博客文章均是不透明的，下面的方法可以使博客内容透明化：</p>
+<p>在<code>blog/themes/next/source/css/_custom/custom.styl</code>中添加以下内容：</p>
+<pre><code>// page-opacity
+
+.content-wrap {
+  opacity: 0.85;
+}
+
+.sidebar {
+  opacity: 0.85;
+}
+
+.header-inner {
+  background: rgba(255,255,255,0.85);
+}
+
+.popup {
+  opacity: 0.9;
+}
+</code></pre>
+<p>其中<code>content-wrap</code>是文章内容的透明度设置，<code>sidebar</code>是侧边框的透明度设置，<code>header-inner</code>是菜单栏的透明度设置，<code>popup</code>是搜索框（<code>local-search</code>）的透明度设置。</p>
+<p>可以修改上面的数字来自定义透明度。</p>
+<p>注意其中<code>header-inner</code>不能使用<code>opacity</code>进行配置。<br>
+因为<code>header-inner</code>包含<code>header.swig</code>中的所有内容。<br>
+若使用<code>opacity</code>进行配置，子结点会出很多问题</p>
+<h2 id="4-增加近期文章list">4. 增加近期文章list</h2>
+<pre><code>{% if theme.recent_posts %}
+    &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.recent_posts_layout  }}&quot;&gt;
+      &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
+        &lt;!-- modify icon to fire by szw --&gt;
+        &lt;i class=&quot;fa fa-history fa-{{ theme.recent_posts_icon | lower }}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        {{ theme.recent_posts_title }}
+      &lt;/div&gt;
+      &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
+        {% set posts = site.posts.sort('-date') %}
+        {% for post in posts.slice('0', '5') %}
+          &lt;li&gt;
+            &lt;a href=&quot;{{ url_for(post.path) }}&quot; title=&quot;{{ post.title }}&quot; target=&quot;_blank&quot;&gt;{{ post.title }}&lt;/a&gt;
+          &lt;/li&gt;
+        {% endfor %}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+{% endif %}
+</code></pre>
+<p>将此代码贴在<code>next/layout/_macro/sidebar.swig</code>中的<code>if theme.links</code>对应的<code>endif</code>后面，就ok了，是不是很简单。。。。<br>
+为了配置方便，在主题的<code>_config.yml</code>中添加了几个变量，如下：</p>
+<pre><code>recent_posts_title: 近期文章
+recent_posts_layout: block
+recent_posts: true
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[hexo 博客拓展 | CODING平台托管以及个性化域名]]></title>
+        <id>https://unclefish-cc.github.io/hexo-博客拓展/</id>
+        <link href="https://unclefish-cc.github.io/hexo-博客拓展/">
+        </link>
+        <updated>2020-03-30T09:46:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>「hello 大家好，我是鱼叔。在上一篇讲完关于next的优化tips之后，这一篇我们来聊一下CODING平台的代码托管以及如何个性化你自己的域名」</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>「hello 大家好，我是鱼叔。在上一篇讲完关于next的优化tips之后，这一篇我们来聊一下CODING平台的代码托管以及如何个性化你自己的域名」</p>
+<!--more-->
+<h2 id="初衷">初衷</h2>
+<p>一般大家的hexo博客都是基于GIthub 进行托管，但是这个托管存在一个问题就是国内网络访问会比较慢，同时GitHub对百度搜索的爬虫存在限制，也就是说你的博客如果基于Github可能就没法被百度搜索给收录，这时候咱们就需要另一个代码托管平台来应对国内的网络访问。笔者所采用的平台是CODING,有点类似Github的一个国内代码托管平台。</p>
+<p>关于域名，纯粹是个人的喜好问题了。为了让自己的博客更加个性化，一个独特的域名自然是很有必要的，再加上国内购买域名的方式很方便（笔者便通过阿里云购买了域名），所以有兴趣的博主也可以考虑。</p>
+<h2 id="coding-平台代码托管">CODING 平台代码托管</h2>
+<h3 id="coding-的注册">CODING 的注册</h3>
+<p>CODING 作为一个国内代码托管平台，同时支持git操作。首先在<a href="https://coding.net/company/about">coding.net</a> 进行注册。</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200326192154.png" alt="" loading="lazy"></figure>
+<h3 id="将ssh-公钥配置到coding上">将ssh 公钥配置到CODING上</h3>
+<p>一般之前用GitHub部署博客时已经生成了ssh密钥，如果没有生成则从第一步开始，如果已经生成了则从第二步开始。</p>
+<ol>
+<li>
+<p>生成ssh密钥</p>
+<p>打开gitbash，输入 <code>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code> ，然后一直回车（建议用同样的邮箱注册CODING 和 GitHub）。</p>
+</li>
+<li>
+<p>复制公钥</p>
+<p>打开C盘下user 文件夹中的.ssh文件夹，再打开其中的id_rsa.pub，将其中的公钥进行复制。</p>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200326193749.png" alt="" loading="lazy"></figure>
+<p>打开CODING个人设置，点击左侧的SSH公钥，选择添加新的公钥，将之前复制的所有内容进行粘贴即可。</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200326194043.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>公钥配置测试</p>
+<p>为了测试公钥添加是否完成，我们需要在本地的GitBash里进行测试。打开GitBash，输入</p>
+<pre><code>ssh -T git@e.coding.net
+</code></pre>
+<p>然后会询问是否继续，一直输入yes即可，最后会显示success的标志。</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200326204311.png" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h3 id="创建coding-仓库">创建CODING 仓库</h3>
+<p>在自己的项目管理平台上新建一个代码托管项目。</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.gif" alt="" loading="lazy"></figure>
+<p>在创建完项目后，会在右侧看到相关的HTTP协议的链接，将它进行复制用于后面的代码上传。</p>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200326201646.png" alt="" loading="lazy"></figure>
+<h3 id="部署博客">部署博客</h3>
+<ol>
+<li>
+<p>在我们的blog文件夹中打开_config.yml文件，在deploy下面添加CODING平台的链接(链接为上一步复制的链接)，注意后方逗号后的master是分支的命名格式。</p>
+<pre><code>deploy:
+  type: git
+  repo:
+    github: https://github.com/xxx/xxx.github.io.git,master
+    coding: https://e.coding.net/xxx/xxx.git,master
+
+</code></pre>
+</li>
+<li>
+<p>在source文件中新建一个Staticfile（用于生成静态网页），注意大小写以及没有后缀的特点。可以通过gitbash输入以下代码来生成，也可通过新建一个txt文件然后修改名字来实现。</p>
+<pre><code>cd source
+touch Staticfile
+</code></pre>
+</li>
+<li>
+<p>在Git Bash中输入<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 来进行部署。</p>
+</li>
+</ol>
+<h3 id="生成静态网页">生成静态网页</h3>
+<p>刚生成的项目仓库中是不存在生成静态网页的选项的，因此我们要将这个按钮打开。打开方式也很简单，点击项目栏下方的“项目设置”，选择“通知设置”，将其中的“构建与部属”打开，然后就可以发现项目栏中会出现“构建静态网页&quot;选项，通过这个选项便可以生成我们所需的博客了，并且CODING平台会提供相应的网站链接（注意，静态网页生成需要实名注册）。</p>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/2.gif" alt="" loading="lazy"></figure>
+<h2 id="域名个性化">域名个性化</h2>
+<p>域名就是一个网站的名字，通过网域名称系统（DNS）来实现对具体IP地址的访问。为了保证域名的唯一性，所有的域名都需要通过域名注册商实现注册，笔者便是通过阿里云实现注册，接下去的教程也是基于阿里云。</p>
+<h3 id="购买域名">购买域名</h3>
+<ol>
+<li>
+<p>在<a href="https://wanwang.aliyun.com/">阿里云万网</a>上查询想要的域名。</p>
+</li>
+<li>
+<p>将域名加入清单并结算。</p>
+<figure data-type="image" tabindex="8"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330121817.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>创建信息模板。（注意信息模板中要求实名认证，并且推荐使用身份证，会比较快捷，笔者曾用护照去实名花费了大量的审核时间）</p>
+</li>
+<li>
+<p>付钱。</p>
+</li>
+</ol>
+<h3 id="解析">解析</h3>
+<p>当购买完域名后，需要在域名的控制平台里加入我们想要这个域名映射到的实际网站。点击“解析”操作进入域名控制台。</p>
+<figure data-type="image" tabindex="9"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330122544.png" alt="" loading="lazy"></figure>
+<p>在域名控制台中加入解析记录，主要填的内容为<code>记录类型</code>、<code>主机记录</code>、<code>解析线路</code>、<code>记录值</code>。具体填写如下：</p>
+<pre><code class="language-html">记录类型		主机记录	解析线路	记录值
+CNAME			www		   境外		github 博客的网址
+CNAME			www		   默认  		前面CODING平台产生的静态网页的网址
+A               @          默认       185.199.108.153
+A               @          默认       185.199.109.153
+A               @          默认       185.199.110.153
+A               @          默认       185.199.111.153
+</code></pre>
+<p>其中将GitHub部署的博客和CODING部署的博客分别解析线路改成境外和境内，是为了让境外用户和境内用户能更加快捷的访问你的博客而不受地域限制。</p>
+<p>注意，针对CODING 平台还需要加一个A记录类型的记录，记录值为CODING Page 的IP。CODING Page 的IP 可通过在gitbash中输入<code>ping 你的名字.coding.me</code> 来获得。</p>
+<h3 id="购买免费的ssl证书">购买免费的SSL证书</h3>
+<p>阿里云为个人的域名提供免费的SSL证书，具体方法如下：</p>
+<ol>
+<li>
+<p>打开个人控制台选择配置SSL证书</p>
+<figure data-type="image" tabindex="10"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330150227.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>然后在购买证书中选择免费版（个人）DV 即可。</p>
+<figure data-type="image" tabindex="11"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330150341.png" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h3 id="github本地配置">GitHub本地配置</h3>
+<ol>
+<li>
+<p>新建CNAME文件</p>
+<p>进入自己博客的source文件夹中，新建一个<code>CNAME</code>文件，注意没有后缀。然后打开该文件，在文件中加入自己的域名，注意不需要加http或者www，比如笔者的博客为unclefish.ink，直接输入unclefish.ink 保存即可。</p>
+<figure data-type="image" tabindex="12"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330124648.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>部署</p>
+<p>在GitBash 中输入 <code>hexo g</code>、<code>hexo d</code>进行部署，然后打开自己GitHub博客仓库，打开设置查看GitHub Pages 中的<code>Custom domain</code> 是否是自己的博客新域名。</p>
+</li>
+</ol>
+<h3 id="coding-部署新域名">CODING 部署新域名</h3>
+<p>在CODING平台的静态网页部署中选择设置，然后在自定义域名中加了自己的域名后保存即可（注意要求要在阿里云的DNS中先加入CNAME 导向CODING的静态网页）。</p>
+<figure data-type="image" tabindex="13"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.gif" alt="" loading="lazy"></figure>
+<p>修改完域名后，网站的浏览数会重新开始计数，所以算是一种弊端吧。</p>
+<h2 id="将博客重新收录到谷歌和百度中">将博客重新收录到谷歌和百度中</h2>
+<h3 id="谷歌收录">谷歌收录</h3>
+<p>由于换了域名，所以需要重新加入收录库，在控制台中增加收录网页，然后在验证中选择dns验证，这时候谷歌会提供一个TXT，将这个TXT复制到阿里云的DNS解析记录中，通过验证后即可被收录到谷歌中（注意验证后要提交<a href="https://sspai.com/post/59568">站点网页</a>）。新增记录格式如下：</p>
+<pre><code>记录类型		主机记录	解析线路	记录值
+TXT				@			默认		google-xxx(复制来的值)
+</code></pre>
+<figure data-type="image" tabindex="14"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330161605.png" alt="" loading="lazy"></figure>
+<h3 id="百度收录">百度收录</h3>
+<h4 id="dns-验证">DNS 验证</h4>
+<p>因为GitHub不允许百度的爬虫，所以这里我们通过将百度的搜索导向我们在CODING平台上建立的静态网页。</p>
+<ol>
+<li>
+<p>在百度的<a href="https://ziyuan.baidu.com/site/index#/">站点网站</a>中添加自己的博客。</p>
+</li>
+<li>
+<p>选择CNAME验证方式，这时候百度会要求将<code>xxxxx.你的博客</code>使用CNAME解析到ziyuan.baidu.com, 这时候我们要将前面的xxxx给复制下来。</p>
+</li>
+<li>
+<p>打开阿里云DNS解析工具，新增如下记录，注意xxxx为之前复制的值。</p>
+<pre><code>记录类型		主机记录	解析线路	记录值
+CNAME			xxxx		默认		ziyuan.baidu.com
+</code></pre>
+</li>
+<li>
+<p>在百度站点平台点击验证即可。</p>
+</li>
+</ol>
+<h4 id="提交站点文件">提交站点文件</h4>
+<p>在gitbash中输入<code>npm install hexo-generator-baidu-sitemap --save</code> 来加载插件，然后在博客的_config.yml 文件中添加以下代码。</p>
+<pre><code class="language-yml">baidusitemap:
+  path: baidusitemap.xml
+</code></pre>
+<p>最后通过<code>hexo g; hexo d</code>实现部署，会发现在public文件夹中多了一个baidusitemap.xml 文件，这就是百度所要抓取的站点文件。随后在百度链接提交处选择sitemap输入自己的文件路径即可。</p>
+<figure data-type="image" tabindex="15"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200330165828.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[hexo next 主题优化 | 这里可能有你遇到所有问题的答案]]></title>
+        <id>https://unclefish-cc.github.io/hexo-next-主题优化/</id>
+        <link href="https://unclefish-cc.github.io/hexo-next-主题优化/">
+        </link>
+        <updated>2020-03-19T06:19:42.000Z</updated>
+        <summary type="html"><![CDATA[<p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p>
+<!--more-->
+<h2 id="搭建blog的初衷">搭建blog的初衷</h2>
+<p>现在网络平台里有很多可以发表个人看法的平台，比如我派，比如知乎、简书等，那花费功夫搭建自己的个人blog到底有什么意义呢？在我看来，个人博客的意义在于自由性，因为这是你自己的平台，你可以自由地去发表个人想法和文章，而不用担心内容是否迎合具体某个平台的读者。其次，我将个人博客作为自己的一个分享型知识记录，我希望自己的经历或者知识可以给别人带来一点启发和帮助，也许某一个瞬间，当一个人在搜寻相关的知识，参考了你博客的内容并且留言感时，你会发现自己其实在给这个社会做贡献，你在无声中被别人所认可。</p>
+<h2 id="相关的优化">相关的优化</h2>
+<h3 id="前言">前言</h3>
+<ul>
+<li>关于hexo</li>
+</ul>
+<p>我所搭建的blog是基于hexo + GitHub的，因为hexo凭借它轻便快捷的特点，已经成为现在个人博客搭建的主流。我派已经有较为具体的搭建教程文章了，就不再详述搭建步骤。</p>
+<p><a href="https://sspai.com/post/59337">https://sspai.com/post/59337</a></p>
+<ul>
+<li>关于NexT</li>
+</ul>
+<p>NexT 是hexo主题中非常流行的一个，因为它功能齐全，而且插件丰富，成为大多数人的首选主题。当然流行就会出现一个问题，很容易撞车，大家的博客外表都非常相似。不过鱼叔认为博客只是载体，内容才是王道，所以在精力有限的情况下，没必要太纠结于博客外表的华丽，找一个顺眼的主题驻扎即可。本文接下去的内容也主要适用于NexT主题。</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318145642.png" alt="next 主题样式" loading="lazy"></figure>
+<h3 id=""></h3>
+<h3 id="-2"></h3>
+<h3 id="菜单栏修改问题">菜单栏修改问题</h3>
+<p>Next在主题的_config.yml文件中提供菜单栏的修改，只要搜索menu就可以找到，通过去除注释即可以在网页上进行渲染。然而鱼叔在修改next中的menu时会发现存在这样的报错 “cannot get %20” -- 无法找到相应的菜单。出现的原因是官方给的代码中多加了一个空格，导致网页无法渲染，个人除了删除注释外，要将“||”前的空格删除不然会导致菜单没法跳转。</p>
+<pre><code class="language-yml">menu:
+  home: /|| home
+  about: /about/|| user
+  tags: /tags/|| tags
+  categories: /categories/|| th
+  archives: /archives/|| archive
+  #schedule: /schedule/ || calendar #官方给的代码 || 前多加了空格
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318150930.png" alt="" loading="lazy"></figure>
+<h3 id="hexo博客出现cannot-gettags-or-categories错误">Hexo博客出现“Cannot GET/tags or categories”错误</h3>
+<p>next提供了标签和分类功能，但是在实现这个功能时常常会遇到&quot;cannot get&quot; 的问题，这是因为我们没有对它们进行初始化。具体解决方法如下：</p>
+<ol>
+<li>
+<p>在git bash 中输入以下代码创建相应的page：</p>
+<pre><code class="language-python">hexo new page &quot;tags&quot;
+hexo new page &quot;categories&quot;
+</code></pre>
+</li>
+<li>
+<p>在第一步完成后会在source文件夹中出现tags和categories的文件夹，在各自的文件夹里打开index.md文件进行修改(多加上一个type属性)：</p>
+<pre><code class="language-markdown">title: categories
+date: 2020-03-15 14:19:53
+type: &quot;categories&quot;
+
+title: tags
+date: 2020-03-15 14:20:32
+type: &quot;tags&quot;
+</code></pre>
+</li>
+</ol>
+<h3 id="底部下一页跳转问题">底部下一页跳转问题</h3>
+<p>鱼叔在建立博客的时候发现底部下一页跳转按钮没有正常显示，如下图</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/fsfsfewf.png" alt="" loading="lazy"></figure>
+<p>修改方式：</p>
+<p>打开主题 layout/_partials/pagination.swg 进行修改，将“i class”模块删除修改成如下模式(其中prev 和 next可以自定字样)：</p>
+<pre><code class="language-python">{% if page.prev or page.next %}
+  &lt;nav class=&quot;pagination&quot;&gt;
+    {{
+      paginator({
+        prev_text: 'prev',
+        next_text: 'next',
+        mid_size: 1
+      })
+    }}
+  &lt;/nav&gt;
+{% endif %}
+</code></pre>
+<p>修改后结果为下图，实现正常的跳转按钮：</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/ljoifowenfewnf.png" alt="" loading="lazy"></figure>
+<h3 id="如何让首页文章部分显示">如何让首页文章部分显示</h3>
+<p>next主题默认的是将你的文章全篇显示在自己的首页上，这就会导致一个问题，首页各个文章太长了不利于翻阅，那如何部分显示自己的文章呢？很简单，只要在个人的文章Markdown 中在想要显示的文章部分下面加上代码<code>&lt;!--more&gt;</code>，即可只在首页显示所需的文章部分。</p>
+<h3 id="修改头像问题">修改头像问题</h3>
+<p>将自己的头像复制到blog文件夹中的\themes\next\source\images中覆盖原来的avatar.png 文件即可。</p>
+<h3 id="修改站点icon">修改站点icon</h3>
+<p>当套用完next主题后，个人博客的站点图标会自动为next的logo，作为博主当然不能忍这个logo啦，那怎么修改呢？</p>
+<p>我们打开next的主题配置文件会发现有这样的设定：</p>
+<pre><code class="language-yml">favicon:
+  small: /images/favicon-16x16-next.png
+  medium: /images/favicon-32x32-next.png
+  apple_touch_icon: /images/apple-touch-icon-next.png
+  safari_pinned_tab: /images/logo.svg
+</code></pre>
+<p>这就可以很清晰地发现去哪里修改了，只要在对应的路径上把原有的图片文件给替换成我们需要的文件就行了。这里给大家提供一个网站用于生成所需的icon同尺寸图像：<a href="https://www.favicon-generator.org/">https://www.favicon-generator.org/</a></p>
+<h3 id="增加阅读时长和字数统计功能">增加阅读时长和字数统计功能</h3>
+<p>next自带阅读时长和字数统计插件，我们所需要做的就是调用这两个工具。首先在主题的配置文件中修改：</p>
+<pre><code class="language-yml">post_wordcount:
+  item_text: true
+  wordcount: true         # 单篇 字数统计
+  min2read: true          # 单篇 阅读时长
+  totalcount: false       # 网站 字数统计
+  separated_meta: true
+</code></pre>
+<p>完成配置后，我们需要安装word-count 插件，在git bash中输入：</p>
+<pre><code>npm i --save hexo-wordcount
+</code></pre>
+<p>完成插件安装后，为了更好的显示，我们可以打开xxx_blog/themes/next/layout/_macro/post.swig ，在对应地方添加字words 和 min。可以通过搜索‘wordcount’ 和 ‘min2read’ 来定位。</p>
+<pre><code> &lt;span title=&quot;{{ __('post.wordcount') }}&quot;&gt;
+                  {{ wordcount(post.content) }} words
+                &lt;/span&gt;
+         
+           &lt;span title=&quot;{{ __('post.min2read') }}&quot;&gt;
+                  {{ min2read(post.content) }} min
+                &lt;/span&gt;
+</code></pre>
+<h3 id="配置搜索功能">配置搜索功能</h3>
+<p>next自带一个搜索功能，可以实现对站内内容的搜索。</p>
+<p>首先需要通过如下命令安装对应的搜索插件：</p>
+<p>然后在全局的配置文件（hexoblog目录下的_config.yml）中，增加配置如下内容：</p>
+<pre><code class="language-yml"># Search Config
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 100
+</code></pre>
+<p>然后在git hash 中加载相应的插件：</p>
+<pre><code>npm install hexo-generator-search --save
+npm install hexo-generator-searchdb --save
+</code></pre>
+<p>打开主题内的配置文件，找到 local_search 属性，配置开启本地搜索功能。</p>
+<pre><code class="language-yml">local_search:
+  enable: true
+  # if auto, trigger search by changing input
+  # if manual, trigger search by pressing enter key or search button
+  trigger: auto
+  # show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+</code></pre>
+<h3 id="将自己的博客收录到谷歌搜索中">将自己的博客收录到谷歌搜索中</h3>
+<p>为了让自己的博客能被更多人搜索到，自然需要将自己的博客收录到谷歌引擎中，具体的操作如下：</p>
+<ol>
+<li>添加资源</li>
+</ol>
+<p>打开<a href="https://search.google.com/search-console?hl=zh">Google search Console</a>, 在左上角添加资源：</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161417.png" alt="" loading="lazy"></figure>
+<ol start="2">
+<li>网址验证</li>
+</ol>
+<p>选择网址前缀输入自己的博客网址。接下去就是对网站的验证，即证明网站是自己的。google 提供了多种方式进行验证，比较方便的是HTML 文件方式，它会产生一个HTML 文件，你只要将它放到博客source里然后再进行重新部署就行,（tips: 为了避免验证文件被hexo渲染，可以在验证html里添加‘layout：false’ 代码）。鱼叔采用的是HTML标记的方式，具体的方法就是将google提供的代码copy到 xxx_blog/themes/next/layout/_partials/head.swig中，放在头部的<meta>下面即可。</p>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200318161752.png" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>
+<p>增加sitemap</p>
+<p>通过在线网址 <a href="https://www.xml-sitemaps.com/">sitemap</a>生成自己博客的站点地图，然后将站点地图下载下来放到自己博客源public文件夹中（xxx_blog/public）。然后打开 Google console，点开左侧的添加站点地图，输入sitemap.xml，点击提交即可，一般会花2-3天时间进行收录。</p>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319115742.png" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h3 id="增加评论功能">增加评论功能</h3>
+<p>目前比较流行的两种评论系统是Valine 和 Giement，这里主要讲Valine的配置。</p>
+<ol>
+<li>
+<p>注册leancloud， <a href="https://leancloud.cn/dashboard/login.html#/signin">leancloud注册网址</a></p>
+</li>
+<li>
+<p>注册登陆后，访问控制台，创建应用，选择开发版，创建好之后就生成了对应的id和key</p>
+<figure data-type="image" tabindex="8"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319121641.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p>在主题配置文件中进行修改</p>
+<pre><code> Valine.
+# You can get your appid and appkey from https://leancloud.cn
+# more info please open https://valine.js.org
+valine:
+  enable: true 
+  appid:   # 填入 App ID
+  appkey:  # 填入 App Key
+  notify: false 
+  verify: false #
+  placeholder: 请在此输入您的留言 # 默认留言框内的文字
+  avatar: &quot;&quot; # 修改留言者头像，具体代码可以参考valine官网
+  guest_info: nick,mail # 默认留言框的头部需要访问者输入的信息
+  pageSize: 10 #默认单页的留言条数
+</code></pre>
+</li>
+<li>
+<p>最后效果</p>
+<figure data-type="image" tabindex="9"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200319122124.png" alt="" loading="lazy"></figure>
+</li>
+</ol>
+<h3 id="博客中图床问题">博客中图床问题</h3>
+<p>这里推荐图床神器PicGo, 可以非常快捷地将图片上传到自己所需的云端中，而我采用的是PicGo结合腾讯云COS来搭建在线个人图床。</p>
+<p>相关的教程链接：<a href="https://sspai.com/post/59284">https://sspai.com/post/59284</a></p>
+<h2 id="总结">总结</h2>
+<p>基本上讲完了我搭建博客时遇到的所有问题，我之前看过一个博主写的一句话，“搭建博客就像玩了一个游戏，你的博客就是你的角色，你总是会想方设法地给他升级“。博客优化其实是一个无止境的路，需要耐心和时间，但往往我们会过度的为了美化它而忘记了自己搭建的初衷。好的内容才是一个博客真正的灵魂。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://theme-next.iissnan.com/theme-settings.html">Next 官方指南</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[新加坡留学 | 关于我为什么要去新加坡留学]]></title>
+        <id>https://unclefish-cc.github.io/关于我为什么要去新加坡留学/</id>
+        <link href="https://unclefish-cc.github.io/关于我为什么要去新加坡留学/">
+        </link>
+        <updated>2020-03-16T04:04:57.000Z</updated>
+        <content type="html"><![CDATA[<p>提起留学，大家的刻板印象基本上都是贵，富二代才能去。事实上留学这件事确实是需要一定的经济投入，但这并不表明只有富二代才能去，现在的工薪家庭也是可以支撑起一个孩子的留学花费。<!--more-->就我个人的经历来言，我的家庭并不富裕，父母都是工薪阶层，但是他们依然支持我去海外攻读硕士学位，我对他们非常的感激。至于我为什么选择新加坡去留学，我会分成以下几个点为大家讲解。（注意：这篇文章的目的不是为了鼓励大家去留学，而是希望给那些有想法想出国的同学做一个参考）</p>
+<h3 id="新加坡鱼尾狮"><strong>新加坡鱼尾狮</strong></h3>
+<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
+<h3 id="point-1-性价比"><strong>Point 1 : 性价比</strong></h3>
+<p>第一个要提的就是新加坡留学的性价比。相比于美国和英国，新加坡的留学费用和生活成本会低很多，学校食堂平均一顿饭的价位在20rmb到50rmb之间，对学生来说已经是很友好的了。除此之外，一些高校会提供宿舍让学生申请，平均价位大概是2500rmb一个月，已经是相当的便宜了。</p>
+<p>关于学费，新加坡政府还为留学生提供了一个就业协议，可以免除将近80%的学费，而相应的学生毕业后要在新加坡工作三年（适合打算毕业后就留坡工作的同学）。另外，当地的银行还可以为留学生提供90%学费的免息贷款，可见新加坡为了呼吁大家来留学也是下了很多功夫的。如果一个学生签署了就业协议和免息贷款，那他基本上只要花费相应的生活费就可以来留学了，这对于工薪家庭是一个很好的消息。（注意事项：不是每一个专业都可以签署就业协议，具体的情况要去查看相应学校的官网）</p>
+<h3 id="point-2-学校质量"><strong>Point 2 : 学校质量</strong></h3>
+<p>说起留学，大家比较关心的肯定就是学校的质量了，毕竟留学生多了后，各种海外高校参差不齐。这里笔者推荐的两所高校是<strong>新加坡南洋理工大学(NTU)和新加坡国立大学(NUS)</strong>。这两所高校的名声估计大家也是有所了解，根据最新的2020QS世界大学排名, 两所大学并列第11名。当然排名只是作为参考的一个标准，就我个人的学习体会，这两所大学的老师还是相当负责任的，并且学校名声被很多企业所认可。给打个比方，NTU 和 NUS 有点像新加坡的清华和北大。</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
+<p>2020 QS 世界大学排名</p>
+<h3 id="point-3-社会氛围容易融入"><strong>Point 3 : 社会氛围容易融入</strong></h3>
+<p>在来新加坡留学前我没有出过国，因此很多时候担心留学后会不习惯外面的生活。事实上，新加坡将近70%是华人，大家都会说汉语，基本的生活购物没有任何问题。也许有人会问，这样经常性的说汉语是不是没法提高自己的外语水平？这里必须得承认，新加坡的外语氛围没有欧美来的浓厚，但这并不表明你的外语没法提高。所有的授课形式都是英文的，教授也都喜欢用英文和学生交流，在纯英文环境的熏陶下，其实外语水平也是在不断提升的。</p>
+<p>关于饮食方面，在饮食上新加坡是一个多种文化交融集齐了各地美食的地方，无论是中餐西餐，还是印度餐马来餐，你都可以在这小小的地方找到你想要吃的食物。值得一提的是，很多国内比较流行的餐厅在新加坡都有分店，比如海底捞、喜茶、谭鱼头等。</p>
+<figure data-type="image" tabindex="3"><img src="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
+<p>新加坡美食--辣椒螃蟹</p>
+<h3 id="point-4-安全性"><strong>Point 4 : 安全性</strong></h3>
+<p>出门在外最重要的是讲究安全，新加坡可以号称是全球最安全的国家之一了，这也是我当初考虑来新加坡留学的重要原因。新加坡到底有多安全？给大家举个例子，新加坡法律规定晚上10.30后不允许任何超市和零售店卖酒，这种严格的法令使这里根本没有什么深夜醉汉，极大地保障了人们夜晚出行的安全。其实当初在申请学校时也曾考虑过香港，不过最后还是被新加坡的安全性给打动了，现在看来确实是一个很明智的选择。</p>
+<h3 id="point-5-申请难度"><strong>Point 5: 申请难度</strong></h3>
+<p>关于申请难度的问题其实是因人而异的，每个人的背景和特点不同因此很难一概而论。在这里我给出一个针对理工科比较平均的申请背景条件：雅思6.5，平均分80+，本科学校985&amp;211会给予加分。新加坡学校的申请我个人觉得不难，建议自己DIY而不是找中介。</p>
+<h3 id="总结"><strong>总结</strong></h3>
+<p>这篇文章只是简单得介绍了一下我当初选择新加坡留学的几个点，笔者最后选择的是 南洋理工大学和慕尼黑工业大学合办的芯片设计专业，可以同时体会到德国和新加坡的教育。如果对联合培养专业有兴趣的可以给我留言，我会一一答复。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://unclefish-cc.github.io/hello-gridea/</id>
+        <link href="https://unclefish-cc.github.io/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="http://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
