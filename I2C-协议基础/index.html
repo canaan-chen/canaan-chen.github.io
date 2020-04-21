@@ -36,15 +36,27 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#1-%E5%A6%82%E4%BD%95%E8%AE%A9%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6">1. 如何让文章置顶</a>
+<li><a href="#apb-i2c-%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE">APB I2C 总线协议</a>
 <ul>
-<li><a href="#%E5%8D%9A%E6%96%87%E7%BD%AE%E9%A1%B6">博文置顶</a></li>
-<li><a href="#%E7%BD%AE%E9%A1%B6%E6%A0%87%E5%BF%97%E4%BD%93%E7%8E%B0">置顶标志体现</a></li>
+<li><a href="#i2c-uart-spi-%E6%8E%A5%E5%8F%A3%E5%AF%B9%E6%AF%94">I2C UART SPI 接口对比</a></li>
+<li><a href="#i2c-%E5%B8%A7%E7%BB%93%E6%9E%84">I2C 帧结构</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B">基本流程</a></li>
+<li><a href="#%E8%B5%B7%E5%A7%8B%E6%9D%A1%E4%BB%B6">起始条件</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2%E6%9D%A1%E4%BB%B6">停止条件</a></li>
+<li><a href="#%E4%BD%8D%E4%BC%A0%E8%BE%93%E8%A6%81%E6%B1%82">位传输要求</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%BB%93%E6%9E%84">数据传输结构</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%A2%9E%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87">2. 增加博客背景图片</a></li>
-<li><a href="#3-%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E9%80%8F%E6%98%8E%E5%BA%A6%E8%B0%83%E6%95%B4">3. 博客内容透明度调整</a></li>
-<li><a href="#4-%E5%A2%9E%E5%8A%A0%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0list">4. 增加近期文章list</a></li>
+<li><a href="#i2c-%E7%9A%84%E5%93%8D%E5%BA%94%E6%9C%BA%E5%88%B6">I2C 的响应机制</a>
+<ul>
+<li><a href="#%E6%97%A0%E6%B3%95%E5%93%8D%E5%BA%94%E6%83%85%E5%86%B5">无法响应情况：</a></li>
+<li><a href="#%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81">总线仲裁</a></li>
+</ul>
+</li>
+<li><a href="#sample">Sample</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -93,115 +105,107 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">hexo Next 主题修改tips</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">I2C 模块设计 | 协议基础</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-04 / 4 min read
+          2020-03-17 / 4 min read
         </div>
         
         <div class="post-content yue">
-          <p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
+          <blockquote>
+<p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
 <!--more-->
-<h2 id="1-如何让文章置顶">1. 如何让文章置顶</h2>
-<h3 id="博文置顶">博文置顶</h3>
-<p>在gitbash里输入以下代码加入置顶插件。</p>
-<pre><code class="language-py">$ npm uninstall hexo-generator-index --save
-$ npm install hexo-generator-index-pin-top --save
-</code></pre>
-<p>然后在文章的<code>Front-matter</code>中加上<code>top:true</code>即可实现置顶。</p>
-<h3 id="置顶标志体现">置顶标志体现</h3>
-<p>实现置顶后如果没有置顶标志就会表现得很奇怪，这时候我们需要添加相关的置顶标志来实现。</p>
-<p>打开/blog/theme/next/layout/_macro 中的<code>post.swig</code> 文件，定位到 <code>&lt;div class=&quot;post-block&quot;&gt;</code>下，添加如下代码：</p>
-<pre><code>{% if post.top %}
-            &lt;i class=&quot;fa fa-thumb-tack&quot;&gt;&lt;/i&gt;
-            &lt;font color=7D26CD&gt;置顶&lt;/font&gt;
-            &lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;
- {% endif %}
-</code></pre>
-<h2 id="2-增加博客背景图片">2. 增加博客背景图片</h2>
+<h2 id="apb-i2c-总线协议">APB I2C 总线协议</h2>
+<h3 id="i2c-uart-spi-接口对比">I2C UART SPI 接口对比</h3>
+<ul>
+<li>UART 异步接口，需要用波特率发生器来进行同步，传输速率较慢</li>
+<li>SPI 同步接口（Master需要给Slave 提供一个同步时钟）四根信号线（clk/MISO/MOSI）</li>
+<li>I2C 慢同步 ， 半双工（SCL SDA）</li>
+</ul>
+<h3 id="i2c-帧结构">I2C 帧结构</h3>
+<p>两根线， SDA-数据线，SCL-时钟线，半双工工作模式。</p>
+<p>结构：</p>
+<ul>
+<li>
+<p>Master：SCL 信号源，控制信息流</p>
+</li>
+<li>
+<p>Slave: 处于等待状态，Master 会通过地址来搜寻所需要的slave，每一个slave都有一个固定的地址，并且地址的方式可以通过固定或者配置来实现。</p>
+</li>
+</ul>
+<h4 id="基本流程">基本流程</h4>
 <ol>
-<li>在<code>themes/next/source/css/_custom/custom.styl</code>中添加CSS样式</li>
+<li>
+<p>发送起始条件</p>
+</li>
+<li>
+<p>发送接受设备的地址和任务操作；</p>
+</li>
+<li>
+<p>发送或者接受数据</p>
+</li>
+<li>
+<p>接受设备发送相应位 — 应答；</p>
+</li>
+<li>
+<p>发送停止条件</p>
+</li>
 </ol>
-<p>文件位置：hexo/themes/next/source/css/_custom/custom.styl// 背景图片</p>
-<pre><code class="language-css">body::before {
-    background-image: url(https://背景图.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    content: &quot; &quot;;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -2;
-}
-</code></pre>
-<p>2）jquery-backstretch插件</p>
-<p>文件位置：hexo/themes/next/layout/_layout.swig</p>
-<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js&quot;&gt;&lt;/script&gt;
-+  &lt;script&gt;
-+  $(&quot;body&quot;).backstretch(&quot;https://背景图.jpg&quot;);
-+  &lt;/script&gt;
-&lt;/body&gt;
-</code></pre>
-<p>加入到文件最后面前面即可。</p>
-<h2 id="3-博客内容透明度调整">3. 博客内容透明度调整</h2>
-<p>NexT主题的博客文章均是不透明的，下面的方法可以使博客内容透明化：</p>
-<p>在<code>blog/themes/next/source/css/_custom/custom.styl</code>中添加以下内容：</p>
-<pre><code>// page-opacity
-
-.content-wrap {
-  opacity: 0.85;
-}
-
-.sidebar {
-  opacity: 0.85;
-}
-
-.header-inner {
-  background: rgba(255,255,255,0.85);
-}
-
-.popup {
-  opacity: 0.9;
-}
-</code></pre>
-<p>其中<code>content-wrap</code>是文章内容的透明度设置，<code>sidebar</code>是侧边框的透明度设置，<code>header-inner</code>是菜单栏的透明度设置，<code>popup</code>是搜索框（<code>local-search</code>）的透明度设置。</p>
-<p>可以修改上面的数字来自定义透明度。</p>
-<p>注意其中<code>header-inner</code>不能使用<code>opacity</code>进行配置。<br>
-因为<code>header-inner</code>包含<code>header.swig</code>中的所有内容。<br>
-若使用<code>opacity</code>进行配置，子结点会出很多问题</p>
-<h2 id="4-增加近期文章list">4. 增加近期文章list</h2>
-<pre><code>{% if theme.recent_posts %}
-    &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.recent_posts_layout  }}&quot;&gt;
-      &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
-        &lt;!-- modify icon to fire by szw --&gt;
-        &lt;i class=&quot;fa fa-history fa-{{ theme.recent_posts_icon | lower }}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
-        {{ theme.recent_posts_title }}
-      &lt;/div&gt;
-      &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
-        {% set posts = site.posts.sort('-date') %}
-        {% for post in posts.slice('0', '5') %}
-          &lt;li&gt;
-            &lt;a href=&quot;{{ url_for(post.path) }}&quot; title=&quot;{{ post.title }}&quot; target=&quot;_blank&quot;&gt;{{ post.title }}&lt;/a&gt;
-          &lt;/li&gt;
-        {% endfor %}
-      &lt;/ul&gt;
-    &lt;/div&gt;
-{% endif %}
-</code></pre>
-<p>将此代码贴在<code>next/layout/_macro/sidebar.swig</code>中的<code>if theme.links</code>对应的<code>endif</code>后面，就ok了，是不是很简单。。。。<br>
-为了配置方便，在主题的<code>_config.yml</code>中添加了几个变量，如下：</p>
-<pre><code>recent_posts_title: 近期文章
-recent_posts_layout: block
-recent_posts: true
-</code></pre>
+<p>一帧数据8bit， 其中[7:1]为设备地址，而最后一位为数据方向</p>
+<ul>
+<li>
+<p>[7:1] 地址</p>
+</li>
+<li>
+<p><strong>0: 0 — 发送地址，写操作；1 — 接受数据，读操作</strong></p>
+</li>
+</ul>
+<h4 id="起始条件">起始条件</h4>
+<p>当SCL 和SDA是高电平，且 SDA由高电平到低电平切换；</p>
+<p>表示总线上要传输信息；</p>
+<p>总线在起始条件后表示处于忙碌状态；</p>
+<h4 id="停止条件">停止条件</h4>
+<p>当SCL 是高电平时，SDA由低电平向高电平切换时；</p>
+<p>本次通讯结束，总线进入空闲状态。</p>
+<h4 id="位传输要求">位传输要求</h4>
+<p>每传输一个数据就产生一个时钟脉冲。并且在高电平时采样数据</p>
+<h4 id="数据传输结构">数据传输结构</h4>
+<p>数据流： [起始位] [接受数据的地址 6bit] [读写位 ] [数据1, 从7到0，高位先发] [ 应答信号] [数据2, 从7到0，高位先发] [ 应答信号] ... [应答] [停止位]</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.png" alt="" loading="lazy"></figure>
+<h3 id="i2c-的响应机制">I2C 的响应机制</h3>
+<p>Slave 需要在收到数据后给予应答信号，在相应期间，Master需要释放SDA线，而Slave需要将SDA线拉低，表示相应。</p>
+<h4 id="无法响应情况">无法响应情况：</h4>
+<ul>
+<li>如果从机没有响应，则主机要使数据线一直保持高电平，产生一个停止或者重复条件。</li>
+<li>如果从机来不及处理数据，可以一直拉低时钟线，使主机处于等待状态</li>
+</ul>
+<p>SCL 的线与逻辑保证了时钟线上的同步，比如说clk1 先拉低，但是clk2 的低电平还没有到，这时候MOS2 打开状态，整个SCL还是处于低电平状态，只有当所有的clk都到达变低后，线才被拉高，SCL同步机制来保证SCL 读取数据的同步性</p>
+<h4 id="总线仲裁">总线仲裁</h4>
+<p>多个主机使用总线时，当SCL 处于高电平时，根据SDA的电平来进行仲裁；</p>
+<p>规则；当主机需要将总线拉高时，但不能实现 —&gt; 丢失仲裁 —&gt; 退回到设备。</p>
+<h3 id="sample">Sample</h3>
+<p>主机接受流程：</p>
+<ol>
+<li>发送起始标志位</li>
+<li>发送从机地址和读信号</li>
+<li>从机接收到信号发送应答标志，开始发数据</li>
+<li>主机接收到数据发送应答信号开始接受下一个数据</li>
+<li>主机不想接受信号就发送一个NACK信号然后停止</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt="" loading="lazy"></figure>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/xE65R6X5lg/">
-            <span class="flex-auto">hexo</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/woTOUbJziW/">
+            <span class="flex-auto">I2C 学习</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/yLweaacpM-/">
+            <span class="flex-auto">IC 面试</span>
           </a>
         
 
@@ -209,10 +213,10 @@ recent_posts: true
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://canaan-chen.github.io/如何在windows-体验极致模仿Mac-os系统桌面/">
+              <a href="http://canaan-chen.github.io/I2C-模块设计-biu-模块/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
-                  如何在windows 体验极致模仿Mac os系统桌面
+                  I2C 模块设计| biu 模块
                 </h3>
               </a>
             </div>
@@ -220,9 +224,9 @@ recent_posts: true
 
           
             <div class="next-post">
-              <a href="http://canaan-chen.github.io/hexo-博客拓展/">
+              <a href="http://canaan-chen.github.io/如何写好一份文书/">
                 <h3 class="post-title">
-                  hexo 博客拓展 | CODING平台托管以及个性化域名
+                  如何写好一份文书
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>

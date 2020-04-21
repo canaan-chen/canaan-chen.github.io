@@ -1,0 +1,590 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UncleFish&#39;s Blog</title>
+<meta name="description" content="Never give up, and you will see hope." />
+<link rel="shortcut icon" href="http://canaan-chen.github.io/favicon.ico?v=1587484390064">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://canaan-chen.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://canaan-chen.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://canaan-chen.github.io/images/avatar.png?v=1587484390064" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">UncleFish&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E8%B5%84%E6%96%99">1. 资料</a></li>
+<li><a href="#2-%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D">2. 原理介绍</a>
+<ul>
+<li><a href="#21-%E4%BD%BF%E7%94%A8fifo%E7%9A%84%E6%83%85%E5%86%B5">2.1 使用FIFO的情况</a></li>
+<li><a href="#22-fifo%E7%9A%84%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0">2.2 FIFO的相关参数</a></li>
+<li><a href="#23-%E7%A9%BA%E6%BB%A1%E7%8A%B6%E6%80%81%E7%9A%84%E5%88%A4%E6%96%AD">2.3 空满状态的判断</a></li>
+<li><a href="#24-%E8%AF%BB%E7%A9%BA%E6%A0%87%E5%BF%97%E4%BD%8D%E7%9A%84%E4%BA%A7%E7%94%9F">2.4 读空标志位的产生</a></li>
+<li><a href="#25-%E8%AF%BB%E6%BB%A1%E6%A0%87%E5%BF%97%E4%BD%8D%E7%9A%84%E4%BA%A7%E7%94%9F">2.5 读满标志位的产生</a></li>
+</ul>
+</li>
+<li><a href="#3%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0">3.代码的实现</a>
+<ul>
+<li><a href="#31-%E6%A0%BC%E9%9B%B7%E7%A0%81%E8%BD%AC%E6%8D%A2">3.1 格雷码转换</a></li>
+<li><a href="#32-%E5%86%99%E6%A8%A1%E5%9D%97%E6%8E%A7%E5%88%B6">3.2 写模块控制</a></li>
+<li><a href="#33-%E8%AF%BB%E6%A8%A1%E5%9D%97%E6%8E%A7%E5%88%B6">3.3 读模块控制</a></li>
+<li><a href="#34-fifo-mem-ctrl">3.4 FIFO Mem Ctrl</a></li>
+<li><a href="#35-top-level-%E5%90%84%E6%A8%A1%E5%9D%97%E9%9B%86%E6%88%90">3.5 Top level 各模块集成</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="http://canaan-chen.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">异步fifo的设计</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-15 / 10 min read
+        </div>
+        
+        <div class="post-content yue">
+          <center> 这篇文章主要讲解了如何设计一个异步Fifo. </center>
+<!--more-->
+<h2 id="1-资料">1. 资料</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/42991844">异步FIFO设计（1）</a></p>
+<p><a href="https://blog.csdn.net/deng_d1/article/details/50179677">异步FIFO设计原理及Verliog源代码_网络_deng_d1的博客-CSDN博客</a></p>
+<h2 id="2-原理介绍">2. 原理介绍</h2>
+<p>{% asset_img 1.png %}</p>
+<h3 id="21-使用fifo的情况">2.1 使用FIFO的情况</h3>
+<ul>
+<li>两个不同时钟域进行数据传输时可以用FIFO</li>
+<li>对于不同宽度的数据接口也可以用FIFO， 例如单片机8位输出，而DSP 16位数据输入。</li>
+</ul>
+<h3 id="22-fifo的相关参数">2.2 FIFO的相关参数</h3>
+<ul>
+<li>FIFO的宽度：表示FIFO进行一次读写操作的数据位。</li>
+<li>FIFO的深度：指的是FIFO能存储多少个N位的数据，N为宽度。</li>
+<li>满标志：FIFO已满或将要满时由FIFO的状态电路送出的一个信号，以阻止FIFO的写操作继续向FIFO中写数据而造成溢出（overflow）</li>
+<li>空标志：FIFO已空或将要空时由FIFO的状态电路送出的一个信号，以阻止FIFO的读操作继续从FIFO中读出数据而造成无效数据的读出（underflow）。</li>
+<li>读时钟：读数据所遵循的时钟。</li>
+<li>写时钟：写操作所需要遵循的时钟。</li>
+<li>读指针：指向下一个读出地址。读完后自动加1</li>
+<li>写指针：指向下一个写入地址，写完后自动加1</li>
+</ul>
+<h3 id="23-空满状态的判断">2.3 空满状态的判断</h3>
+<p><a href="https://blog.csdn.net/zyn1347806/article/details/79626452">FIFO空满判断与地址转换的思考_网络_zyn1347806的博客-CSDN博客</a></p>
+<p><a href="https://www.cnblogs.com/xh13dream/p/9265042.html">异步fifo设计（1）</a></p>
+<ul>
+<li>用格雷码来作地址判断（多引入一位作位判断，比如设计深度为8，宽度为8的异步FIFO，设计其指针位数为4,即 n+1）
+<ul>
+<li>当最高位和次高位相同时，其余位相同认为是读空</li>
+<li>当最高位和次高位不同时，其余位相同认为是写满</li>
+</ul>
+</li>
+</ul>
+<h3 id="24-读空标志位的产生">2.4 读空标志位的产生</h3>
+<p><a href="https://www.sohu.com/a/114158723_458015">异步FIFO设计(非常详细，图文并茂，值得一看！）</a></p>
+<p>FIFO中存在两种指针，rd_ptr 和 wr_ptr。只有两种状态下FIFO才会为空：</p>
+<ul>
+<li>系统复位，读写指针都被清空。</li>
+<li>读出速度大于写入速度，读地址赶上写地址。</li>
+</ul>
+<p>空标志位的产生要在读时钟域里完成，这样不至于FIFO为空时，而空标志位还没有发生，但是可能发生FIFO里已经有数据了，但是空标志位还是没有被撤销，不过就算在最坏的情况下，空标志撤销也只是滞后3个周期（因为会需要时钟的同步，经过两级触发器）。还有一种情况，就是空标志比较逻辑检测到读地址和写地址相同后，紧接着发生写操作，导致写地址加1，由于同步模块的滞后性，导致没法及时更新写地址，会产生一个虚假的空信号，称作“虚空”。</p>
+<h3 id="25-读满标志位的产生">2.5 读满标志位的产生</h3>
+<p>读满状态可以理解为，读地址超写地址一圈，两个地址仍然在同一个地方，这时候引入指示位来进行区别和判断。</p>
+<p>读满状态判断：</p>
+<ol>
+<li>
+<p><strong>最高位相异，因为两个指针速度不同， 写超前于读。</strong></p>
+</li>
+<li>
+<p><strong>出去最高位，次高位取反后两者相同。比如：写指针已经走了一圈了跑到3，此时写指针：1110，而读指针第一次走到3，指针数值为：0010。⇒ 发现最高位和次高位均不同，表示满状态。</strong></p>
+</li>
+<li>
+<p><strong>相应的，如果最高位和次高位均相同则表示空状态。</strong></p>
+<p>{% asset_img Untitled.png %}</p>
+</li>
+</ol>
+<h2 id="3代码的实现">3.代码的实现</h2>
+<p>这里以一个8x8的fifo作为案例来进行代码的设计，之后再做一个fifo的封装实现自定义化模块。</p>
+<h3 id="31-格雷码转换">3.1 格雷码转换</h3>
+<p>需要用Gray Code来实现地址，从而降低亚稳态。</p>
+<p>基本的转换关系：</p>
+<ul>
+<li>二进制转格雷码：
+<ul>
+<li>G[ n-1 ] = b[ n - 1 ] （最高位）</li>
+<li>G [i] = b [ i ] ^ b [i + 1]</li>
+</ul>
+</li>
+<li>格雷码转换二进制：
+<ul>
+<li>b[n-1] = G [n-1]</li>
+<li>b [ i ] = G [ i ]^ G [i+1] ^ ......^ G[ n - 1] = G [ i ] ^ b[ i + 1 ]</li>
+</ul>
+</li>
+</ul>
+<p>EDA link: <a href="https://www.edaplayground.com/x/4QrG">https://www.edaplayground.com/x/4QrG</a></p>
+<pre><code>//sample of Binary to Gray
+module B2G (
+		B,   // B input binary
+		G    // output Gray
+);
+input wire [3:0] B;
+output reg [3:0] G;
+always @(*) begin // 使用always时，要加@
+		G [3] = B [3];
+		G [2] = B[2] ^ B[3];
+		G [1] = B[1] ^ B[2];
+		G [0] = B[0] ^ B[1];
+end
+endmodule
+
+//TestBench
+module tb ();
+  reg [3:0] B,G;
+  reg [2:0] i;
+//  reg clk;
+  initial begin
+    $dumpfile(&quot;dump.vcd&quot;);// dump waive
+    $dumpvars(1, tb);
+    B = 0;
+    i = 0;
+    #10;
+    B =1; #10;
+   for (i=0; i&lt;=7; i = i+1) begin
+		   B = B +1;
+			  #10;
+   end
+  end
+
+  B2G dut(
+    .B(B),
+    .G(G)
+  );
+endmodule
+</code></pre>
+<h3 id="32-写模块控制">3.2 写模块控制</h3>
+<p>写模块的功能</p>
+<ul>
+<li>写信号来的时候，写指针地址加1</li>
+<li>将wr 指针和rd 指针进行比较，看是否写满了。其中注意的是，满状态要将读指针同步到写时钟里，需要进行同步后再比较。</li>
+</ul>
+<p>输入信号：wr_clk, wr_en, wr_rst_n, rd_add_glay</p>
+<p>输出信号：wr_add_bin, wr_add_glay</p>
+<p>EDA link <a href="https://www.edaplayground.com/x/5565">https://www.edaplayground.com/x/5565</a></p>
+<pre><code class="language-verilog">// Code your design here
+`include &quot;B2G.v&quot;
+module wr_ctrl (
+		input wr_clk,
+        input wr_rst_n,
+		input wr_en,
+ 		 input [3:0] rd_add_glay,
+ 		 output [3:0] wr_add_bin,
+ 		 output [3:0] wr_add_glay,
+		output reg wr_full
+);
+
+reg [3:0] wr_add_bin_r;
+reg [3:0] wr_add_glay_r;
+reg [3:0] rd_add_glay_r1;
+reg [3:0] rd_add_glay_r2;
+// 地址增加模块
+
+always @ (posedge wr_clk or negedge wr_rst_n or posedge wr_en) begin
+	if (wr_en) begin // 所有的操作都是在始能下开始的
+	if (!wr_rst_n) begin //复位操作
+		wr_add_bin_r &lt;= 0; //地址指针复位
+		wr_full &lt;= 0;
+	end
+    else if (!wr_full) begin //不满情况下
+       wr_add_bin_r &lt;= wr_add_bin_r + 1;// 地址加1
+      end
+end
+end
+
+//调用格雷码转换
+B2G wr_B2G(
+	.B (wr_add_bin_r),
+	.G (wr_add_glay_r)
+);
+
+//判断满状态，如果格雷码首两位和读地址互异，则满
+//同步读地址
+always @(posedge wr_clk) begin
+	{rd_add_glay_r2,rd_add_glay_r1} &lt;= {rd_add_glay_r1, rd_add_glay} ;
+end
+  always @(*) begin
+    wr_full = (rd_add_glay_r2[3]^wr_add_glay_r[3]) &amp;&amp; (rd_add_glay_r2[2]^wr_add_glay_r[2]) &amp;&amp; (rd_add_glay_r2[1:0] == wr_add_glay_r [1:0]); // 首两位互异，且后几位相同
+  end
+assign wr_add_bin = wr_add_bin_r;
+assign wr_add_glay = wr_add_glay_r;
+
+endmodule
+</code></pre>
+<h3 id="33-读模块控制">3.3 读模块控制</h3>
+<p>功能代码和写模块相似，只是空标志的判断条件不同，要求两个地址完全相同才可以。</p>
+<p>EDA Link:  <a href="https://www.edaplayground.com/x/3tfy">https://www.edaplayground.com/x/3tfy</a></p>
+<pre><code class="language-verilog">// Code your design here
+`include &quot;B2G.v&quot;
+module rd_ctrl (
+		input rd_clk,
+     input rd_rst_n,
+		input rd_en,
+ 		 input [3:0] wr_add_glay,
+ 		 output [3:0] rd_add_bin,
+ 		 output [3:0] rd_add_glay,
+		output reg rd_empty
+);
+
+reg [3:0] rd_add_bin_r;
+reg [3:0] rd_add_glay_r;
+reg [3:0] wr_add_glay_r1;
+reg [3:0] wr_add_glay_r2;
+// 地址增加模块
+
+always @ (posedge rd_clk or negedge rd_rst_n or posedge rd_en) begin
+	if (rd_en) begin // 所有的操作都是在始能下开始的
+	if (!rd_rst_n) begin //复位操作
+		rd_add_bin_r &lt;= 0; //地址指针复位
+		rd_empty &lt;= 0;
+	end
+    else if (!rd_empty) begin //不满情况下
+       rd_add_bin_r &lt;= rd_add_bin_r + 1;// 地址加1
+      end
+end
+end
+
+//调用格雷码转换
+B2G rd_B2G(
+	.B (rd_add_bin_r),
+	.G (rd_add_glay_r)
+);
+
+//判断满状态，如果格雷码首两位和读地址互异，则满
+//同步读地址
+always @(posedge rd_clk) begin
+	{wr_add_glay_r2,wr_add_glay_r1} &lt;= {wr_add_glay_r1, wr_add_glay} ;
+end
+  always @(*) begin
+    rd_empty = wr_add_glay_r2 == rd_add_glay_r ; // 地址相同时，表示读空
+  end
+assign rd_add_bin = rd_add_bin_r;
+assign rd_add_glay = rd_add_glay_r;
+
+endmodule
+</code></pre>
+<h3 id="34-fifo-mem-ctrl">3.4 FIFO Mem Ctrl</h3>
+<p>主体部分会建立一个FIFO的mem，并且输入数据和读出数据。</p>
+<p>控制模块功能简介：</p>
+<ul>
+<li>根据地址将对应的数据存储或者读取</li>
+<li>EDA link <a href="https://www.edaplayground.com/x/bWf">https://www.edaplayground.com/x/bWf</a></li>
+</ul>
+<p>Bug ： 因为弄错数组的写法，导致出现了bug reg [wordsize : 0] array_name [0 : arraysize]; 其中第二个是0-size，例如需要生成8x8 size的数组，应该为 reg [7:0] mem [0:7] 不是 reg [7:0] mem [2:0] ;</p>
+<pre><code class="language-verilog">module fifo_mem (
+		input wr_clk,
+		input rd_clk,
+  input rst_n,
+  input [7:0] wdata,
+  input [3:0] wr_add_bin, //写地址
+  input [3:0] rd_add_bin, //读地址
+		input wr_full,
+		input rd_empty,
+	output reg [7:0] rdata
+
+);
+
+// 建立一个8x8的reg
+  reg [7:0] fifo_mem [0:7]; //建立一个宽度为8深度也为8的mem
+reg [2:0] wr_add; //内部3位地址
+reg [2:0] rd_add; //内部3位地址
+  reg [2:0] i;
+  
+assign wr_add = wr_add_bin [2:0];
+assign rd_add = rd_add_bin [2:0];
+
+// 初始化
+  
+  always @(negedge rst_n) begin
+    if (!rst_n) begin
+      for (i=0; i&lt;=7 ; i = i+1) begin
+        fifo_mem [i] &lt;= 0;
+      end
+    end
+  end
+      
+always @(posedge wr_clk) begin
+  if (!wr_full) begin
+			fifo_mem [wr_add] &lt;= wdata;
+  end
+end
+
+always @(posedge rd_clk) begin
+		if (!rd_empty) 
+			rdata &lt;= fifo_mem [rd_add] ;
+end
+
+
+endmodule
+</code></pre>
+<h3 id="35-top-level-各模块集成">3.5 Top level 各模块集成</h3>
+<p>EDA link : <a href="https://www.edaplayground.com/x/6Mfp">https://www.edaplayground.com/x/6Mfp</a></p>
+<pre><code class="language-verilog">// Code your design here
+`include &quot;fifo_mem.v&quot;
+`include &quot;wr_ctrl.v&quot;
+`include &quot;rd_ctrl.v&quot;
+`include &quot;B2G.v&quot;
+
+
+module fifo(
+	input wr_clk,
+	input rd_clk,
+	input rst_n,
+	input wr_en,
+	input rd_en,
+	input [7:0] data_i,
+  	output reg [7:0] data_o,
+  	output reg full, // 用于控制数据的输入
+);
+
+wire [3:0] wr_add_glay;
+wire [3:0] rd_add_glay;
+wire [3:0] wr_add_bin;
+wire [3:0] rd_add_bin;
+wire empty;
+wire wr_rst_n,rd_rst_n;
+
+assign wr_rst_n = rst_n;
+assign rd_rst_n = rst_n;
+
+fifo_mem dut(
+    .rst_n (rst_n),
+    .wr_clk (wr_clk),
+    .rd_clk (rd_clk),
+    .wdata (data_i),
+    .wr_add_bin(wr_add_bin),
+    .rd_add_bin(rd_add_bin),
+    .wr_full(full),
+    .rd_empty(empty),
+    .rdata(data_o)
+  );
+
+wr_ctrl write(
+    .wr_clk(wr_clk),
+    .wr_rst_n(wr_rst_n),
+    .wr_en(wr_en),
+    .rd_add_glay(rd_add_glay),
+    .wr_add_bin(wr_add_bin),
+    .wr_add_glay(wr_add_glay),
+    .wr_full(full)
+  );
+
+rd_ctrl read (
+		.rd_clk(rd_clk),
+    .rd_rst_n(rd_rst_n),
+		.rd_en(rd_en),
+ 		.wr_add_glay(wr_add_glay),
+ 		.rd_add_bin(rd_add_bin),
+ 		.rd_add_glay(rd_add_glay),
+		.rd_empty(empty)
+);
+
+endmodule
+</code></pre>
+<p>{% asset_img 3.png Simulation Result %}</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/ycCvamGh8M/">
+            <span class="flex-auto">FIFO</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="http://canaan-chen.github.io/简单加法器的设计/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  简单加法器的设计
+                </h3>
+              </a>
+            </div>
+          
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="http://canaan-chen.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

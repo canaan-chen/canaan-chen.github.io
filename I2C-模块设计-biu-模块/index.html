@@ -36,15 +36,13 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#1-%E5%A6%82%E4%BD%95%E8%AE%A9%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6">1. 如何让文章置顶</a>
+<li>
 <ul>
-<li><a href="#%E5%8D%9A%E6%96%87%E7%BD%AE%E9%A1%B6">博文置顶</a></li>
-<li><a href="#%E7%BD%AE%E9%A1%B6%E6%A0%87%E5%BF%97%E4%BD%93%E7%8E%B0">置顶标志体现</a></li>
+<li><a href="#%E5%86%99%E6%93%8D%E4%BD%9C">写操作</a></li>
+<li><a href="#%E8%AF%BB%E6%93%8D%E4%BD%9C">读操作</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E7%9A%84%E4%BB%A3%E7%A0%81%E9%93%BE%E6%8E%A5%E5%A6%82%E4%B8%8B">具体的代码链接如下：</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%A2%9E%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87">2. 增加博客背景图片</a></li>
-<li><a href="#3-%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E9%80%8F%E6%98%8E%E5%BA%A6%E8%B0%83%E6%95%B4">3. 博客内容透明度调整</a></li>
-<li><a href="#4-%E5%A2%9E%E5%8A%A0%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0list">4. 增加近期文章list</a></li>
 </ul>
 </li>
 </ul>
@@ -93,115 +91,91 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">hexo Next 主题修改tips</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">I2C 模块设计| biu 模块</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-04 / 4 min read
+          2020-03-17 / 3 min read
         </div>
         
         <div class="post-content yue">
-          <p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
+          <p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
 <!--more-->
-<h2 id="1-如何让文章置顶">1. 如何让文章置顶</h2>
-<h3 id="博文置顶">博文置顶</h3>
-<p>在gitbash里输入以下代码加入置顶插件。</p>
-<pre><code class="language-py">$ npm uninstall hexo-generator-index --save
-$ npm install hexo-generator-index-pin-top --save
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt="" loading="lazy"></figure>
+<pre><code class="language-verilog">module apb_i2c_biu #(
+	parameter ADDR_SLICE_LHS = 5, // addres [4:0] 
+	parameter APB_DATA_WIDTH = 32
+)
+(
+// signals connect to APB module 
+	input							pclk,
+	input							presetn, // reset
+	input 							psel, // select signal
+	input	[ADDR_SLICE_LHS-1 : 0] 	paddr, // 5bit addres
+	input							pwrite,
+	input 							penable,
+	input	[APB_DATA_WIDTH-1 : 0]	pwdata,
+	output	reg [APB_DATA_WIDTH-1 : 0] prdata,
+//signals connect to register module
+	input	[15:0]					iprdata, // ?
+	output							wr_en,
+									rd_en,
+	output	[ADDR_SLICE_LHS-3:0]	reg_addr, // ahb addres searching
+	output	[3:0]					byte_en,
+	output	reg	[31:0]				ipwdata
+);
 </code></pre>
-<p>然后在文章的<code>Front-matter</code>中加上<code>top:true</code>即可实现置顶。</p>
-<h3 id="置顶标志体现">置顶标志体现</h3>
-<p>实现置顶后如果没有置顶标志就会表现得很奇怪，这时候我们需要添加相关的置顶标志来实现。</p>
-<p>打开/blog/theme/next/layout/_macro 中的<code>post.swig</code> 文件，定位到 <code>&lt;div class=&quot;post-block&quot;&gt;</code>下，添加如下代码：</p>
-<pre><code>{% if post.top %}
-            &lt;i class=&quot;fa fa-thumb-tack&quot;&gt;&lt;/i&gt;
-            &lt;font color=7D26CD&gt;置顶&lt;/font&gt;
-            &lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;
- {% endif %}
-</code></pre>
-<h2 id="2-增加博客背景图片">2. 增加博客背景图片</h2>
-<ol>
-<li>在<code>themes/next/source/css/_custom/custom.styl</code>中添加CSS样式</li>
-</ol>
-<p>文件位置：hexo/themes/next/source/css/_custom/custom.styl// 背景图片</p>
-<pre><code class="language-css">body::before {
-    background-image: url(https://背景图.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    content: &quot; &quot;;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -2;
-}
-</code></pre>
-<p>2）jquery-backstretch插件</p>
-<p>文件位置：hexo/themes/next/layout/_layout.swig</p>
-<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js&quot;&gt;&lt;/script&gt;
-+  &lt;script&gt;
-+  $(&quot;body&quot;).backstretch(&quot;https://背景图.jpg&quot;);
-+  &lt;/script&gt;
-&lt;/body&gt;
-</code></pre>
-<p>加入到文件最后面前面即可。</p>
-<h2 id="3-博客内容透明度调整">3. 博客内容透明度调整</h2>
-<p>NexT主题的博客文章均是不透明的，下面的方法可以使博客内容透明化：</p>
-<p>在<code>blog/themes/next/source/css/_custom/custom.styl</code>中添加以下内容：</p>
-<pre><code>// page-opacity
+<h3 id="写操作">写操作</h3>
+<p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p>
+<ul>
+<li>
+<p>写操作代码：</p>
+<pre><code class="language-verilog">assign wr_en = psel &amp; penable &amp; pwrite; // 写信号的要求
 
-.content-wrap {
-  opacity: 0.85;
-}
+always @(pwdata) begin
+	ipwdata = 32'b0;
+	ipwdata [APB_DATA_WIDTH-1:0] = pwdata[APB_DATA_WIDTH-1:0]; //apb总线上的数据每次发生变化，就将数据传输到输出reg中
+end
 
-.sidebar {
-  opacity: 0.85;
-}
+</code></pre>
+</li>
+</ul>
+<h3 id="读操作">读操作</h3>
+<p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p>
+<ul>
+<li>
+<p>关于读信号的判断</p>
+<p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p>
+<pre><code class="language-verilog">assign rd_en = psel &amp; !penable &amp; !pwrite; // 读信号要提前产生，因为要求把数据提前放到APB总线上
 
-.header-inner {
-  background: rgba(255,255,255,0.85);
-}
-
-.popup {
-  opacity: 0.9;
-}
+// 数据传输过程
+always @ (posedge pclk or negedge presetn) begin
+	if(presetn == 1'b0) begin
+		prdata &lt;= {APB_DATA_WIDTH{1'b0}}; //apb 读寄存器中的数据清零
+	end
+	else begin
+		if (rd_en) begin
+			prdata &lt;= {16'b0,iprdata}; // 将读入的数据保存到apb reg中
+		end
+	end
+end
 </code></pre>
-<p>其中<code>content-wrap</code>是文章内容的透明度设置，<code>sidebar</code>是侧边框的透明度设置，<code>header-inner</code>是菜单栏的透明度设置，<code>popup</code>是搜索框（<code>local-search</code>）的透明度设置。</p>
-<p>可以修改上面的数字来自定义透明度。</p>
-<p>注意其中<code>header-inner</code>不能使用<code>opacity</code>进行配置。<br>
-因为<code>header-inner</code>包含<code>header.swig</code>中的所有内容。<br>
-若使用<code>opacity</code>进行配置，子结点会出很多问题</p>
-<h2 id="4-增加近期文章list">4. 增加近期文章list</h2>
-<pre><code>{% if theme.recent_posts %}
-    &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.recent_posts_layout  }}&quot;&gt;
-      &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
-        &lt;!-- modify icon to fire by szw --&gt;
-        &lt;i class=&quot;fa fa-history fa-{{ theme.recent_posts_icon | lower }}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
-        {{ theme.recent_posts_title }}
-      &lt;/div&gt;
-      &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
-        {% set posts = site.posts.sort('-date') %}
-        {% for post in posts.slice('0', '5') %}
-          &lt;li&gt;
-            &lt;a href=&quot;{{ url_for(post.path) }}&quot; title=&quot;{{ post.title }}&quot; target=&quot;_blank&quot;&gt;{{ post.title }}&lt;/a&gt;
-          &lt;/li&gt;
-        {% endfor %}
-      &lt;/ul&gt;
-    &lt;/div&gt;
-{% endif %}
-</code></pre>
-<p>将此代码贴在<code>next/layout/_macro/sidebar.swig</code>中的<code>if theme.links</code>对应的<code>endif</code>后面，就ok了，是不是很简单。。。。<br>
-为了配置方便，在主题的<code>_config.yml</code>中添加了几个变量，如下：</p>
-<pre><code>recent_posts_title: 近期文章
-recent_posts_layout: block
-recent_posts: true
-</code></pre>
+</li>
+</ul>
+<h3 id="具体的代码链接如下">具体的代码链接如下：</h3>
+<p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v">Biu Ctrl Code</a></p>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/xE65R6X5lg/">
-            <span class="flex-auto">hexo</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/woTOUbJziW/">
+            <span class="flex-auto">I2C 学习</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/yLweaacpM-/">
+            <span class="flex-auto">IC 面试</span>
           </a>
         
 
@@ -209,10 +183,10 @@ recent_posts: true
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://canaan-chen.github.io/如何在windows-体验极致模仿Mac-os系统桌面/">
+              <a href="http://canaan-chen.github.io/hexo-next-主题优化/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
-                  如何在windows 体验极致模仿Mac os系统桌面
+                  hexo next 主题优化 | 这里可能有你遇到所有问题的答案
                 </h3>
               </a>
             </div>
@@ -220,9 +194,9 @@ recent_posts: true
 
           
             <div class="next-post">
-              <a href="http://canaan-chen.github.io/hexo-博客拓展/">
+              <a href="http://canaan-chen.github.io/I2C-协议基础/">
                 <h3 class="post-title">
-                  hexo 博客拓展 | CODING平台托管以及个性化域名
+                  I2C 模块设计 | 协议基础
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>

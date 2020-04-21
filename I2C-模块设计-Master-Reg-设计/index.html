@@ -1,0 +1,485 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UncleFish&#39;s Blog</title>
+<meta name="description" content="Never give up, and you will see hope." />
+<link rel="shortcut icon" href="http://canaan-chen.github.io/favicon.ico?v=1587484390064">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://canaan-chen.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://canaan-chen.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://canaan-chen.github.io/images/avatar.png?v=1587484390064" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">UncleFish&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-register-%E5%88%86%E7%B1%BB">1. Register 分类</a></li>
+<li><a href="#2-%E6%95%B4%E4%BD%93%E6%A8%A1%E5%9D%97%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%8F%A3">2. 整体模块的输入输出口</a></li>
+<li><a href="#3%E5%AF%84%E5%AD%98%E5%99%A8%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%86%E9%85%8D">3.寄存器地址的分配</a>
+<ul>
+<li><a href="#31-%E5%AF%84%E5%AD%98%E5%99%A8%E5%9C%B0%E5%9D%80%E5%88%86%E9%85%8D">3.1 寄存器地址分配</a></li>
+<li><a href="#32-biu-%E8%AF%BB%E5%86%99%E4%BF%A1%E5%8F%B7%E8%BD%AC%E6%8D%A2">3.2 Biu 读写信号转换</a></li>
+</ul>
+</li>
+<li><a href="#4-%E9%A2%84%E5%88%86%E9%A2%91%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1">4. 预分频寄存器的设计</a></li>
+<li><a href="#5-%E6%8E%A7%E5%88%B6%E5%AF%84%E5%AD%98%E5%99%A8">5. 控制寄存器</a></li>
+<li><a href="#6-%E5%8F%91%E9%80%81%E5%AF%84%E5%AD%98%E5%99%A8">6. 发送寄存器</a></li>
+<li><a href="#7-%E6%8E%A5%E6%94%B6%E5%AF%84%E5%AD%98%E5%99%A8">7. 接收寄存器</a></li>
+<li><a href="#8-%E6%8E%A7%E5%88%B6%E5%AF%84%E5%AD%98%E5%99%A8">8. 控制寄存器</a></li>
+<li><a href="#9-%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8">9. 状态寄存器</a></li>
+<li><a href="#10-%E6%A3%80%E6%B5%8B%E5%AF%84%E5%AD%98%E5%99%A8%E6%83%85%E5%86%B5">10. 检测寄存器情况</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="http://canaan-chen.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">I2C 模块设计|Master Reg 设计</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-21 / 9 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>本章节讲述APB regesiter 模块。register 处于biu和byte_ctrl 之间，它的作用在于收取到来自biu模块的读写信号进行读写操作，之后转换成相应的控制信号对后面模块进行控制，同时byte_ctrl 和bit_ctrl 会产生相应的状态信号反馈给reg模块。</p>
+<!--more-->
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/SharedScreenshot.jpg" alt="" loading="lazy"></figure>
+<h3 id="1-register-分类">1. Register 分类</h3>
+<p>首先我们先对这次设计的寄存器进行一次分类。</p>
+<ul>
+<li>
+<p><strong>预分频寄存器</strong>： 用于存储分频的具体参数。</p>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321185858.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>控制寄存器</strong>： 用于使能和中断</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190420.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>数据接收寄存器</strong>：用于接受数据</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190459.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>数据发送寄存器</strong>：用于传输数据</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190604.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>状态寄存器</strong>：存储着系统模块的状态，包括应答信号接受状态、数据传输状态等</p>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190702.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>命令寄存器</strong>：包含着一系列的指令。</p>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190736.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+<h3 id="2-整体模块的输入输出口">2. 整体模块的输入输出口</h3>
+<p>首先我们定义一下整个master的reg的输入输出。</p>
+<p>输入信号：</p>
+<ul>
+<li>来自biu：<code>wr_en</code>, <code>rd_en</code>, <code>byte_en</code>, <code>reg_addr</code>, <code>ipwdata</code>。</li>
+<li>来自byte_ctrl: <code>done</code>(一帧完成信号) <code>i2c_al</code>(仲裁失败信号)、<code>rxack</code>（应答信号）、<code>i2c_busy</code>（busy 标志位）、<code>tip</code>(传输状态信号)、<code>rxr_i</code>(输入数据)</li>
+</ul>
+<p>输出信号：</p>
+<ul>
+<li>发送给biu ：<code>iprdata</code>(读出数据，传输给apb）</li>
+<li>发送给byte_ctrl：<code>core_en</code>(片选信号)、<code>ien_en</code>(中断功能使能信号)、<code>prer</code>(分频数预设置，传输给byte_ctrl)、<code>txr</code>(存储来自apb的数据，并且用于传输给下一级)、<code>sta</code>（启动标志位）、<code>sto</code>（停止标志位）、<code>rd</code>（读信号）、<code>wr</code>（写信号）、<code>ack</code>（响应信号）、<code>irq_flag_d</code>(中断标志位)</li>
+</ul>
+<pre><code class="language-verilog">module ahb_i2c_reg #(
+	parameter ADDR_SLICE_LHS = 5, // 5位输入地址
+	parameter APB_DATA_WIDTH = 32 // 32 位数据宽度
+)
+(
+	input 							pclk,
+	input							prestn,
+	// biu 模块连接信号
+	input							wr_en, // 来自biu的写信号
+	input							rd_en, // 来自biu的读信号
+	input	[3:0]					byte_en,
+	input	[ADDR_SLICE_LHS-3:0]	reg_addr,// 3位地址
+	input	[APB_DATA_WIDTH-1:0]	ipwdata, //来自biu的写数据
+	output	reg [15:0]				iprdata, //输出给biu的读数据
+	
+	input							done,
+	input							i2c_al, //仲裁失败信号
+	input							rxack, //应答信号
+	input							i2c_busy, //busy 标志位
+	input							tip,
+	input	[7:0]					rxr_i,
+	
+	// 输出控制信号，全都时reg形式，表示控制信号都来自D触发器
+	output	reg	[15:0]				prer,
+	output	reg						corn_en,
+	output	reg						ien_en,
+	output	reg	[7:0]				txr,
+	output	reg						sta,
+	output	reg						sto,
+	output	reg						rd,
+	output	reg						wr,
+	output	reg						ack,
+	output	reg						irq_flag_d
+
+);
+</code></pre>
+<h3 id="3寄存器地址的分配">3.寄存器地址的分配</h3>
+<h4 id="31-寄存器地址分配">3.1 寄存器地址分配</h4>
+<p>因为APB原地址分配方式为00h, 04h, 08h, 0Ch, 10h和14h， 这种八位的地址通过biu，只取低三位的方式已经转换为3位的地址addr，通过下面的代码实现对对应寄存器的选取。</p>
+<pre><code class="language-verilog">assign i2c_cpr_en = (reg_addr == 3'h0) ? 1'b1 : 1'b0; //预分频寄存器
+assign i2c_ctr_en = (reg_addr == 3'h1) ? 1'b1 : 1'b0; // 控制寄存器
+assign i2c_rdr_en = (reg_addr == 3'h2) ? 1'b1 :	1'b0; //接受寄存器
+assign i2c_sr_en  = (reg_addr == 3'h3) ? 1'b1 : 1'b0; //状态寄存器
+assign i2c_tdr_en = (reg_addr == 3'h4) ? 1'b1 : 1'b0; //发送数据寄存器
+assign i2c_cr_en  = (reg_addr == 3'h5) ? 1'b1 : 1'b0; //命令寄存器
+</code></pre>
+<h4 id="32-biu-读写信号转换">3.2 Biu 读写信号转换</h4>
+<p>将biu 的读写信号转换为寄存器的读写信号。其中i2c_sr_rd， 是状态寄存器的读信号转换，因为该寄存器只能在读的时候清状态，写的时候不可以清除状态。</p>
+<pre><code class="language-verilog">assign i2c_cpr_wr =  i2c_cpr_en &amp; wr_en;
+assign i2c_ctr_wr =	i2c_ctr_en &amp; wr_en;
+assign i2c_rdr_wr = i2c_rdr_en &amp; wr_en;
+assign i2c_sr_wr  = i2c_sr_en &amp; wr_en;
+assign i2c_tdr_wr = i2c_tdr_en &amp; wr_en;
+assign i2c_cr_wr  = i2c_cr_en &amp; wr_en;
+
+assign i2c_sr_rd = i2c_sr_en &amp; rd_en;// 读操作信号
+</code></pre>
+<h3 id="4-预分频寄存器的设计">4. 预分频寄存器的设计</h3>
+<p>预分频寄存器须在该寄存器的写信号<code>i2c_cpr_wr</code>为高时，并且片选信号为低时进行赋值，这是因为预分频必须在接口运作前先完成设定，设定方式为将输入数据<code>ipwdata</code>进行赋值。同时<code>prer</code>保存在<code>i2c_cpr_reg</code> 中。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		prer &lt;= 16'h0000;
+	end else begin
+		prer &lt;= prer_pre;
+	end
+end
+
+assign prer_pre = i2c_cpr_wr &amp; ~core_en ? ipwdata[15:0] : prer; //如果写操作地址选中，并且未使能时，则将APB 上的数据写入。
+// 设定core_en的目的是，当模块未使能时，要求设定好预分频寄存器，若使能后，则预分频寄存器不能改变。
+assign i2c_cpr_reg = {prer};
+</code></pre>
+<h3 id="5-控制寄存器">5. 控制寄存器</h3>
+<figure data-type="image" tabindex="8"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190420.png" alt="" loading="lazy"></figure>
+<p>控制寄存器提供两个信号，一个是片选使能信号，另一个是中断使能信号，而这两个信号通过<code>ipwdata</code>的第八位和第七位来实现，即<code>ipwdata[7],ipwdata[6]</code>。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		core_en &lt;= 1'b0;
+		ien_en	&lt;= 1'b0;
+	end else begin
+		core_en &lt;= core_en_pre;
+		ien_en	&lt;= ien_en_pre;
+	end
+end
+
+assign core_en_pre = i2c_ctr_wr ? ipwdata[7] : core_en; // 第七位来赋值
+assign ien_en_pre  = i2c_ctr_wr ? ipwdata[6] : ien_en;
+
+assign i2c_ctr_reg = {core_en,ien_en,6'b0};
+</code></pre>
+<h3 id="6-发送寄存器">6. 发送寄存器</h3>
+<p>发送寄存器会将收到的<code>ipwdata</code>数据保存发送给下一级，因为传输过程中实际只用到八位传播，所以最后<code>txr</code>中存储的仅为<code>ipwdata</code>中的低八位。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin // txr 数据发送寄存器
+	if(!prestn) begin
+		txr &lt;= 8'b0;
+	end else begin
+		txr &lt;= txr_pre;
+	end
+end
+
+assign txr_pre = i2c_tdr_wr ? ipwdata[7:0] : txr; //是否要输入16位数据？
+assign i2c_tdr_reg = {8'b0, txr};
+</code></pre>
+<h3 id="7-接收寄存器">7. 接收寄存器</h3>
+<p>接受寄存器功能和发送寄存器类似，负责存储读取到的数据<code>rxr_i</code>。其中<code>done</code>信号表示一帧信号已经完成传输，当<code>done</code>信号为高时，才可以进行数据存储。</p>
+<pre><code class="language-verilog">always @ ( posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		rxr &lt;= 8'b0;
+	end else begin
+		rxr &lt;= rxr_pre;
+	end
+end
+
+assign rxr_pre = done ? rxr_i : rxr; //将byte control模块读取到的数据输入，用于给apb模块读取
+assign i2c_rdr_reg = {8'h0,rxr};
+</code></pre>
+<h3 id="8-控制寄存器">8. 控制寄存器</h3>
+<p>控制寄存器中含有较多的输出控制信号：<code>sta</code>（启动标志位）、<code>sto</code>（停止标志位）、<code>rd</code>（读信号）、<code>wr</code>（写信号）、<code>ack</code>（响应信号）。</p>
+<p>当done信号传过来时，表示一帧数据发送完毕，控制信号都清零，这时候如果要赋值进行控制，则统一根据输入的<code>ipwdata[7:4]</code>来进行（选7到4是因为spec规定的，个人设计可以进行修改），<code>iack</code> 信号作为备用。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		sta &lt;= 1'b0;
+		sto	&lt;= 1'b0;
+		rd	&lt;= 1'b0;
+		wr	&lt;= 1'b0;
+		ack	&lt;= 1'b0;
+		iack &lt;= 1'b0;
+	end else begin
+		sta &lt;= sta_pre;
+		sto	&lt;= sto_pre;
+		rd	&lt;= rd_pre;
+		wr	&lt;= wr_pre;
+		ack	&lt;= ack_pre; 
+		iack &lt;= iack_pre;
+	end
+end
+
+assign sta_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[7] : sta ; //如果done信号穿过来，表示已经完成，则start标志清零。实现物理清零操作
+assign sto_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[6] : sto ; 
+assign rd_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[5] : rd ;
+assign wr_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[4] : wr ;
+assign ack_pre = i2c_cr_wr ? ipwdata[3] : 1'b0;
+assign iack_pre = i2c_cr_wr ? ipwdata [0] : 1'b0;
+</code></pre>
+<h3 id="9-状态寄存器">9. 状态寄存器</h3>
+<p>状态寄存器用于接收状态信息，该状态寄存器只允许读而不可以写。总共这几个状态：<code>done</code>(一帧完成信号) <code>i2c_al</code>(仲裁失败信号)、<code>rxack</code>（应答信号）、<code>i2c_busy</code>（busy 标志位），以及发出中断状态<code>irq_flag_d</code>。</p>
+<p>其中中断状态，如果对该寄存器进行读操作时，会将中断寄存器清零，不会实现中断。相应的，中断发生条件为中断flag 为1 并且中断信号使能为1。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		rxack_d			&lt;= 1'b0;
+		i2c_busy_d		&lt;= 1'b0;
+		al_d			&lt;= 1'b0;
+		tip_d			&lt;= 1'b0;
+		irq_flag_d		&lt;= 1'b0;
+	end else begin
+		rxack_d 	&lt;= 	rxack;
+		i2c_busy_d	&lt;=	i2c_busy;
+		al_d		&lt;= 	i2c_al | (al_d &amp; ~sta); // i2c_al 是仲裁失败信号
+		tip_d		&lt;= (wr | rd);		
+		irq_flag_d &lt;= irq_flag_pre;
+	end
+end
+
+assign irq_flag_pre = i2c_sr_rd ? 1'b0 : irq_flag &amp; ien_en ? 1'b1 : irq_flag_d ; // 读的时候会把flag 给清掉
+assign i2c_cr_reg = {8'b0
+					,rack_d
+					,i2c_busy_d
+					,al_d
+					,tip_d
+					,irq_flag_d
+					};
+assign irq_flag = (done | i2c_al); //当完成一帧数据的传输或者发生总裁错位的时候产生中断标志位。
+</code></pre>
+<h3 id="10-检测寄存器情况">10. 检测寄存器情况</h3>
+<p>为了方便检测寄存器里的数据情况，通过以下的组合逻辑，在选中地址之后对访问的寄存器的数据进行存储。</p>
+<pre><code class="language-verilog">always @ (*) begin
+	iprdata = {32{1'b0}};
+	if (i2c_cpr_en == 1'b1) iprdata [15:0] = i2c_cpr_reg;
+	if (i2c_ctr_en == 1'b1) iprdata [15:0] = i2c_ctr_reg;
+	if (i2c_rdr_en == 1'b1) iprdata [15:0] = i2c_rdr_reg;
+	if (i2c_sr_en == 1'b1) iprdata [15:0] = i2c_sr_reg;
+	if (i2c_tdr_en == 1'b1) iprdata [15:0] = i2c_tdr_reg;
+	if (i2c_cr_en == 1'b1) iprdata [15:0] = i2c_cr_reg;
+end
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/woTOUbJziW/">
+            <span class="flex-auto">I2C 学习</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/yLweaacpM-/">
+            <span class="flex-auto">IC 面试</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="http://canaan-chen.github.io/hexo-博客拓展/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  hexo 博客拓展 | CODING平台托管以及个性化域名
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="http://canaan-chen.github.io/hexo-next-主题优化/">
+                <h3 class="post-title">
+                  hexo next 主题优化 | 这里可能有你遇到所有问题的答案
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="http://canaan-chen.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

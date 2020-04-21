@@ -33,22 +33,7 @@
             文章目录
           </p>
           <div class="toc-container hidden lg:block">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#1-%E5%A6%82%E4%BD%95%E8%AE%A9%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6">1. 如何让文章置顶</a>
-<ul>
-<li><a href="#%E5%8D%9A%E6%96%87%E7%BD%AE%E9%A1%B6">博文置顶</a></li>
-<li><a href="#%E7%BD%AE%E9%A1%B6%E6%A0%87%E5%BF%97%E4%BD%93%E7%8E%B0">置顶标志体现</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%A2%9E%E5%8A%A0%E5%8D%9A%E5%AE%A2%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87">2. 增加博客背景图片</a></li>
-<li><a href="#3-%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E9%80%8F%E6%98%8E%E5%BA%A6%E8%B0%83%E6%95%B4">3. 博客内容透明度调整</a></li>
-<li><a href="#4-%E5%A2%9E%E5%8A%A0%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0list">4. 增加近期文章list</a></li>
-</ul>
-</li>
-</ul>
-
+            
           </div>
         </div>
       
@@ -93,115 +78,30 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">hexo Next 主题修改tips</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">每日一技 | 用坚果云打造你的微信文章缓存库</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-04 / 4 min read
+          2020-03-16 / 1 min read
         </div>
         
         <div class="post-content yue">
-          <p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
+          <center>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这篇精彩的推送保存到哪里。鱼叔在这里给大家推荐一个好的方法，用坚果云打造一个个人的微信文章缓存库。</center>
 <!--more-->
-<h2 id="1-如何让文章置顶">1. 如何让文章置顶</h2>
-<h3 id="博文置顶">博文置顶</h3>
-<p>在gitbash里输入以下代码加入置顶插件。</p>
-<pre><code class="language-py">$ npm uninstall hexo-generator-index --save
-$ npm install hexo-generator-index-pin-top --save
-</code></pre>
-<p>然后在文章的<code>Front-matter</code>中加上<code>top:true</code>即可实现置顶。</p>
-<h3 id="置顶标志体现">置顶标志体现</h3>
-<p>实现置顶后如果没有置顶标志就会表现得很奇怪，这时候我们需要添加相关的置顶标志来实现。</p>
-<p>打开/blog/theme/next/layout/_macro 中的<code>post.swig</code> 文件，定位到 <code>&lt;div class=&quot;post-block&quot;&gt;</code>下，添加如下代码：</p>
-<pre><code>{% if post.top %}
-            &lt;i class=&quot;fa fa-thumb-tack&quot;&gt;&lt;/i&gt;
-            &lt;font color=7D26CD&gt;置顶&lt;/font&gt;
-            &lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;
- {% endif %}
-</code></pre>
-<h2 id="2-增加博客背景图片">2. 增加博客背景图片</h2>
-<ol>
-<li>在<code>themes/next/source/css/_custom/custom.styl</code>中添加CSS样式</li>
-</ol>
-<p>文件位置：hexo/themes/next/source/css/_custom/custom.styl// 背景图片</p>
-<pre><code class="language-css">body::before {
-    background-image: url(https://背景图.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-    content: &quot; &quot;;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -2;
-}
-</code></pre>
-<p>2）jquery-backstretch插件</p>
-<p>文件位置：hexo/themes/next/layout/_layout.swig</p>
-<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js&quot;&gt;&lt;/script&gt;
-+  &lt;script&gt;
-+  $(&quot;body&quot;).backstretch(&quot;https://背景图.jpg&quot;);
-+  &lt;/script&gt;
-&lt;/body&gt;
-</code></pre>
-<p>加入到文件最后面前面即可。</p>
-<h2 id="3-博客内容透明度调整">3. 博客内容透明度调整</h2>
-<p>NexT主题的博客文章均是不透明的，下面的方法可以使博客内容透明化：</p>
-<p>在<code>blog/themes/next/source/css/_custom/custom.styl</code>中添加以下内容：</p>
-<pre><code>// page-opacity
-
-.content-wrap {
-  opacity: 0.85;
-}
-
-.sidebar {
-  opacity: 0.85;
-}
-
-.header-inner {
-  background: rgba(255,255,255,0.85);
-}
-
-.popup {
-  opacity: 0.9;
-}
-</code></pre>
-<p>其中<code>content-wrap</code>是文章内容的透明度设置，<code>sidebar</code>是侧边框的透明度设置，<code>header-inner</code>是菜单栏的透明度设置，<code>popup</code>是搜索框（<code>local-search</code>）的透明度设置。</p>
-<p>可以修改上面的数字来自定义透明度。</p>
-<p>注意其中<code>header-inner</code>不能使用<code>opacity</code>进行配置。<br>
-因为<code>header-inner</code>包含<code>header.swig</code>中的所有内容。<br>
-若使用<code>opacity</code>进行配置，子结点会出很多问题</p>
-<h2 id="4-增加近期文章list">4. 增加近期文章list</h2>
-<pre><code>{% if theme.recent_posts %}
-    &lt;div class=&quot;links-of-blogroll motion-element {{ &quot;links-of-blogroll-&quot; + theme.recent_posts_layout  }}&quot;&gt;
-      &lt;div class=&quot;links-of-blogroll-title&quot;&gt;
-        &lt;!-- modify icon to fire by szw --&gt;
-        &lt;i class=&quot;fa fa-history fa-{{ theme.recent_posts_icon | lower }}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
-        {{ theme.recent_posts_title }}
-      &lt;/div&gt;
-      &lt;ul class=&quot;links-of-blogroll-list&quot;&gt;
-        {% set posts = site.posts.sort('-date') %}
-        {% for post in posts.slice('0', '5') %}
-          &lt;li&gt;
-            &lt;a href=&quot;{{ url_for(post.path) }}&quot; title=&quot;{{ post.title }}&quot; target=&quot;_blank&quot;&gt;{{ post.title }}&lt;/a&gt;
-          &lt;/li&gt;
-        {% endfor %}
-      &lt;/ul&gt;
-    &lt;/div&gt;
-{% endif %}
-</code></pre>
-<p>将此代码贴在<code>next/layout/_macro/sidebar.swig</code>中的<code>if theme.links</code>对应的<code>endif</code>后面，就ok了，是不是很简单。。。。<br>
-为了配置方便，在主题的<code>_config.yml</code>中添加了几个变量，如下：</p>
-<pre><code>recent_posts_title: 近期文章
-recent_posts_layout: block
-recent_posts: true
-</code></pre>
+<p><strong>Step 1</strong> : 打开坚果云app, 在右下角“设置”中的功能部分开启邮件抽屉。(注意，坚果云会要求同意访问通讯录的权限)</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/13/b9403d15da469d44b88ed12912fc9806.png" alt="img" loading="lazy"></figure>
+<p><strong>Step 2</strong> : 点击微信推送右上角的分享按钮，在选项中选择邮件，邮件对象打坚果就会弹出“坚果邮件抽屉”，然后选择发送，一会儿会有邮件提示保存成功。</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/13/756357f3e29097ea3f2df78ad703a637.gif" alt="img" loading="lazy"></figure>
+<p><strong>Step 3</strong> : 文章会自动保存在我的坚果云文件夹里的 Email Box 里，并且以pdf的方式呈现出来。坚果云支持多设备同步，这样就可以在电脑上方便查看文章了。</p>
+<figure data-type="image" tabindex="3"><img src="https://cdn.sspai.com/2020/01/13/0b64fce705a6c37388220a74e0ad36ae.png" alt="img" loading="lazy"></figure>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/xE65R6X5lg/">
-            <span class="flex-auto">hexo</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/anl0ng2MGl/">
+            <span class="flex-auto">每日一技</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/rSBR6erP_U/">
+            <span class="flex-auto">坚果云</span>
           </a>
         
 
@@ -209,10 +109,10 @@ recent_posts: true
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://canaan-chen.github.io/如何在windows-体验极致模仿Mac-os系统桌面/">
+              <a href="http://canaan-chen.github.io/如何挑一杯不错的速溶咖啡/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
-                  如何在windows 体验极致模仿Mac os系统桌面
+                  如何挑一杯不错的速溶咖啡
                 </h3>
               </a>
             </div>
@@ -220,9 +120,9 @@ recent_posts: true
 
           
             <div class="next-post">
-              <a href="http://canaan-chen.github.io/hexo-博客拓展/">
+              <a href="http://canaan-chen.github.io/关于留学中介，鱼叔有几句话要说/">
                 <h3 class="post-title">
-                  hexo 博客拓展 | CODING平台托管以及个性化域名
+                  关于留学中介，鱼叔有几句话要说
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
