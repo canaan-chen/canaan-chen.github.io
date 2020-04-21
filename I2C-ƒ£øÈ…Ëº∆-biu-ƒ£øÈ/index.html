@@ -30,30 +30,23 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Never give up, and you will see hope.
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%86%99%E6%93%8D%E4%BD%9C">写操作</a></li>
+<li><a href="#%E8%AF%BB%E6%93%8D%E4%BD%9C">读操作</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E7%9A%84%E4%BB%A3%E7%A0%81%E9%93%BE%E6%8E%A5%E5%A6%82%E4%B8%8B">具体的代码链接如下：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
           </div>
         </div>
       
@@ -97,35 +90,121 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-line"></i> hugo
-        </h2>
-        
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-      <a href="https://unclefish-cc.github.io/«≥Ã∏hugoΩ®’æ/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
-        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://cdn.sspai.com/2020/04/09/0d0641fc7dda81e960abc227c48eb8a1.png?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1'">
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">I2C 模块设计| biu 模块</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-17 / 3 min read
         </div>
-      </a>
-    
-    <div class="content">
-      <a href="https://unclefish-cc.github.io/«≥Ã∏hugoΩ®’æ/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">浅谈hugo建站</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>「大家好，我是鱼叔，前不久我刚用hexo搭建完我的博客，但是最近在隔离期无所事事，秉着“生命在于折腾”的精神，我又将博客从Hexo迁移到了Hugo上，这篇文章主要讲为什么我要选择Hugo，以及Hugo搭建博客的一些tips。」</p>
-<p>HUGO 博客链接：http://unclefish.ink/my_blog.github.io/</p>
+        
+        <div class="post-content yue">
+          <p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
+<!--more-->
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt="" loading="lazy"></figure>
+<pre><code class="language-verilog">module apb_i2c_biu #(
+	parameter ADDR_SLICE_LHS = 5, // addres [4:0] 
+	parameter APB_DATA_WIDTH = 32
+)
+(
+// signals connect to APB module 
+	input							pclk,
+	input							presetn, // reset
+	input 							psel, // select signal
+	input	[ADDR_SLICE_LHS-1 : 0] 	paddr, // 5bit addres
+	input							pwrite,
+	input 							penable,
+	input	[APB_DATA_WIDTH-1 : 0]	pwdata,
+	output	reg [APB_DATA_WIDTH-1 : 0] prdata,
+//signals connect to register module
+	input	[15:0]					iprdata, // ?
+	output							wr_en,
+									rd_en,
+	output	[ADDR_SLICE_LHS-3:0]	reg_addr, // ahb addres searching
+	output	[3:0]					byte_en,
+	output	reg	[31:0]				ipwdata
+);
+</code></pre>
+<h3 id="写操作">写操作</h3>
+<p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p>
+<ul>
+<li>
+<p>写操作代码：</p>
+<pre><code class="language-verilog">assign wr_en = psel &amp; penable &amp; pwrite; // 写信号的要求
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-04-10 / 7 min read</div>
-    </div>
-  </section>
+always @(pwdata) begin
+	ipwdata = 32'b0;
+	ipwdata [APB_DATA_WIDTH-1:0] = pwdata[APB_DATA_WIDTH-1:0]; //apb总线上的数据每次发生变化，就将数据传输到输出reg中
+end
 
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+</code></pre>
+</li>
+</ul>
+<h3 id="读操作">读操作</h3>
+<p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p>
+<ul>
+<li>
+<p>关于读信号的判断</p>
+<p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p>
+<pre><code class="language-verilog">assign rd_en = psel &amp; !penable &amp; !pwrite; // 读信号要提前产生，因为要求把数据提前放到APB总线上
+
+// 数据传输过程
+always @ (posedge pclk or negedge presetn) begin
+	if(presetn == 1'b0) begin
+		prdata &lt;= {APB_DATA_WIDTH{1'b0}}; //apb 读寄存器中的数据清零
+	end
+	else begin
+		if (rd_en) begin
+			prdata &lt;= {16'b0,iprdata}; // 将读入的数据保存到apb reg中
+		end
+	end
+end
+</code></pre>
+</li>
+</ul>
+<h3 id="具体的代码链接如下">具体的代码链接如下：</h3>
+<p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v">Biu Ctrl Code</a></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/woTOUbJziW/">
+            <span class="flex-auto">I2C 学习</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/yLweaacpM-/">
+            <span class="flex-auto">IC 面试</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://unclefish-cc.github.io/hexo-next-÷˜Ã‚”≈ªØ/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  hexo next 主题优化 | 这里可能有你遇到所有问题的答案
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://unclefish-cc.github.io/I2C-–≠“Èª˘¥°/">
+                <h3 class="post-title">
+                  I2C 模块设计 | 协议基础
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
 
       </div>
     </div>

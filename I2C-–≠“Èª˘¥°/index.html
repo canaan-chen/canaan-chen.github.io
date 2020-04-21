@@ -36,7 +36,27 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li><a href="#apb-i2c-%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE">APB I2C 总线协议</a>
+<ul>
+<li><a href="#i2c-uart-spi-%E6%8E%A5%E5%8F%A3%E5%AF%B9%E6%AF%94">I2C UART SPI 接口对比</a></li>
+<li><a href="#i2c-%E5%B8%A7%E7%BB%93%E6%9E%84">I2C 帧结构</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B">基本流程</a></li>
+<li><a href="#%E8%B5%B7%E5%A7%8B%E6%9D%A1%E4%BB%B6">起始条件</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2%E6%9D%A1%E4%BB%B6">停止条件</a></li>
+<li><a href="#%E4%BD%8D%E4%BC%A0%E8%BE%93%E8%A6%81%E6%B1%82">位传输要求</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%BB%93%E6%9E%84">数据传输结构</a></li>
+</ul>
+</li>
+<li><a href="#i2c-%E7%9A%84%E5%93%8D%E5%BA%94%E6%9C%BA%E5%88%B6">I2C 的响应机制</a>
+<ul>
+<li><a href="#%E6%97%A0%E6%B3%95%E5%93%8D%E5%BA%94%E6%83%85%E5%86%B5">无法响应情况：</a></li>
+<li><a href="#%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81">总线仲裁</a></li>
+</ul>
+</li>
+<li><a href="#sample">Sample</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -85,41 +105,107 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">Hello Gridea</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">I2C 模块设计 | 协议基础</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2018-12-12 / 2 min read
+          2020-03-17 / 4 min read
         </div>
-        
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://unclefish-cc.github.io/post-images/hello-gridea.png" alt="">
         
         <div class="post-content yue">
-          <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+          <blockquote>
+<p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
+<!--more-->
+<h2 id="apb-i2c-总线协议">APB I2C 总线协议</h2>
+<h3 id="i2c-uart-spi-接口对比">I2C UART SPI 接口对比</h3>
+<ul>
+<li>UART 异步接口，需要用波特率发生器来进行同步，传输速率较慢</li>
+<li>SPI 同步接口（Master需要给Slave 提供一个同步时钟）四根信号线（clk/MISO/MOSI）</li>
+<li>I2C 慢同步 ， 半双工（SCL SDA）</li>
+</ul>
+<h3 id="i2c-帧结构">I2C 帧结构</h3>
+<p>两根线， SDA-数据线，SCL-时钟线，半双工工作模式。</p>
+<p>结构：</p>
+<ul>
+<li>
+<p>Master：SCL 信号源，控制信息流</p>
+</li>
+<li>
+<p>Slave: 处于等待状态，Master 会通过地址来搜寻所需要的slave，每一个slave都有一个固定的地址，并且地址的方式可以通过固定或者配置来实现。</p>
+</li>
+</ul>
+<h4 id="基本流程">基本流程</h4>
+<ol>
+<li>
+<p>发送起始条件</p>
+</li>
+<li>
+<p>发送接受设备的地址和任务操作；</p>
+</li>
+<li>
+<p>发送或者接受数据</p>
+</li>
+<li>
+<p>接受设备发送相应位 — 应答；</p>
+</li>
+<li>
+<p>发送停止条件</p>
+</li>
+</ol>
+<p>一帧数据8bit， 其中[7:1]为设备地址，而最后一位为数据方向</p>
+<ul>
+<li>
+<p>[7:1] 地址</p>
+</li>
+<li>
+<p><strong>0: 0 — 发送地址，写操作；1 — 接受数据，读操作</strong></p>
+</li>
+</ul>
+<h4 id="起始条件">起始条件</h4>
+<p>当SCL 和SDA是高电平，且 SDA由高电平到低电平切换；</p>
+<p>表示总线上要传输信息；</p>
+<p>总线在起始条件后表示处于忙碌状态；</p>
+<h4 id="停止条件">停止条件</h4>
+<p>当SCL 是高电平时，SDA由低电平向高电平切换时；</p>
+<p>本次通讯结束，总线进入空闲状态。</p>
+<h4 id="位传输要求">位传输要求</h4>
+<p>每传输一个数据就产生一个时钟脉冲。并且在高电平时采样数据</p>
+<h4 id="数据传输结构">数据传输结构</h4>
+<p>数据流： [起始位] [接受数据的地址 6bit] [读写位 ] [数据1, 从7到0，高位先发] [ 应答信号] [数据2, 从7到0，高位先发] [ 应答信号] ... [应答] [停止位]</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.png" alt="" loading="lazy"></figure>
+<h3 id="i2c-的响应机制">I2C 的响应机制</h3>
+<p>Slave 需要在收到数据后给予应答信号，在相应期间，Master需要释放SDA线，而Slave需要将SDA线拉低，表示相应。</p>
+<h4 id="无法响应情况">无法响应情况：</h4>
+<ul>
+<li>如果从机没有响应，则主机要使数据线一直保持高电平，产生一个停止或者重复条件。</li>
+<li>如果从机来不及处理数据，可以一直拉低时钟线，使主机处于等待状态</li>
+</ul>
+<p>SCL 的线与逻辑保证了时钟线上的同步，比如说clk1 先拉低，但是clk2 的低电平还没有到，这时候MOS2 打开状态，整个SCL还是处于低电平状态，只有当所有的clk都到达变低后，线才被拉高，SCL同步机制来保证SCL 读取数据的同步性</p>
+<h4 id="总线仲裁">总线仲裁</h4>
+<p>多个主机使用总线时，当SCL 处于高电平时，根据SDA的电平来进行仲裁；</p>
+<p>规则；当主机需要将总线拉高时，但不能实现 —&gt; 丢失仲裁 —&gt; 退回到设备。</p>
+<h3 id="sample">Sample</h3>
+<p>主机接受流程：</p>
+<ol>
+<li>发送起始标志位</li>
+<li>发送从机地址和读信号</li>
+<li>从机接收到信号发送应答标志，开始发数据</li>
+<li>主机接收到数据发送应答信号开始接受下一个数据</li>
+<li>主机不想接受信号就发送一个NACK信号然后停止</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt="" loading="lazy"></figure>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/81n9a4iLg/">
-            <span class="flex-auto">Gridea</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/woTOUbJziW/">
+            <span class="flex-auto">I2C 学习</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/TNGQJ25Oqw/">
+            <span class="flex-auto">IC design</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://unclefish-cc.github.io/yLweaacpM-/">
+            <span class="flex-auto">IC 面试</span>
           </a>
         
 
@@ -127,15 +213,24 @@
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="https://unclefish-cc.github.io/“Ï≤Ωfifoµƒ…Ëº∆/">
+              <a href="https://unclefish-cc.github.io/I2C-ƒ£øÈ…Ëº∆-biu-ƒ£øÈ/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
-                  异步fifo的设计
+                  I2C 模块设计| biu 模块
                 </h3>
               </a>
             </div>
           
 
+          
+            <div class="next-post">
+              <a href="https://unclefish-cc.github.io/Œ“µƒ»’≥£–ß¬ »Ìº˛/">
+                <h3 class="post-title">
+                  我的日常效率软件
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
 

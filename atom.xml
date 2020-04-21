@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://unclefish-cc.github.io</id>
     <title>UncleFish&apos;s Blog</title>
-    <updated>2020-04-12T16:26:02.091Z</updated>
+    <updated>2020-04-21T12:38:07.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://unclefish-cc.github.io"/>
     <link rel="self" href="https://unclefish-cc.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, UncleFish&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[浅谈hugo建站]]></title>
-        <id>https://unclefish-cc.github.io/浅谈hugo建站/</id>
-        <link href="https://unclefish-cc.github.io/浅谈hugo建站/">
+        <id>https://unclefish-cc.github.io/«≥Ã∏hugoΩ®’æ/</id>
+        <link href="https://unclefish-cc.github.io/«≥Ã∏hugoΩ®’æ/">
         </link>
         <updated>2020-04-10T03:03:08.000Z</updated>
         <summary type="html"><![CDATA[<p>「大家好，我是鱼叔，前不久我刚用hexo搭建完我的博客，但是最近在隔离期无所事事，秉着“生命在于折腾”的精神，我又将博客从Hexo迁移到了Hugo上，这篇文章主要讲为什么我要选择Hugo，以及Hugo搭建博客的一些tips。」</p>
@@ -80,8 +80,8 @@ git push -u origin master
     </entry>
     <entry>
         <title type="html"><![CDATA[如何在windows 体验极致模仿Mac os系统桌面]]></title>
-        <id>https://unclefish-cc.github.io/如何在windows-体验极致模仿Mac-os系统桌面/</id>
-        <link href="https://unclefish-cc.github.io/如何在windows-体验极致模仿Mac-os系统桌面/">
+        <id>https://unclefish-cc.github.io/»Á∫Œ‘⁄windows-ÃÂ—Èº´÷¬ƒ£∑¬Mac-osœµÕ≥◊¿√Ê/</id>
+        <link href="https://unclefish-cc.github.io/»Á∫Œ‘⁄windows-ÃÂ—Èº´÷¬ƒ£∑¬Mac-osœµÕ≥◊¿√Ê/">
         </link>
         <updated>2020-04-05T16:23:26.000Z</updated>
         <content type="html"><![CDATA[<p>大家好，我是鱼叔，今天在这里聊一下如何在windows上体验极致模仿的Mac os 系统桌面。<!--more--><br>
@@ -134,8 +134,8 @@ git push -u origin master
     </entry>
     <entry>
         <title type="html"><![CDATA[hexo Next 主题修改tips]]></title>
-        <id>https://unclefish-cc.github.io/hexo-Next-主题修改tips/</id>
-        <link href="https://unclefish-cc.github.io/hexo-Next-主题修改tips/">
+        <id>https://unclefish-cc.github.io/hexo-Next-÷˜Ã‚–ﬁ∏ƒtips/</id>
+        <link href="https://unclefish-cc.github.io/hexo-Next-÷˜Ã‚–ﬁ∏ƒtips/">
         </link>
         <updated>2020-04-04T07:01:48.000Z</updated>
         <summary type="html"><![CDATA[<p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
@@ -241,8 +241,8 @@ recent_posts: true
     </entry>
     <entry>
         <title type="html"><![CDATA[hexo 博客拓展 | CODING平台托管以及个性化域名]]></title>
-        <id>https://unclefish-cc.github.io/hexo-博客拓展/</id>
-        <link href="https://unclefish-cc.github.io/hexo-博客拓展/">
+        <id>https://unclefish-cc.github.io/hexo-≤©øÕÕÿ’π/</id>
+        <link href="https://unclefish-cc.github.io/hexo-≤©øÕÕÿ’π/">
         </link>
         <updated>2020-03-30T09:46:38.000Z</updated>
         <summary type="html"><![CDATA[<p>「hello 大家好，我是鱼叔。在上一篇讲完关于next的优化tips之后，这一篇我们来聊一下CODING平台的代码托管以及如何个性化你自己的域名」</p>
@@ -406,9 +406,246 @@ CNAME			xxxx		默认		ziyuan.baidu.com
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[I2C 模块设计|Master Reg 设计]]></title>
+        <id>https://unclefish-cc.github.io/I2C-ƒ£øÈ…Ëº∆-Master-Reg-…Ëº∆/</id>
+        <link href="https://unclefish-cc.github.io/I2C-ƒ£øÈ…Ëº∆-Master-Reg-…Ëº∆/">
+        </link>
+        <updated>2020-03-21T12:37:05.000Z</updated>
+        <summary type="html"><![CDATA[<p>本章节讲述APB regesiter 模块。register 处于biu和byte_ctrl 之间，它的作用在于收取到来自biu模块的读写信号进行读写操作，之后转换成相应的控制信号对后面模块进行控制，同时byte_ctrl 和bit_ctrl 会产生相应的状态信号反馈给reg模块。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本章节讲述APB regesiter 模块。register 处于biu和byte_ctrl 之间，它的作用在于收取到来自biu模块的读写信号进行读写操作，之后转换成相应的控制信号对后面模块进行控制，同时byte_ctrl 和bit_ctrl 会产生相应的状态信号反馈给reg模块。</p>
+<!--more-->
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/SharedScreenshot.jpg" alt="" loading="lazy"></figure>
+<h3 id="1-register-分类">1. Register 分类</h3>
+<p>首先我们先对这次设计的寄存器进行一次分类。</p>
+<ul>
+<li>
+<p><strong>预分频寄存器</strong>： 用于存储分频的具体参数。</p>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321185858.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>控制寄存器</strong>： 用于使能和中断</p>
+<figure data-type="image" tabindex="3"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190420.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>数据接收寄存器</strong>：用于接受数据</p>
+<figure data-type="image" tabindex="4"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190459.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>数据发送寄存器</strong>：用于传输数据</p>
+<figure data-type="image" tabindex="5"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190604.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>状态寄存器</strong>：存储着系统模块的状态，包括应答信号接受状态、数据传输状态等</p>
+<figure data-type="image" tabindex="6"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190702.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>命令寄存器</strong>：包含着一系列的指令。</p>
+<figure data-type="image" tabindex="7"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190736.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+<h3 id="2-整体模块的输入输出口">2. 整体模块的输入输出口</h3>
+<p>首先我们定义一下整个master的reg的输入输出。</p>
+<p>输入信号：</p>
+<ul>
+<li>来自biu：<code>wr_en</code>, <code>rd_en</code>, <code>byte_en</code>, <code>reg_addr</code>, <code>ipwdata</code>。</li>
+<li>来自byte_ctrl: <code>done</code>(一帧完成信号) <code>i2c_al</code>(仲裁失败信号)、<code>rxack</code>（应答信号）、<code>i2c_busy</code>（busy 标志位）、<code>tip</code>(传输状态信号)、<code>rxr_i</code>(输入数据)</li>
+</ul>
+<p>输出信号：</p>
+<ul>
+<li>发送给biu ：<code>iprdata</code>(读出数据，传输给apb）</li>
+<li>发送给byte_ctrl：<code>core_en</code>(片选信号)、<code>ien_en</code>(中断功能使能信号)、<code>prer</code>(分频数预设置，传输给byte_ctrl)、<code>txr</code>(存储来自apb的数据，并且用于传输给下一级)、<code>sta</code>（启动标志位）、<code>sto</code>（停止标志位）、<code>rd</code>（读信号）、<code>wr</code>（写信号）、<code>ack</code>（响应信号）、<code>irq_flag_d</code>(中断标志位)</li>
+</ul>
+<pre><code class="language-verilog">module ahb_i2c_reg #(
+	parameter ADDR_SLICE_LHS = 5, // 5位输入地址
+	parameter APB_DATA_WIDTH = 32 // 32 位数据宽度
+)
+(
+	input 							pclk,
+	input							prestn,
+	// biu 模块连接信号
+	input							wr_en, // 来自biu的写信号
+	input							rd_en, // 来自biu的读信号
+	input	[3:0]					byte_en,
+	input	[ADDR_SLICE_LHS-3:0]	reg_addr,// 3位地址
+	input	[APB_DATA_WIDTH-1:0]	ipwdata, //来自biu的写数据
+	output	reg [15:0]				iprdata, //输出给biu的读数据
+	
+	input							done,
+	input							i2c_al, //仲裁失败信号
+	input							rxack, //应答信号
+	input							i2c_busy, //busy 标志位
+	input							tip,
+	input	[7:0]					rxr_i,
+	
+	// 输出控制信号，全都时reg形式，表示控制信号都来自D触发器
+	output	reg	[15:0]				prer,
+	output	reg						corn_en,
+	output	reg						ien_en,
+	output	reg	[7:0]				txr,
+	output	reg						sta,
+	output	reg						sto,
+	output	reg						rd,
+	output	reg						wr,
+	output	reg						ack,
+	output	reg						irq_flag_d
+
+);
+</code></pre>
+<h3 id="3寄存器地址的分配">3.寄存器地址的分配</h3>
+<h4 id="31-寄存器地址分配">3.1 寄存器地址分配</h4>
+<p>因为APB原地址分配方式为00h, 04h, 08h, 0Ch, 10h和14h， 这种八位的地址通过biu，只取低三位的方式已经转换为3位的地址addr，通过下面的代码实现对对应寄存器的选取。</p>
+<pre><code class="language-verilog">assign i2c_cpr_en = (reg_addr == 3'h0) ? 1'b1 : 1'b0; //预分频寄存器
+assign i2c_ctr_en = (reg_addr == 3'h1) ? 1'b1 : 1'b0; // 控制寄存器
+assign i2c_rdr_en = (reg_addr == 3'h2) ? 1'b1 :	1'b0; //接受寄存器
+assign i2c_sr_en  = (reg_addr == 3'h3) ? 1'b1 : 1'b0; //状态寄存器
+assign i2c_tdr_en = (reg_addr == 3'h4) ? 1'b1 : 1'b0; //发送数据寄存器
+assign i2c_cr_en  = (reg_addr == 3'h5) ? 1'b1 : 1'b0; //命令寄存器
+</code></pre>
+<h4 id="32-biu-读写信号转换">3.2 Biu 读写信号转换</h4>
+<p>将biu 的读写信号转换为寄存器的读写信号。其中i2c_sr_rd， 是状态寄存器的读信号转换，因为该寄存器只能在读的时候清状态，写的时候不可以清除状态。</p>
+<pre><code class="language-verilog">assign i2c_cpr_wr =  i2c_cpr_en &amp; wr_en;
+assign i2c_ctr_wr =	i2c_ctr_en &amp; wr_en;
+assign i2c_rdr_wr = i2c_rdr_en &amp; wr_en;
+assign i2c_sr_wr  = i2c_sr_en &amp; wr_en;
+assign i2c_tdr_wr = i2c_tdr_en &amp; wr_en;
+assign i2c_cr_wr  = i2c_cr_en &amp; wr_en;
+
+assign i2c_sr_rd = i2c_sr_en &amp; rd_en;// 读操作信号
+</code></pre>
+<h3 id="4-预分频寄存器的设计">4. 预分频寄存器的设计</h3>
+<p>预分频寄存器须在该寄存器的写信号<code>i2c_cpr_wr</code>为高时，并且片选信号为低时进行赋值，这是因为预分频必须在接口运作前先完成设定，设定方式为将输入数据<code>ipwdata</code>进行赋值。同时<code>prer</code>保存在<code>i2c_cpr_reg</code> 中。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		prer &lt;= 16'h0000;
+	end else begin
+		prer &lt;= prer_pre;
+	end
+end
+
+assign prer_pre = i2c_cpr_wr &amp; ~core_en ? ipwdata[15:0] : prer; //如果写操作地址选中，并且未使能时，则将APB 上的数据写入。
+// 设定core_en的目的是，当模块未使能时，要求设定好预分频寄存器，若使能后，则预分频寄存器不能改变。
+assign i2c_cpr_reg = {prer};
+</code></pre>
+<h3 id="5-控制寄存器">5. 控制寄存器</h3>
+<figure data-type="image" tabindex="8"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/20200321190420.png" alt="" loading="lazy"></figure>
+<p>控制寄存器提供两个信号，一个是片选使能信号，另一个是中断使能信号，而这两个信号通过<code>ipwdata</code>的第八位和第七位来实现，即<code>ipwdata[7],ipwdata[6]</code>。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		core_en &lt;= 1'b0;
+		ien_en	&lt;= 1'b0;
+	end else begin
+		core_en &lt;= core_en_pre;
+		ien_en	&lt;= ien_en_pre;
+	end
+end
+
+assign core_en_pre = i2c_ctr_wr ? ipwdata[7] : core_en; // 第七位来赋值
+assign ien_en_pre  = i2c_ctr_wr ? ipwdata[6] : ien_en;
+
+assign i2c_ctr_reg = {core_en,ien_en,6'b0};
+</code></pre>
+<h3 id="6-发送寄存器">6. 发送寄存器</h3>
+<p>发送寄存器会将收到的<code>ipwdata</code>数据保存发送给下一级，因为传输过程中实际只用到八位传播，所以最后<code>txr</code>中存储的仅为<code>ipwdata</code>中的低八位。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin // txr 数据发送寄存器
+	if(!prestn) begin
+		txr &lt;= 8'b0;
+	end else begin
+		txr &lt;= txr_pre;
+	end
+end
+
+assign txr_pre = i2c_tdr_wr ? ipwdata[7:0] : txr; //是否要输入16位数据？
+assign i2c_tdr_reg = {8'b0, txr};
+</code></pre>
+<h3 id="7-接收寄存器">7. 接收寄存器</h3>
+<p>接受寄存器功能和发送寄存器类似，负责存储读取到的数据<code>rxr_i</code>。其中<code>done</code>信号表示一帧信号已经完成传输，当<code>done</code>信号为高时，才可以进行数据存储。</p>
+<pre><code class="language-verilog">always @ ( posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		rxr &lt;= 8'b0;
+	end else begin
+		rxr &lt;= rxr_pre;
+	end
+end
+
+assign rxr_pre = done ? rxr_i : rxr; //将byte control模块读取到的数据输入，用于给apb模块读取
+assign i2c_rdr_reg = {8'h0,rxr};
+</code></pre>
+<h3 id="8-控制寄存器">8. 控制寄存器</h3>
+<p>控制寄存器中含有较多的输出控制信号：<code>sta</code>（启动标志位）、<code>sto</code>（停止标志位）、<code>rd</code>（读信号）、<code>wr</code>（写信号）、<code>ack</code>（响应信号）。</p>
+<p>当done信号传过来时，表示一帧数据发送完毕，控制信号都清零，这时候如果要赋值进行控制，则统一根据输入的<code>ipwdata[7:4]</code>来进行（选7到4是因为spec规定的，个人设计可以进行修改），<code>iack</code> 信号作为备用。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		sta &lt;= 1'b0;
+		sto	&lt;= 1'b0;
+		rd	&lt;= 1'b0;
+		wr	&lt;= 1'b0;
+		ack	&lt;= 1'b0;
+		iack &lt;= 1'b0;
+	end else begin
+		sta &lt;= sta_pre;
+		sto	&lt;= sto_pre;
+		rd	&lt;= rd_pre;
+		wr	&lt;= wr_pre;
+		ack	&lt;= ack_pre; 
+		iack &lt;= iack_pre;
+	end
+end
+
+assign sta_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[7] : sta ; //如果done信号穿过来，表示已经完成，则start标志清零。实现物理清零操作
+assign sto_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[6] : sto ; 
+assign rd_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[5] : rd ;
+assign wr_pre = done ? 1'b0 : i2c_cr_wr &amp; ien_en ? ipwdata[4] : wr ;
+assign ack_pre = i2c_cr_wr ? ipwdata[3] : 1'b0;
+assign iack_pre = i2c_cr_wr ? ipwdata [0] : 1'b0;
+</code></pre>
+<h3 id="9-状态寄存器">9. 状态寄存器</h3>
+<p>状态寄存器用于接收状态信息，该状态寄存器只允许读而不可以写。总共这几个状态：<code>done</code>(一帧完成信号) <code>i2c_al</code>(仲裁失败信号)、<code>rxack</code>（应答信号）、<code>i2c_busy</code>（busy 标志位），以及发出中断状态<code>irq_flag_d</code>。</p>
+<p>其中中断状态，如果对该寄存器进行读操作时，会将中断寄存器清零，不会实现中断。相应的，中断发生条件为中断flag 为1 并且中断信号使能为1。</p>
+<pre><code class="language-verilog">always @ (posedge pclk or negedge prestn) begin
+	if (!prestn) begin
+		rxack_d			&lt;= 1'b0;
+		i2c_busy_d		&lt;= 1'b0;
+		al_d			&lt;= 1'b0;
+		tip_d			&lt;= 1'b0;
+		irq_flag_d		&lt;= 1'b0;
+	end else begin
+		rxack_d 	&lt;= 	rxack;
+		i2c_busy_d	&lt;=	i2c_busy;
+		al_d		&lt;= 	i2c_al | (al_d &amp; ~sta); // i2c_al 是仲裁失败信号
+		tip_d		&lt;= (wr | rd);		
+		irq_flag_d &lt;= irq_flag_pre;
+	end
+end
+
+assign irq_flag_pre = i2c_sr_rd ? 1'b0 : irq_flag &amp; ien_en ? 1'b1 : irq_flag_d ; // 读的时候会把flag 给清掉
+assign i2c_cr_reg = {8'b0
+					,rack_d
+					,i2c_busy_d
+					,al_d
+					,tip_d
+					,irq_flag_d
+					};
+assign irq_flag = (done | i2c_al); //当完成一帧数据的传输或者发生总裁错位的时候产生中断标志位。
+</code></pre>
+<h3 id="10-检测寄存器情况">10. 检测寄存器情况</h3>
+<p>为了方便检测寄存器里的数据情况，通过以下的组合逻辑，在选中地址之后对访问的寄存器的数据进行存储。</p>
+<pre><code class="language-verilog">always @ (*) begin
+	iprdata = {32{1'b0}};
+	if (i2c_cpr_en == 1'b1) iprdata [15:0] = i2c_cpr_reg;
+	if (i2c_ctr_en == 1'b1) iprdata [15:0] = i2c_ctr_reg;
+	if (i2c_rdr_en == 1'b1) iprdata [15:0] = i2c_rdr_reg;
+	if (i2c_sr_en == 1'b1) iprdata [15:0] = i2c_sr_reg;
+	if (i2c_tdr_en == 1'b1) iprdata [15:0] = i2c_tdr_reg;
+	if (i2c_cr_en == 1'b1) iprdata [15:0] = i2c_cr_reg;
+end
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[hexo next 主题优化 | 这里可能有你遇到所有问题的答案]]></title>
-        <id>https://unclefish-cc.github.io/hexo-next-主题优化/</id>
-        <link href="https://unclefish-cc.github.io/hexo-next-主题优化/">
+        <id>https://unclefish-cc.github.io/hexo-next-÷˜Ã‚”≈ªØ/</id>
+        <link href="https://unclefish-cc.github.io/hexo-next-÷˜Ã‚”≈ªØ/">
         </link>
         <updated>2020-03-19T06:19:42.000Z</updated>
         <summary type="html"><![CDATA[<p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p>
@@ -602,64 +839,305 @@ valine:
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[新加坡留学 | 关于我为什么要去新加坡留学]]></title>
-        <id>https://unclefish-cc.github.io/关于我为什么要去新加坡留学/</id>
-        <link href="https://unclefish-cc.github.io/关于我为什么要去新加坡留学/">
+        <title type="html"><![CDATA[I2C 模块设计| biu 模块]]></title>
+        <id>https://unclefish-cc.github.io/I2C-ƒ£øÈ…Ëº∆-biu-ƒ£øÈ/</id>
+        <link href="https://unclefish-cc.github.io/I2C-ƒ£øÈ…Ëº∆-biu-ƒ£øÈ/">
         </link>
-        <updated>2020-03-16T04:04:57.000Z</updated>
-        <content type="html"><![CDATA[<p>提起留学，大家的刻板印象基本上都是贵，富二代才能去。事实上留学这件事确实是需要一定的经济投入，但这并不表明只有富二代才能去，现在的工薪家庭也是可以支撑起一个孩子的留学花费。<!--more-->就我个人的经历来言，我的家庭并不富裕，父母都是工薪阶层，但是他们依然支持我去海外攻读硕士学位，我对他们非常的感激。至于我为什么选择新加坡去留学，我会分成以下几个点为大家讲解。（注意：这篇文章的目的不是为了鼓励大家去留学，而是希望给那些有想法想出国的同学做一个参考）</p>
-<h3 id="新加坡鱼尾狮"><strong>新加坡鱼尾狮</strong></h3>
-<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a994c3143c7eb4366691d774e9ca6fb2.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
-<h3 id="point-1-性价比"><strong>Point 1 : 性价比</strong></h3>
-<p>第一个要提的就是新加坡留学的性价比。相比于美国和英国，新加坡的留学费用和生活成本会低很多，学校食堂平均一顿饭的价位在20rmb到50rmb之间，对学生来说已经是很友好的了。除此之外，一些高校会提供宿舍让学生申请，平均价位大概是2500rmb一个月，已经是相当的便宜了。</p>
-<p>关于学费，新加坡政府还为留学生提供了一个就业协议，可以免除将近80%的学费，而相应的学生毕业后要在新加坡工作三年（适合打算毕业后就留坡工作的同学）。另外，当地的银行还可以为留学生提供90%学费的免息贷款，可见新加坡为了呼吁大家来留学也是下了很多功夫的。如果一个学生签署了就业协议和免息贷款，那他基本上只要花费相应的生活费就可以来留学了，这对于工薪家庭是一个很好的消息。（注意事项：不是每一个专业都可以签署就业协议，具体的情况要去查看相应学校的官网）</p>
-<h3 id="point-2-学校质量"><strong>Point 2 : 学校质量</strong></h3>
-<p>说起留学，大家比较关心的肯定就是学校的质量了，毕竟留学生多了后，各种海外高校参差不齐。这里笔者推荐的两所高校是<strong>新加坡南洋理工大学(NTU)和新加坡国立大学(NUS)</strong>。这两所高校的名声估计大家也是有所了解，根据最新的2020QS世界大学排名, 两所大学并列第11名。当然排名只是作为参考的一个标准，就我个人的学习体会，这两所大学的老师还是相当负责任的，并且学校名声被很多企业所认可。给打个比方，NTU 和 NUS 有点像新加坡的清华和北大。</p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/a1c4d0f55be93dede4864289733454fb.png?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
-<p>2020 QS 世界大学排名</p>
-<h3 id="point-3-社会氛围容易融入"><strong>Point 3 : 社会氛围容易融入</strong></h3>
-<p>在来新加坡留学前我没有出过国，因此很多时候担心留学后会不习惯外面的生活。事实上，新加坡将近70%是华人，大家都会说汉语，基本的生活购物没有任何问题。也许有人会问，这样经常性的说汉语是不是没法提高自己的外语水平？这里必须得承认，新加坡的外语氛围没有欧美来的浓厚，但这并不表明你的外语没法提高。所有的授课形式都是英文的，教授也都喜欢用英文和学生交流，在纯英文环境的熏陶下，其实外语水平也是在不断提升的。</p>
-<p>关于饮食方面，在饮食上新加坡是一个多种文化交融集齐了各地美食的地方，无论是中餐西餐，还是印度餐马来餐，你都可以在这小小的地方找到你想要吃的食物。值得一提的是，很多国内比较流行的餐厅在新加坡都有分店，比如海底捞、喜茶、谭鱼头等。</p>
-<figure data-type="image" tabindex="3"><img src="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" alt="https://cdn.sspai.com/2020/01/06/ac5e4a1c1327efbd7f970cce44ca2cad.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" loading="lazy"></figure>
-<p>新加坡美食--辣椒螃蟹</p>
-<h3 id="point-4-安全性"><strong>Point 4 : 安全性</strong></h3>
-<p>出门在外最重要的是讲究安全，新加坡可以号称是全球最安全的国家之一了，这也是我当初考虑来新加坡留学的重要原因。新加坡到底有多安全？给大家举个例子，新加坡法律规定晚上10.30后不允许任何超市和零售店卖酒，这种严格的法令使这里根本没有什么深夜醉汉，极大地保障了人们夜晚出行的安全。其实当初在申请学校时也曾考虑过香港，不过最后还是被新加坡的安全性给打动了，现在看来确实是一个很明智的选择。</p>
-<h3 id="point-5-申请难度"><strong>Point 5: 申请难度</strong></h3>
-<p>关于申请难度的问题其实是因人而异的，每个人的背景和特点不同因此很难一概而论。在这里我给出一个针对理工科比较平均的申请背景条件：雅思6.5，平均分80+，本科学校985&amp;211会给予加分。新加坡学校的申请我个人觉得不难，建议自己DIY而不是找中介。</p>
-<h3 id="总结"><strong>总结</strong></h3>
-<p>这篇文章只是简单得介绍了一下我当初选择新加坡留学的几个点，笔者最后选择的是 南洋理工大学和慕尼黑工业大学合办的芯片设计专业，可以同时体会到德国和新加坡的教育。如果对联合培养专业有兴趣的可以给我留言，我会一一答复。</p>
+        <updated>2020-03-17T12:36:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
+<!--more-->
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt="" loading="lazy"></figure>
+<pre><code class="language-verilog">module apb_i2c_biu #(
+	parameter ADDR_SLICE_LHS = 5, // addres [4:0] 
+	parameter APB_DATA_WIDTH = 32
+)
+(
+// signals connect to APB module 
+	input							pclk,
+	input							presetn, // reset
+	input 							psel, // select signal
+	input	[ADDR_SLICE_LHS-1 : 0] 	paddr, // 5bit addres
+	input							pwrite,
+	input 							penable,
+	input	[APB_DATA_WIDTH-1 : 0]	pwdata,
+	output	reg [APB_DATA_WIDTH-1 : 0] prdata,
+//signals connect to register module
+	input	[15:0]					iprdata, // ?
+	output							wr_en,
+									rd_en,
+	output	[ADDR_SLICE_LHS-3:0]	reg_addr, // ahb addres searching
+	output	[3:0]					byte_en,
+	output	reg	[31:0]				ipwdata
+);
+</code></pre>
+<h3 id="写操作">写操作</h3>
+<p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p>
+<ul>
+<li>
+<p>写操作代码：</p>
+<pre><code class="language-verilog">assign wr_en = psel &amp; penable &amp; pwrite; // 写信号的要求
+
+always @(pwdata) begin
+	ipwdata = 32'b0;
+	ipwdata [APB_DATA_WIDTH-1:0] = pwdata[APB_DATA_WIDTH-1:0]; //apb总线上的数据每次发生变化，就将数据传输到输出reg中
+end
+
+</code></pre>
+</li>
+</ul>
+<h3 id="读操作">读操作</h3>
+<p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p>
+<ul>
+<li>
+<p>关于读信号的判断</p>
+<p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p>
+<pre><code class="language-verilog">assign rd_en = psel &amp; !penable &amp; !pwrite; // 读信号要提前产生，因为要求把数据提前放到APB总线上
+
+// 数据传输过程
+always @ (posedge pclk or negedge presetn) begin
+	if(presetn == 1'b0) begin
+		prdata &lt;= {APB_DATA_WIDTH{1'b0}}; //apb 读寄存器中的数据清零
+	end
+	else begin
+		if (rd_en) begin
+			prdata &lt;= {16'b0,iprdata}; // 将读入的数据保存到apb reg中
+		end
+	end
+end
+</code></pre>
+</li>
+</ul>
+<h3 id="具体的代码链接如下">具体的代码链接如下：</h3>
+<p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v">Biu Ctrl Code</a></p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://unclefish-cc.github.io/hello-gridea/</id>
-        <link href="https://unclefish-cc.github.io/hello-gridea/">
+        <title type="html"><![CDATA[I2C 模块设计 | 协议基础]]></title>
+        <id>https://unclefish-cc.github.io/I2C-–≠“Èª˘¥°/</id>
+        <link href="https://unclefish-cc.github.io/I2C-–≠“Èª˘¥°/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+        <updated>2020-03-17T04:21:30.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <content type="html"><![CDATA[<blockquote>
+<p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
+<!--more-->
+<h2 id="apb-i2c-总线协议">APB I2C 总线协议</h2>
+<h3 id="i2c-uart-spi-接口对比">I2C UART SPI 接口对比</h3>
+<ul>
+<li>UART 异步接口，需要用波特率发生器来进行同步，传输速率较慢</li>
+<li>SPI 同步接口（Master需要给Slave 提供一个同步时钟）四根信号线（clk/MISO/MOSI）</li>
+<li>I2C 慢同步 ， 半双工（SCL SDA）</li>
+</ul>
+<h3 id="i2c-帧结构">I2C 帧结构</h3>
+<p>两根线， SDA-数据线，SCL-时钟线，半双工工作模式。</p>
+<p>结构：</p>
+<ul>
+<li>
+<p>Master：SCL 信号源，控制信息流</p>
+</li>
+<li>
+<p>Slave: 处于等待状态，Master 会通过地址来搜寻所需要的slave，每一个slave都有一个固定的地址，并且地址的方式可以通过固定或者配置来实现。</p>
+</li>
+</ul>
+<h4 id="基本流程">基本流程</h4>
+<ol>
+<li>
+<p>发送起始条件</p>
+</li>
+<li>
+<p>发送接受设备的地址和任务操作；</p>
+</li>
+<li>
+<p>发送或者接受数据</p>
+</li>
+<li>
+<p>接受设备发送相应位 — 应答；</p>
+</li>
+<li>
+<p>发送停止条件</p>
+</li>
+</ol>
+<p>一帧数据8bit， 其中[7:1]为设备地址，而最后一位为数据方向</p>
+<ul>
+<li>
+<p>[7:1] 地址</p>
+</li>
+<li>
+<p><strong>0: 0 — 发送地址，写操作；1 — 接受数据，读操作</strong></p>
+</li>
+</ul>
+<h4 id="起始条件">起始条件</h4>
+<p>当SCL 和SDA是高电平，且 SDA由高电平到低电平切换；</p>
+<p>表示总线上要传输信息；</p>
+<p>总线在起始条件后表示处于忙碌状态；</p>
+<h4 id="停止条件">停止条件</h4>
+<p>当SCL 是高电平时，SDA由低电平向高电平切换时；</p>
+<p>本次通讯结束，总线进入空闲状态。</p>
+<h4 id="位传输要求">位传输要求</h4>
+<p>每传输一个数据就产生一个时钟脉冲。并且在高电平时采样数据</p>
+<h4 id="数据传输结构">数据传输结构</h4>
+<p>数据流： [起始位] [接受数据的地址 6bit] [读写位 ] [数据1, 从7到0，高位先发] [ 应答信号] [数据2, 从7到0，高位先发] [ 应答信号] ... [应答] [停止位]</p>
+<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1.png" alt="" loading="lazy"></figure>
+<h3 id="i2c-的响应机制">I2C 的响应机制</h3>
+<p>Slave 需要在收到数据后给予应答信号，在相应期间，Master需要释放SDA线，而Slave需要将SDA线拉低，表示相应。</p>
+<h4 id="无法响应情况">无法响应情况：</h4>
+<ul>
+<li>如果从机没有响应，则主机要使数据线一直保持高电平，产生一个停止或者重复条件。</li>
+<li>如果从机来不及处理数据，可以一直拉低时钟线，使主机处于等待状态</li>
+</ul>
+<p>SCL 的线与逻辑保证了时钟线上的同步，比如说clk1 先拉低，但是clk2 的低电平还没有到，这时候MOS2 打开状态，整个SCL还是处于低电平状态，只有当所有的clk都到达变低后，线才被拉高，SCL同步机制来保证SCL 读取数据的同步性</p>
+<h4 id="总线仲裁">总线仲裁</h4>
+<p>多个主机使用总线时，当SCL 处于高电平时，根据SDA的电平来进行仲裁；</p>
+<p>规则；当主机需要将总线拉高时，但不能实现 —&gt; 丢失仲裁 —&gt; 退回到设备。</p>
+<h3 id="sample">Sample</h3>
+<p>主机接受流程：</p>
+<ol>
+<li>发送起始标志位</li>
+<li>发送从机地址和读信号</li>
+<li>从机接收到信号发送应答标志，开始发数据</li>
+<li>主机接收到数据发送应答信号开始接受下一个数据</li>
+<li>主机不想接受信号就发送一个NACK信号然后停止</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我的日常效率软件]]></title>
+        <id>https://unclefish-cc.github.io/Œ“µƒ»’≥£–ß¬ »Ìº˛/</id>
+        <link href="https://unclefish-cc.github.io/Œ“µƒ»’≥£–ß¬ »Ìº˛/">
+        </link>
+        <updated>2020-03-16T04:27:33.000Z</updated>
+        <summary type="html"><![CDATA[<center>「hello ，大家好，我是鱼叔，今天咱们来聊一聊我日常提高效率的一些软件，希望能给大家带来启发。」</center>]]></summary>
+        <content type="html"><![CDATA[<center>「hello ，大家好，我是鱼叔，今天咱们来聊一聊我日常提高效率的一些软件，希望能给大家带来启发。」</center>
+<!--more-->
+<h3 id="1google-keep"><strong>1.Google Keep</strong></h3>
+<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/attachment/origin/2015/10/22/288694.png" alt="app-icon" loading="lazy"></figure>
+<p>我对效率的理解是 —「在最短的时间里，尽可能地得到较高的产出」，这就意味着如何能在工作的过程中保持清晰思路非常重要，在这里我首先推荐的软件是Google Keep，一款简约的GTD软件。Keep 作为一款GTD软件，它提供了最简单的功能，那就是建立list和写note。整个Keep 的UI设计是卡片式的，而且支持自己定义颜色，通过不同的颜色你就可以清晰地用来区分不同的task。</p>
+<p>我平常的习惯是工作前打开Keep 列出今天的task 清单，然后在工作期间会把想到的东西在Keep上记录下来作为一个信息缓存区，之后在空闲时进行整理和整合放置到自己的笔记本里。此外，Keep 作为Google 家的产品，支持一键copy到google doc 和云同步，这就意味着你可以在不同平台上访问自己的Keep。 Keep还有一个特点就是支持多人协作，可以将自己的list 和note 分享，让整个team一块参与项目的进展。</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/03/06/fbf0f7c8c882ed58f48fee79fb226b61.png" alt="img" loading="lazy"></figure>
+<h3 id="2-坚果云-微信文章缓存区"><strong>2. 坚果云-- 微信文章缓存区</strong></h3>
+<figure data-type="image" tabindex="3"><img src="https://cdn.sspai.com/2017/10/24/f9e3fc8c03abcd32668a2f391dca761b.jpg" alt="app-icon" loading="lazy"></figure>
+<p>坚果云是一款轻巧的个人网盘，在这里我并不只是把它作为网盘用，我将它作为我的微信文章缓存区。通过将微信推送发送给坚果云邮箱的方式来进行保存，我可以在空余时间再好好阅读文章内容，以及相应的信息存储。具体的操作方式可以看下面的链接：</p>
+<p><a href="https://canaan-chen.github.io/2020/03/16/%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%80-%E7%94%A8%E5%9D%9A%E6%9E%9C%E4%BA%91%E6%89%93%E9%80%A0%E4%BD%A0%E7%9A%84%E5%BE%AE%E4%BF%A1%E6%96%87%E7%AB%A0%E7%BC%93%E5%AD%98%E5%BA%93/">用坚果云打造个人微信缓存区</a></p>
+<p>不知道大家会不会经常遇到没有及时保存微信推送，然后苦恼后期忘记文章题目，又或者微信浮窗满了的时候，不知道该将这...</p>
+<p>查看原文</p>
+<h3 id="3wox"><strong>3.Wox</strong></h3>
+<figure data-type="image" tabindex="4"><img src="https://cdn.sspai.com/2020/03/06/9f39b54b1b0ebc1126a0d54af169980b.png" alt="img" loading="lazy"></figure>
+<p>自从换了操作系统后，我一直希望在windows中找到Mac osx 中Alfred 的替代品，而wox完美的实现了这个功能。wox给我提供的快捷之处在于用简单的操作就可以实现较复杂的功能，比如用快捷键唤醒搜索栏后，直接敲到 「g 少数派」就会自动跳转到Google搜索少数派的界面。</p>
+<p><img src="https://cdn.sspai.com/2020/03/06/b3a6dc4cddc6e4a3d25d469175b6d5a9.gif" alt="img" loading="lazy"><center>wox 使用示例</center></p>
+<p><strong>4. Notion</strong></p>
+<figure data-type="image" tabindex="5"><img src="https://cdn.sspai.com/2017/09/25/a4d9c7d76078066f688784db61f9feb4.jpg" alt="app-icon" loading="lazy"></figure>
+<p>Notion 可以说是 all in one 的笔记软件，支持各种嵌入以及云端同步。Notion是我信息处理的最后一步，包括将Keep 里的note 以及坚果云中缓存着的微信文章等，最后这些信息都会在Notion找到他们自己的位置。此外，Notion 支持各种code 以及网页的内嵌，这让它成为我日常写作的主要工具。</p>
+<figure data-type="image" tabindex="6"><img src="https://cdn.sspai.com/2020/03/06/a5449c1ee7cca269295efd2e9b9f2309.png" alt="img" loading="lazy"></figure>
+<h3 id="5-send-anywhere"><strong>5. Send anywhere</strong></h3>
+<figure data-type="image" tabindex="7"><img src="https://cdn.sspai.com/attachment/origin/2016/04/08/321034.jpg" alt="app-icon" loading="lazy"></figure>
+<p>Send anywhere 是一个轻量级的传输工具，支持客户端，也支持网页。它会在上传文件后生成一个6位数的传输码，你只需要在另一台设备上输入这个传输码就可以实现文件的下载。</p>
+<h3 id="6-eda-playground"><strong>6. EDA Playground</strong></h3>
+<p>作为一个硬件工程师，有时候设计小模块时需要进行综合和测试功能，而启用虚拟机使用EDA软件会占用大量的资源,，有种拿牛刀杀鸡的感觉。这时候EDA Playground 作为一个免费的EDA网站，提供了很多公司的综合工具，你只要输入相关的代码就可以在线测试和仿真，为小模块的设计提供了非常方便的测试环境。此外，这个网站还有很多的设计案例，对硬件设计初学者非常友好。</p>
+<figure data-type="image" tabindex="8"><img src="https://cdn.sspai.com/2020/03/06/800abc9cdbbcd9ee87d18aad2f25b6e4.png" alt="img" loading="lazy"></figure>
+<h3 id="7-photopea"><strong>7. Photopea</strong></h3>
+<p>不知道大家有没有遇到这样的情况，当你有修改图片需求时却发现电脑里没有安装Photoshop，这时候我就会经常用Photopea来修图。Photopea 作为一个在线版的PS，基本上可以满足所有的修图要求，而且操作和界面也和PS类似，唯一不足之处可能就是会有广告浮窗。</p>
+<figure data-type="image" tabindex="9"><img src="https://cdn.sspai.com/2020/03/06/98cad3d6a9e0b57496e27ce585589e94.png" alt="img" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何写好一份文书]]></title>
+        <id>https://unclefish-cc.github.io/»Á∫Œ–¥∫√“ª∑›Œƒ È/</id>
+        <link href="https://unclefish-cc.github.io/»Á∫Œ–¥∫√“ª∑›Œƒ È/">
+        </link>
+        <updated>2020-03-16T04:23:49.000Z</updated>
+        <summary type="html"><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p>
+<!--more-->
+<p>接下去我会围绕这个问题给出我在实际申请时的解决方案，在文章末尾处还会给大家一份《推荐信指南》的电子版书籍，点击链接就可以下载。</p>
+<p>谈及文书，文书一般涉及到的三个内容:<strong>PS</strong>（Personal Statement）、<strong>CV</strong>（Curriculum Vitae）、<strong>RL</strong>（Reference Letter）。其中感觉相对比较重要的是PS，即个人陈述，我其实更喜欢把它叫做自我介绍。</p>
+<h2 id="-personal-statement-"><strong>-Personal Statement-</strong></h2>
+<p>怎样的PS是才算是比较不错的呢？这就需要首先从Msc授课型硕士的目的开始讲起，Msc是为了培养适合工作的硕士，一般都采用授课的教学方式，可以类比国内的专硕，但是又有很大区别。Msc的学时为1到2年，根据地区和专业不同又有所区别。</p>
+<p>Msc的初衷是为了培养你的工作能力，所以你的PS里需要体现到你对你未来的职业规划，包括未来的工作方向，工作区域之类。这一点在很多文书上是容易忽略。在这里，我会给出两个PS的框架，一份是我在一次公开课上做的笔记，另一份是前辈们总结的。两个都是英文的方式表达，因为懒得翻译，不感冒的小伙伴可以直接跳过哈。推荐第一个框架。</p>
+<h3 id="-1st-sample-outline-for-ps-"><strong>-1st Sample Outline for PS</strong> <strong>-</strong></h3>
+<p><strong>Introductory paragraph</strong>：</p>
+<ul>
+<li>introduce your area of interest or research question</li>
+<li>discuss a problem your profession may help address</li>
+</ul>
+<p><strong>2nd paragraph</strong> Review your undergraduate coursework</p>
+<ul>
+<li>focus on your major discipline</li>
+<li>highlight the courses that prepare you for the program</li>
+<li>identify any gap in your training to be filled by the master program</li>
+<li>emphasise the skills and knowledge developed</li>
+<li>connect the dots across the courses.</li>
+</ul>
+<p><strong>3rd paragraph</strong> Review your undergraduate project experience</p>
+<ul>
+<li>focus on your 1-2 project</li>
+<li>adopt IMRD(introduction, method ,result ,discussion )</li>
+<li>highlight the skill development and other learning experience</li>
+<li>discuss your inspiration and desire for further studies</li>
+<li>relate to the master program whenever possible.</li>
+</ul>
+<p><strong>4th paragraph</strong> your career plan</p>
+<ul>
+<li>your career interested</li>
+<li>how you developed the interest in such a career (related the experience discussed earlier)</li>
+<li>what skills and experience do you still need to implement such a career plan.</li>
+</ul>
+<p><strong>5th paragraph</strong> Why choose the target master program</p>
+<ul>
+<li>the specific courses that may strengthen you as a professional</li>
+<li>the faculty members you would like to work with for your thesis</li>
+<li>other learning opportunities that can help you accomplish you career goals</li>
+<li>why you will be an asset to the program.</li>
+</ul>
+<p><strong>6th paragraph</strong> Conclusion: reiterate the main points and summarise your main arguments.</p>
+<hr>
+<h3 id="-2nd-sample-outline-of-ps-"><strong>-2nd Sample Outline of PS-</strong></h3>
+<h4 id="1st-paragraph"><strong>1st Paragraph</strong></h4>
+<p>Describe the area of research that interests you and why. If you have already done some research work in this area, be sure to mention it. Also, explain why you think you are suitable for this area. You may also describe competitions in the area that you have done well in and special academic attainments. For example, a double major in mathematics and computer science probably set you apart from students who only studied computer science. If you have nothing special to say, then just mention briefly how you came to choose this area.</p>
+<h4 id="2nd-paragraph"><strong>2nd Paragraph</strong></h4>
+<p>Describe research programs you have worked on (one paragraph per program.)</p>
+<ol>
+<li>What did you find?</li>
+<li>What did you learn?</li>
+<li>What approaches did you try?</li>
+<li>Did these approaches work or not?</li>
+</ol>
+<h4 id="3rd-paragraph"><strong>3rd Paragraph</strong></h4>
+<p>Explain why you feel you need a Masters degree or PhD.</p>
+<h4 id="4th-paragraph"><strong>4th Paragraph</strong></h4>
+<p>Tell the reader why you want to go to that particular university. Make it easy for them:</p>
+<ol>
+<li>If you want to work with a particular person or persons tell them who you want to work with and why.</li>
+<li>If you want to work in a particular area, tell them why you want to work in that area in their university.</li>
+<li>If there is no particular person you want to work with or particular area you want to work in, explain why you would like to join their program.</li>
+</ol>
+<h4 id="5th-paragraph"><strong>5th Paragraph</strong></h4>
+<p>You can also state what papers you have read from that university and what you enjoyed about them or how they inspired you. Lastly, tell them what you hope to gain from their university.</p>
+<p>一些总结的tips：</p>
+<ol>
+<li>确保你的PS控制在一到两页内，因为你是在给一个很忙的人看。</li>
+<li>不要说你小时候想当科学家的故事，因为对于教授他们而言毫无意义。</li>
+<li>尽可能地在文书中体现你所想申请的专业的相关信息，包括它的课程或者未来就业情况，这样可以表现你确实对这个他们的信息很了解，并且很渴望去读书。</li>
+<li>把自己的PS多给身边的人看一看，然后根据他们的意见有选择性地进行修改。</li>
+</ol>
+<hr>
+<h2 id="-curriculum-vitae-"><strong>-Curriculum Vitae-</strong></h2>
+<p>CV的话就是个人简历，要求精炼控制在一页之内，能让招生办的人看了你的简历就能大致知道你是否能被录取，可以理解为CV是脱水版的PS。我这里就Po上我删减版的CV框架给大家参考形式。</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/13/0028c0daf285279b8a1f650e555d2e1f.png" alt="img" loading="lazy"></figure>
+<h2 id="-reference-letter-"><strong>-Reference Letter-</strong></h2>
+<p>RL是推荐信，一般学校的申请要求是提供两封来自老师的推荐信，当然如果你有实习的话，你也可以让你的实习主任给你写一份推荐信。原则上来说，给学生写推荐信是大学老师的一个职责，但是考虑到国内的实际情况，第一老师没那么多时间给你写推荐信，第二老师的英语水平有限而且对你的了解也没那么清楚。</p>
+<p>因此实际的操作方法是，自己以老师的口吻写推荐信，然后让老师阅览无误后签字。这样问题其实就转变为找怎样的老师给签字。</p>
+<p>首先，必须要找和自己比较熟悉的老师，因为推荐信里要求说明老师和学生是怎么认识的，认识有多久了之类的问题，只有比较熟悉的老师写的推荐信会比较有说服力。</p>
+<p>其次，如果可能的话，找和你申请的学校有相关经历的老师，比如你想申请东京大学，而你的老师中有一个是在日本留过学的话，就可以联系他“写推荐信”。</p>
+<p>关于大牛的推荐信，如果你能联系到你们专业里的大牛老师给你写推荐信，那就更好了，不过我觉得对于申请Msc项目来说，推荐信更多只是辅助作用，如果申请Mphil和Phd，那么一封大牛的推荐信会帮助很多。</p>
+<p>更多的推荐信细节可以下载链接里的<a href="https://www.jianguoyun.com/p/DYNwZ58QtvuCCBirr8gC">《推荐信写作指南》</a></p>
+<p><strong>- END -</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/13/5ce030a0f608b220a7e15dad56f0aace.gif" alt="img" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>

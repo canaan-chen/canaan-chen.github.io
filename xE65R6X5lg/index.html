@@ -1,173 +1,264 @@
 <html>
   <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>hexo | UncleFish&#39;s Blog</title>
-<link rel="shortcut icon" href="https://unclefish-cc.github.io/favicon.ico?v=1586708758778">
+<title>UncleFish&#39;s Blog</title>
+<meta name="description" content="Never give up, and you will see hope." />
+<link rel="shortcut icon" href="https://unclefish-cc.github.io/favicon.ico?v=1587472640380">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://unclefish-cc.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="hexo | UncleFish&#39;s Blog - Atom Feed" href="https://unclefish-cc.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://unclefish-cc.github.io/styles/main.css">
 
 
 
-  <meta name="description" content="Never give up, and you will see hope." />
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://unclefish-cc.github.io">
-  <img class="avatar" src="https://unclefish-cc.github.io/images/avatar.png?v=1586708758778" alt="">
-  </a>
-  <h1 class="site-title">
-    UncleFish&#39;s Blog
-  </h1>
-  <p class="site-description">
-    Never give up, and you will see hope.
-  </p>
-  <div class="menu-container">
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://unclefish-cc.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://unclefish-cc.github.io/images/avatar.png?v=1587472640380" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">UncleFish&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Never give up, and you will see hope.
+          </p>
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
     
       
-        <a href="/" class="menu">
+        <a href="/" class="menu" style="animation-delay: 0s">
           Home
         </a>
       
     
       
-        <a href="/archives" class="menu">
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
           Archives
         </a>
       
     
       
-        <a href="/tags" class="menu">
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
           Tags
         </a>
       
     
       
-        <a href="/about" class="menu">
+        <a href="/about" class="menu" style="animation-delay: 0.6000000000000001s">
           About
         </a>
       
     
   </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://unclefish-cc.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
-
-        <div class="current-tag-container">
-            <h2 class="title">
-                标签：# hexo
-            </h2> 
-        </div>
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://unclefish-cc.github.io/hexo-Next-主题修改tips/">
-        <h2 class="post-title">hexo Next 主题修改tips</h2>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="text-lg text-gray-700 mb-8">
+          <i class="ri-bookmark-line"></i> hexo
+        </h2>
+        
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://unclefish-cc.github.io/hexo-Next-÷˜Ã‚–ﬁ∏ƒtips/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">hexo Next 主题修改tips</h2>
       </a>
-      <div class="post-info">
-        <span>
-          2020-04-04
-        </span>
-        <span>
-          4 min read
-        </span>
-        
-          <a href="https://unclefish-cc.github.io/xE65R6X5lg/" class="post-tag">
-            # hexo
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
+      <div class="post-abstract text-gray-700 font-light my-4">
         <p>本文讲述了四个next优化方案：文章置顶、添加博客背景、调整文章内容透明度、增加近期文章list。</p>
 
       </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://unclefish-cc.github.io/hexo-博客拓展/">
-        <h2 class="post-title">hexo 博客拓展 | CODING平台托管以及个性化域名</h2>
+      <div class="text-gray-400 text-sm font-light">2020-04-04 / 4 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
+    
+      <a href="https://unclefish-cc.github.io/hexo-≤©øÕÕÿ’π/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
+        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://cdn.sspai.com/2020/03/30/3a7e7aec64856772c43f0efe5ea2d1b3.jpg?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1'">
+        </div>
       </a>
-      <div class="post-info">
-        <span>
-          2020-03-30
-        </span>
-        <span>
-          8 min read
-        </span>
-        
-          <a href="https://unclefish-cc.github.io/xE65R6X5lg/" class="post-tag">
-            # hexo
-          </a>
-        
-      </div>
-      
-        <a href="https://unclefish-cc.github.io/hexo-博客拓展/" class="post-feature-image" style="background-image: url('https://cdn.sspai.com/2020/03/30/3a7e7aec64856772c43f0efe5ea2d1b3.jpg?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1')">
-        </a>
-      
-      <div class="post-abstract">
+    
+    <div class="content">
+      <a href="https://unclefish-cc.github.io/hexo-≤©øÕÕÿ’π/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">hexo 博客拓展 | CODING平台托管以及个性化域名</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
         <p>「hello 大家好，我是鱼叔。在上一篇讲完关于next的优化tips之后，这一篇我们来聊一下CODING平台的代码托管以及如何个性化你自己的域名」</p>
 
       </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://unclefish-cc.github.io/hexo-next-主题优化/">
-        <h2 class="post-title">hexo next 主题优化 | 这里可能有你遇到所有问题的答案</h2>
+      <div class="text-gray-400 text-sm font-light">2020-03-30 / 8 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
+    
+      <a href="https://unclefish-cc.github.io/hexo-next-÷˜Ã‚”≈ªØ/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
+        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://image-1301586523.cos.ap-shanghai.myqcloud.com/way-4005288_1280.jpg'">
+        </div>
       </a>
-      <div class="post-info">
-        <span>
-          2020-03-19
-        </span>
-        <span>
-          10 min read
-        </span>
-        
-          <a href="https://unclefish-cc.github.io/xE65R6X5lg/" class="post-tag">
-            # hexo
-          </a>
-        
-      </div>
-      
-        <a href="https://unclefish-cc.github.io/hexo-next-主题优化/" class="post-feature-image" style="background-image: url('https://image-1301586523.cos.ap-shanghai.myqcloud.com/way-4005288_1280.jpg')">
-        </a>
-      
-      <div class="post-abstract">
+    
+    <div class="content">
+      <a href="https://unclefish-cc.github.io/hexo-next-÷˜Ã‚”≈ªØ/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">hexo next 主题优化 | 这里可能有你遇到所有问题的答案</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
         <p>hello 大家好，我是鱼叔。我最近花了两天左右的时间基于hexo和next搭建了个人的blog（传输门），中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下来给想搭建blog的你一个参考。</p>
 
       </div>
-    </article>
-  
-</div>
+      <div class="text-gray-400 text-sm font-light">2020-03-19 / 10 min read</div>
+    </div>
+  </section>
 
-        <div class="pagination-container">
+        <div class="pagination-container animated fadeIn">
   
   
-</div>
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://unclefish-cc.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
 </div>
 
       </div>
     </div>
+
+    <script src="https://unclefish-cc.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
   </body>
 </html>
