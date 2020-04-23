@@ -1,109 +1,104 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>UncleFish&#39;s Blog</title>
-<meta name="description" content="Never give up, and you will see hope." />
-<link rel="shortcut icon" href="http://canaan-chen.github.io/favicon.ico?v=1587485969581">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>如何在windows 体验极致模仿Mac os系统桌面 | UncleFish&#39;s Blog</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="http://canaan-chen.github.io/media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="http://canaan-chen.github.io/media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="如何在windows 体验极致模仿Mac os系统桌面 | UncleFish&#39;s Blog » Feed" href="http://canaan-chen.github.io/atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="http://canaan-chen.github.io/styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
 
-<link rel="stylesheet" href="http://canaan-chen.github.io/styles/main.css">
-
-
-
+    <meta property="og:description" content="如何在windows 体验极致模仿Mac os系统桌面"/>
+    <meta property="og:url" content="http://canaan-chen.github.io/如何在windows-体验极致模仿Mac-os系统桌面/"/>
+    <meta property="og:locale" content="zh-CN"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="UncleFish&#39;s Blog"/>
   </head>
   <body>
-    <div id="app" class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="http://canaan-chen.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://canaan-chen.github.io/images/avatar.png?v=1587485969581" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">UncleFish&#39;s Blog</h1>
+  	<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="http://canaan-chen.github.io">UncleFish&#39;s Blog</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">Home</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">Archives</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">Tags</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/about">About</a>
+              
+          </li>
+          
+        </ul>
       </div>
-      
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            文章目录
-          </p>
-          <div class="toc-container hidden lg:block">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D">工具介绍</a></li>
-<li><a href="#mydock">Mydock</a>
-<ul>
-<li><a href="#%E5%9C%A8dock%E4%B8%8A%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E6%96%87%E4%BB%B6">在dock上添加相关的应用和文件</a></li>
-<li><a href="#launchpad-%E7%9A%84%E8%AE%BE%E7%BD%AE">Launchpad 的设置</a></li>
-<li><a href="#%E6%8F%90%E4%BE%9B%E4%B8%AA%E6%80%A7%E5%8C%96%E7%9A%84logo%E6%9B%B4%E6%9B%BF%E5%8A%9F%E8%83%BD">提供个性化的logo更替功能</a></li>
-<li><a href="#%E6%B6%88%E6%81%AF%E6%8F%90%E9%86%92%E6%96%B9%E5%BC%8F">消息提醒方式</a></li>
-<li><a href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E8%AE%BE%E7%BD%AE">相关的设置</a></li>
-</ul>
-</li>
-<li><a href="#myfinder">Myfinder</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E6%80%BB%E7%BB%93">使用体验总结</a></li>
-</ul>
-</li>
-</ul>
-
+    </div>
+  </nav>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('http://canaan-chen.github.io/media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+          	<span class="tags">
+          	 
+            <a href="http://canaan-chen.github.io/3h1h-AbQ30/" class="tag">mydock</a>
+            
+        </span>
+            <h1>如何在windows 体验极致模仿Mac os系统桌面</h1>
+            <span class="meta">
+            	Posted on
+              2020-04-06，5 min read
+            </span>
           </div>
         </div>
-      
+      </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<div class="menu-container">
-  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          Home
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          Archives
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          Tags
-        </a>
-      
-    
-      
-        <a href="/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          About
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
-    <a class="rss" href="http://canaan-chen.github.io/atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">如何在windows 体验极致模仿Mac os系统桌面</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2020-04-06 / 5 min read
-        </div>
-        
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://cdn.sspai.com/2020/04/06/31487db0bb60db90a4640f623c417063.jpg?imageMogr2/quality/95/thumbnail/!1420x708r/gravity/Center/crop/1420x708/interlace/1" alt="">
-        
-        <div class="post-content yue">
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
           <p>大家好，我是鱼叔，今天在这里聊一下如何在windows上体验极致模仿的Mac os 系统桌面。其实很多人都有这样的疑问，既然欣赏Mac os系统，那为什么要买pc呢，与其在pc上捣鼓让它变得像mac，还不如直接买一台macbook。当然，在经济条件允许的条件下，最香的方法就是直接买一个mac，本文适用于那些想在pc端体验Mac os桌面的用户，以及那些习惯mac系统但是因为现实条件使用pc的用户。</p>
 <!--more-->
 <p>先上效果图：</p>
@@ -151,141 +146,90 @@
 <h2 id="使用体验总结">使用体验总结</h2>
 <p>Mydock 和 Myfinder 带给我整体的使用体验是很惊艳的，没有复杂的操作设置，简单的下载和安装就能带来极其逼真的Mac os桌面模拟体验。除此之外，它的很多细节设计大大地提高了用户体验，有一种Windows和Mac os的融合感。最后，不得不说的还是它的极致模拟带给用户沉浸式的体验，将Mac os的桌面基本原封不动地给搬到了pc上。当然，这款软件还是有一些问题，比如会占用一定的内存，以及有时候会莫名其妙地奔溃，不过相信这款软件会不断地被优化。</p>
 
-        </div>
-
+          
+          <p class="next-post">下一篇：
+            <a href="http://canaan-chen.github.io/hexo-Next-主题修改tips/">
+              <span class="post-title">
+                hexo Next 主题修改tips&rarr;
+              </span>
+            </a>
+          </p>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://canaan-chen.github.io/3h1h-AbQ30/">
-            <span class="flex-auto">mydock</span>
-          </a>
-        
-
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="http://canaan-chen.github.io/浅谈hugo建站/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  浅谈hugo建站
-                </h3>
-              </a>
-            </div>
-          
-
-          
-            <div class="next-post">
-              <a href="http://canaan-chen.github.io/hexo-Next-主题修改tips/">
-                <h3 class="post-title">
-                  hexo Next 主题修改tips
-                  <i class="ri-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
+        <div class="comment">
           
         </div>
-
-        
-
       </div>
     </div>
-
-    <script src="http://canaan-chen.github.io/media/prism.js"></script>  
-<script>
-
-Prism.highlightAll()
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
-
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
-
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
+  </article>
+ <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="http://canaan-chen.github.io/atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>UncleFish&#39;s Blog</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
+        </div>
+      </div>
+    </div>
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
       }
-    } else {
-      link.classList.remove("current");
     }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
-</script>
-  
+  })(this));</script>
   </body>
 </html>
+

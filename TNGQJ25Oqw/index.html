@@ -1,282 +1,263 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>UncleFish&#39;s Blog</title>
-<meta name="description" content="Never give up, and you will see hope." />
-<link rel="shortcut icon" href="http://canaan-chen.github.io/favicon.ico?v=1587485969581">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
-<link rel="stylesheet" href="http://canaan-chen.github.io/styles/main.css">
-
-
+       <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>IC design | UncleFish&#39;s Blog</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="http://canaan-chen.github.io/media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="http://canaan-chen.github.io/media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="IC design | UncleFish&#39;s Blog » Feed" href="http://canaan-chen.github.io/atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="http://canaan-chen.github.io/styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
 
   </head>
   <body>
-    <div id="app" class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="http://canaan-chen.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://canaan-chen.github.io/images/avatar.png?v=1587485969581" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">UncleFish&#39;s Blog</h1>
+  	<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="http://canaan-chen.github.io">UncleFish&#39;s Blog</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">Home</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">Archives</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">Tags</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/about">About</a>
+              
+          </li>
+          
+        </ul>
       </div>
-      
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Never give up, and you will see hope.
-          </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+    </div>
+  </nav>
+<!-- Page Header -->
+  <header class="masthead" style="background-image: url('http://canaan-chen.github.io/media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1 class="tag-tl">#IC design</h1>
           </div>
         </div>
-      
+      </div>
     </div>
-  </div>
-</div>
+  </header>
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+       
+        <div class="post-preview">
+          <a href="http://canaan-chen.github.io/I2C-模块设计-Master-Reg-设计/">
+            <h2 class="post-title">
+              I2C 模块设计|Master Reg 设计
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <p>本章节讲述APB regesiter 模块。register 处于biu和byte_ctrl 之间，它的作用在于收取到来自biu模块的读写信号进行读写操作，之后转换成相应的控制信号对后面模块进行控制，同时byte_ctrl 和bit_ctrl 会产生相应的状态信号反馈给reg模块。</p>
 
-<div class="menu-container">
-  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          Home
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          Archives
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          Tags
-        </a>
-      
-    
-      
-        <a href="/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          About
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
-    <a class="rss" href="http://canaan-chen.github.io/atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-line"></i> IC design
-        </h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2020-03-21</span>
+             <span>,</span>
+             <span class="post-stats">9 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="http://canaan-chen.github.io/I2C-模块设计-Master-Reg-设计/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">I2C 模块设计|Master Reg 设计</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>本章节讲述APB regesiter 模块。register 处于biu和byte_ctrl 之间，它的作用在于收取到来自biu模块的读写信号进行读写操作，之后转换成相应的控制信号对后面模块进行控制，同时byte_ctrl 和bit_ctrl 会产生相应的状态信号反馈给reg模块。</p>
+        <div class="post-preview">
+          <a href="http://canaan-chen.github.io/I2C-模块设计-biu-模块/">
+            <h2 class="post-title">
+              I2C 模块设计| biu 模块
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-03-21 / 9 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="http://canaan-chen.github.io/I2C-模块设计-biu-模块/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">I2C 模块设计| biu 模块</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
-
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-03-17 / 3 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="http://canaan-chen.github.io/I2C-协议基础/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">I2C 模块设计 | 协议基础</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <blockquote>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2020-03-17</span>
+             <span>,</span>
+             <span class="post-stats">3 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="http://canaan-chen.github.io/I2C-协议基础/">
+            <h2 class="post-title">
+              I2C 模块设计 | 协议基础
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <blockquote>
 <p>I2C 总线是很实用的一个总线协议，也是IC 面试时可以讲出点东西的一个素材。鱼叔最近在学习I2C的IP 设计，并且会不断更新，整理成学习笔记分享在我的博客中，希望大家能有所收获。</blockquote></p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-03-17 / 4 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${3 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="http://canaan-chen.github.io/简单加法器的设计/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">简单加法器的设计</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <center>前言 | 加法器是逻辑设计里比较基础的一个模块，</center>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2020-03-17</span>
+             <span>,</span>
+             <span class="post-stats">4 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="http://canaan-chen.github.io/简单加法器的设计/">
+            <h2 class="post-title">
+              简单加法器的设计
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <center>前言 | 加法器是逻辑设计里比较基础的一个模块，</center>
 <center>本文将会就加法器的原理，设计方法和电路仿真来进行讲述。</center>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2020-03-15</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="http://canaan-chen.github.io/异步fifo的设计/">
+            <h2 class="post-title">
+              异步fifo的设计
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <center> 这篇文章主要讲解了如何设计一个异步Fifo. </center>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2020-03-15</span>
+             <span>,</span>
+             <span class="post-stats">10 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        
+        
       </div>
-      <div class="text-gray-400 text-sm font-light">2020-03-15 / 2 min read</div>
     </div>
-  </section>
+  </div>
 
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${4 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="http://canaan-chen.github.io/异步fifo的设计/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">异步fifo的设计</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <center> 这篇文章主要讲解了如何设计一个异步Fifo. </center>
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-03-15 / 10 min read</div>
-    </div>
-  </section>
-
-        <div class="pagination-container animated fadeIn">
   
-  
-</div>
-
+ <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="http://canaan-chen.github.io/atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>UncleFish&#39;s Blog</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
+        </div>
       </div>
     </div>
-
-    <script src="http://canaan-chen.github.io/media/prism.js"></script>  
-<script>
-
-Prism.highlightAll()
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
-
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
-
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="http://canaan-chen.github.io/media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
       }
-    } else {
-      link.classList.remove("current");
     }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
-</script>
-  
+  })(this));</script>
   </body>
 </html>
