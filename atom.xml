@@ -2,14 +2,35 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://canaan-chen.github.io</id>
     <title>UncleFish&apos;s Blog</title>
-    <updated>2020-04-23T06:24:57.208Z</updated>
+    <updated>2021-03-23T14:58:03.336Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://canaan-chen.github.io"/>
     <link rel="self" href="http://canaan-chen.github.io/atom.xml"/>
     <subtitle>Never give up, and you will see hope.</subtitle>
     <logo>http://canaan-chen.github.io/images/avatar.png</logo>
     <icon>http://canaan-chen.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, UncleFish&apos;s Blog</rights>
+    <rights>All rights reserved 2021, UncleFish&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Filcoin 为什么最近这么火]]></title>
+        <id>http://canaan-chen.github.io/filcoin-wei-shi-me-zui-jin-zhe-me-huo/</id>
+        <link href="http://canaan-chen.github.io/filcoin-wei-shi-me-zui-jin-zhe-me-huo/">
+        </link>
+        <updated>2021-03-23T14:45:25.000Z</updated>
+        <summary type="html"><![CDATA[<!-- more -->
+<p>最近币圈最火的莫过于Fil，在NFT的热潮下，Fil作为非NFT的代币却有这样的市场表现，其背后的原因是什么？今天我们来好好聊聊这个分布式存储的翘楚Filcoin。</p>
+]]></summary>
+        <content type="html"><![CDATA[<!-- more -->
+<p>最近币圈最火的莫过于Fil，在NFT的热潮下，Fil作为非NFT的代币却有这样的市场表现，其背后的原因是什么？今天我们来好好聊聊这个分布式存储的翘楚Filcoin。</p>
+<!-- more -->
+<p>IPFS协议则是与HTTP相反的一个协议，它是一个分布式的存储模式不依赖于一个中心的服务器，每一个人都可以把自己电脑里剩余闲置的空间租赁出去作为网络世界里的信息基站。举个例子，如果我的图片依据IPFS存储，那么任何一个人访问我的博客就会依据他的电脑选择较近的一个IPFS信息存储基站来获取对应的数据，而不用必须前往某一个具体的服务器。这种去中心化的存储理念与区块链的去中心化精神不谋而合，一经推出就受到了大家的追捧。那聪明的你肯定也会想到如果没有合理的激励措施，那大家也不愿意租赁自己的闲置空间，Filcoin 就是对于那些愿意租赁空间的用户给予的奖励代币。<br>
+<img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/Screenshot%20at%20Mar%2023%2022-42-16.png" alt="" loading="lazy"></p>
+<p>我们根据Filcoin的价值曲线可以发现，15日23点filcoin被拉到220u之后被迅速砸盘，跌至26u，按照白皮书的计划不应该有这么多的fil被解锁投入市场，经分析发现是因为矿工将测试网期间得到的币当作主网的币充入交易所导致币价大跌，这一点我认为是项目方的失误导致。随后就会发现Filcoin的价值一直在下面没有起来，这是因为filcoin的主网发布一拖再拖，整个市场没有特别好的强心针消息导致大家对其的信心也有所下降，直到近期filcoin暴涨至80美元左右，才被大家再一次认识。至于近期暴涨的主要原因有以下几点：1. 官方宣布4月23日之后将释放完前期所有的私募代币，并且之后将每天销毁一部分代币，之后所有的代币只能从挖矿所得；2. Coinbase 对FIL表示看好。3. 欧洲一家中心化存储服务商被烧毁，导致大量数据损失，大家对去中心化的存储开始充满信心。</p>
+<p>首先，就我个人对目前的IPFS存储来看，还只是一个初步阶段，仍存在很多待解决的问题，比如如何实现在<br>
+该链上的多应用开发，如何确保用户从已经习惯的中心化存储（百度云盘、坚果云）转换到去中心化应用，如何实现这部分的监管制度等等。IPFS是一个很棒也很有野心的想法，是一个区块链落实到实际应用的一个案例，不同于BTC，它确实在用电力做一件实际有用的事—存储数据，这也是我很看好这个领域的原因。此外，IPFS的「挖矿」也是一件不容易的事，不同于其他数字货币的挖矿需求，稳定性是矿工所必须保证的一件事，因为你要确保你所存储的数据能24小时被访问，这也就导致矿机要有一个稳定的矿场机房，因此一般个体是很难加入这个挖矿行业的。</p>
+<p>个人思考：IPFS鉴于其的保密性和难监管性，我觉得最先开始应用的场景是公开信息的存储，类似于媒体的发布和快捷访问，第二点就是加密性和共享性，同一个圈子的合作公司可以搭建自己的信息共享平台，利用分布式存储的方式互相快捷访问，比如银行业可以打造一个互相合作的信息圈，根据密钥直接访问对应的数据。</p>
+<p>以上即是我对Fil的一个简单思考，不作为投资依据，只是一个学习记录。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[浅谈hugo建站]]></title>
         <id>http://canaan-chen.github.io/浅谈hugo建站/</id>
@@ -1101,64 +1122,6 @@ end
 <p>更多的推荐信细节可以下载链接里的<a href="https://www.jianguoyun.com/p/DYNwZ58QtvuCCBirr8gC">《推荐信写作指南》</a></p>
 <p><strong>- END -</strong></p>
 <figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/13/5ce030a0f608b220a7e15dad56f0aace.gif" alt="img" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何挑一杯不错的速溶咖啡]]></title>
-        <id>http://canaan-chen.github.io/如何挑一杯不错的速溶咖啡/</id>
-        <link href="http://canaan-chen.github.io/如何挑一杯不错的速溶咖啡/">
-        </link>
-        <updated>2020-03-16T04:21:43.000Z</updated>
-        <summary type="html"><![CDATA[<center>在现磨咖啡当道的今天，速溶咖啡似乎已经进入了咖啡鄙视链的最底端，秉着「存在即合理」的理念，咱们来聊一聊速溶咖啡，以及如何选取一款不错的速溶咖啡。</center>]]></summary>
-        <content type="html"><![CDATA[<center>在现磨咖啡当道的今天，速溶咖啡似乎已经进入了咖啡鄙视链的最底端，秉着「存在即合理」的理念，咱们来聊一聊速溶咖啡，以及如何选取一款不错的速溶咖啡。</center>
-<!--more-->
-<h2 id="我和速溶咖啡的故事">我和速溶咖啡的故事</h2>
-<p>鱼叔是一个咖啡爱好者，或者换句话，是一个咖啡因依赖患者。我从初中时期就开始喝咖啡，当然那时候条件有限，喝的是最廉价的雀巢 1+2 原味。虽然是速溶咖啡，但我喝出了各种花样，用热牛奶直接冲速溶，或者是拿冰块冰摇做一杯冰咖啡等等。速溶咖啡为我打开了一扇门，而我真正开始了解咖啡是在大学期间在咖啡馆兼职的时候。那时候我作为一名学徒开始接触现磨咖啡，从挑豆子磨粉，再到打奶泡拉花，我发现现磨咖啡才是真正的王者，支撑起整个咖啡世界的精彩。于是我开始非常鄙视速溶咖啡，觉得它缺乏一种艺术，是一个工业速成品。一杯好的咖啡涵盖了咖啡师投入的专注，就拿手冲咖啡来说，咖啡师要量粉、量水温，要细心得浇水，要把握闷蒸的时间等，这些细节才让我觉得咖啡是一个很棒的东西。</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/17/846208f1e9f1fadae137c5eb0ba383fa.png" alt="img" loading="lazy"></figure>
-<p>然而啪啪打脸的是，当我在新加坡留学的时候又开始喜欢起了速溶咖啡，最简单的理由便宜、方便和稳定。</p>
-<ul>
-<li>便宜：很容易理解，相比于现磨，速溶咖啡它的优势就是减少了人工成本，相对便宜。</li>
-<li>方便：在快节奏的生活里，有时候没时间或者地方去买一杯咖啡，这时候一杯不错的速溶咖啡可以立马让你恢复工作状态。</li>
-<li>稳定：速溶的口味可以保持一个很稳定的状态，而现磨口味则有很大的变化因素，鱼叔曾经就买到过很难喝的现磨。</li>
-</ul>
-<blockquote>
-<p>速溶咖啡在 1890 年由新西兰人 David Strang 所发明并登记专利，1901 年由一个在美国芝加哥工作的日本科学家加藤サトリ做改良。</p>
-<p>乔治·华盛顿发明了大规模生产速溶咖啡的技术，并在 1910 年将其推向市场。</p>
-<p>为了应对咖啡豆过剩问题，巴西政府与雀巢公司在 1938 年发展出了更先进的喷雾干燥法用于速溶咖啡制造。具体做法是用热的蒸汽使咖啡豆中的水分蒸发，留下干燥的咖啡提取物。速溶咖啡能够很快的溶化在热水中，而且在储运过程中占用的空间和体积更小，更耐储存，因此在大众市场广受欢迎。</p>
-<p>速溶咖啡最早使用是在第二次世界大战的战场上，盟军士兵使用速溶咖啡作为日常饮品，在一定程度上提高了效率。</p>
-<p>—维基百科</p>
-</blockquote>
-<h2 id="如何挑选一杯速溶">如何挑选一杯速溶</h2>
-<p>谈到挑速溶咖啡，我们先来科普一个知识点，关于咖啡豆的品种。</p>
-<p>咖啡市场上的咖啡豆主要为两种：阿拉比卡（Arabica）咖啡豆 和罗布斯塔（Robusta）咖啡豆。其中阿拉比卡咖啡豆风味较好，通常作为精品豆和单品豆的原料，而罗布斯塔咖啡豆风味不足而且咖啡因含量较高偏苦，通常作为拼豆或者咖啡因提取原料。通过以上两个对比，其实大家应该也容易得出结论阿拉比卡的豆子偏贵，罗布斯塔的比较便宜，因此速溶咖啡商经常会将罗布斯塔豆子作为速溶咖啡的原料来降低成本。因此挑选速溶咖啡的第一点就是看它的 <strong>配料表中罗布斯塔的占比</strong>，占比越小说明该咖啡越好，当然最好挑纯阿拉比卡豆子的速溶咖啡。</p>
-<p>第二点看 <strong>其他的掺杂物</strong>。咖啡商为了让大家能接受速溶咖啡，就经常往里面加一些其他调味品来中和苦味，毕竟罗布斯塔比较苦。通常的调味品有糖、植脂末、乳化剂等。其中要注意的是植脂末，俗称“奶精”，这种人工添加剂是一种反式脂肪酸会提升血脂，不利于人体健康。因此大家看到含植脂末的速溶咖啡就统一别买了吧，相应的“咖啡伴侣”也不建议购买。如果咖啡苦口怎么办，鱼叔建议兑新鲜的牛奶，一方面中和口感，另一方面还能补钙来弥补咖啡带来的钙流失。</p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/17/eee7a48855e8fe3b619aeea87fb955d2.png" alt="img" loading="lazy"></figure>
-<h2 id="推荐几款速溶咖啡">推荐几款速溶咖啡</h2>
-<p>其实注重了咖啡豆的品种和添加剂成分之后就比较容易挑选咖啡了，在这此之上的就是进阶挑咖啡豆的风味了。鱼叔认为速溶咖啡谈风味其实是有点勉强了，因为基本上在制作过程中豆子风味都会被破坏掉，唯一还可以挑选的就是咖啡因强度，一般来说烘焙越久的咖啡豆越苦咖啡因含量也就越高，这一点会在速溶咖啡的包装上体现。</p>
-<p>\1. 雀巢醇品系列咖啡</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：混合咖啡豆（含罗布斯塔豆子）</li>
-<li>口感：偏苦涩</li>
-</ul>
-<figure data-type="image" tabindex="3"><img src="https://cdn.sspai.com/2020/01/17/7ec140fbde301149826a9273399a32a5.png" alt="img" loading="lazy"></figure>
-<p>\2. 雀巢 GOLD 咖啡</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：阿拉比卡咖啡豆</li>
-<li>口感：酸苦交融</li>
-</ul>
-<figure data-type="image" tabindex="4"><img src="https://cdn.sspai.com/2020/01/17/2ee683751ef85f369441ecbe454478d8.png" alt="img" loading="lazy"></figure>
-<p>\3. 雀巢 GOLD 产地系列</p>
-<ul>
-<li>类型：黑咖啡</li>
-<li>成分：阿拉比卡咖啡豆</li>
-<li>口感：略有风味感</li>
-</ul>
-<figure data-type="image" tabindex="5"><img src="https://cdn.sspai.com/2020/01/17/925631b36da452fb133eac15835861ac.png" alt="img" loading="lazy"></figure>
-<hr>
-<h2 id="总结">总结</h2>
-<p>可能看了推荐的朋友会说，为什么我推荐的都是纯黑咖啡。事实上，我比较鼓励的速溶咖啡也只是限于黑咖啡，因为各种所谓的速溶拿铁和摩卡其实都是加了很多添加剂的，即使雀巢推出了纯奶粉拿铁，我也还是建议自己买黑咖啡兑牛奶，这样会来的比较健康。当然，有条件的朋友可以直接上挂耳咖啡或者胶囊咖啡。</p>
 ]]></content>
     </entry>
 </feed>
