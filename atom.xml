@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://canaan-chen.github.io</id>
     <title>UncleFish&apos;s Blog</title>
-    <updated>2021-03-24T12:38:53.601Z</updated>
+    <updated>2021-03-25T14:42:17.067Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://canaan-chen.github.io"/>
     <link rel="self" href="http://canaan-chen.github.io/atom.xml"/>
@@ -10,6 +10,26 @@
     <logo>http://canaan-chen.github.io/images/avatar.png</logo>
     <icon>http://canaan-chen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, UncleFish&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[我的数字货币投资记录]]></title>
+        <id>http://canaan-chen.github.io/wo-de-shu-zi-huo-bi-tou-zi-ji-lu/</id>
+        <link href="http://canaan-chen.github.io/wo-de-shu-zi-huo-bi-tou-zi-ji-lu/">
+        </link>
+        <updated>2021-03-25T14:09:25.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p>这个将作为我的每日复盘合集，每天复盘今日的投资情况和思考未来的投资策略，希望每天都有新的发现</p>
+<!-- more -->
+<h3 id="3月25日-btc交割在即市场抛售恐慌">3月25日 — BTC交割在即，市场抛售恐慌</h3>
+<ol>
+<li>今天受BTC季度交割的缘故，整体大盘从58000跌到50000，昨天首富喊话BTC可以支付特斯拉，但是效果只能持续半天，之后便开始大跌。下午3点左右首富又喊话支持Defi，但是效果一般，上涨稍许后就又开始下跌趋势。</li>
+<li>受sushi解锁的缘故，sushi今日继续下跌15%，到达14u左右，我在16u左右入场，加了三倍杠杆，损失了将近50%，期间略微加仓。问题操作：没有在考究市场的情况下直接在16u入场，抄底失误，依旧是入场太着急的缘故，后续操作应该依旧会持有</li>
+<li>今日的明星股Fil，应我之前的说法，长期看好，在大盘大跌的时候依旧能上涨。个人不足操作：昨天在高点就抛售了，以为今日会跌下来重新建仓，事实上依旧徘徊在高位，其实昨天的撤仓操作没有问题，因为自己对Fil的了解还是略片面，谨慎没有问题，不过看到它今天的表现，我觉得是一个很有潜力的货币。</li>
+<li>今日略微进入THETA，建仓10%，说实话我对THETA的了解不是特别多，只是最近看到惊人涨势了解了一下，发现是做区块链数字媒体的，想做去中心化的YouTube，打算周末抽时间仔细研究一下。</li>
+<li>整体信息面：今日土耳其的里拉崩盘，有人分析是因为美国过分印钞票防水的缘故，市场资本有开始回撤的迹象，似乎在应对美国的加息策略，不过鲍威尔又表明会继续维持2%的通货膨胀率，不会改变，因此个人觉得大概率还是会保持降息策略，周末打算研究这方面的联动影响，出一篇相关的文章。</li>
+<li>操作计划：静等明天交割情况，在BTC没有站稳53000的情况下不大仓进入，小仓位进一些明星货币</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Filcoin 为什么最近这么火]]></title>
         <id>http://canaan-chen.github.io/filcoin-wei-shi-me-zui-jin-zhe-me-huo/</id>
@@ -1026,102 +1046,6 @@ end
 <li>主机不想接受信号就发送一个NACK信号然后停止</li>
 </ol>
 <figure data-type="image" tabindex="2"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/3.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何写好一份文书]]></title>
-        <id>http://canaan-chen.github.io/如何写好一份文书/</id>
-        <link href="http://canaan-chen.github.io/如何写好一份文书/">
-        </link>
-        <updated>2020-03-16T04:23:49.000Z</updated>
-        <summary type="html"><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>在留学申请中，文书会起很大的作用，一份好的文书会给你的教授留下比较好的印象，并且你可以在文书中弥补很多东西，比如如果GPA不理想，可以在文书里解释原因，比一个死板的成绩单会好用很多。那怎样写一份文书，或者说怎么修改一份文书，中介给我的文书我不知道好坏该怎么办？</p>
-<!--more-->
-<p>接下去我会围绕这个问题给出我在实际申请时的解决方案，在文章末尾处还会给大家一份《推荐信指南》的电子版书籍，点击链接就可以下载。</p>
-<p>谈及文书，文书一般涉及到的三个内容:<strong>PS</strong>（Personal Statement）、<strong>CV</strong>（Curriculum Vitae）、<strong>RL</strong>（Reference Letter）。其中感觉相对比较重要的是PS，即个人陈述，我其实更喜欢把它叫做自我介绍。</p>
-<h2 id="-personal-statement-"><strong>-Personal Statement-</strong></h2>
-<p>怎样的PS是才算是比较不错的呢？这就需要首先从Msc授课型硕士的目的开始讲起，Msc是为了培养适合工作的硕士，一般都采用授课的教学方式，可以类比国内的专硕，但是又有很大区别。Msc的学时为1到2年，根据地区和专业不同又有所区别。</p>
-<p>Msc的初衷是为了培养你的工作能力，所以你的PS里需要体现到你对你未来的职业规划，包括未来的工作方向，工作区域之类。这一点在很多文书上是容易忽略。在这里，我会给出两个PS的框架，一份是我在一次公开课上做的笔记，另一份是前辈们总结的。两个都是英文的方式表达，因为懒得翻译，不感冒的小伙伴可以直接跳过哈。推荐第一个框架。</p>
-<h3 id="-1st-sample-outline-for-ps-"><strong>-1st Sample Outline for PS</strong> <strong>-</strong></h3>
-<p><strong>Introductory paragraph</strong>：</p>
-<ul>
-<li>introduce your area of interest or research question</li>
-<li>discuss a problem your profession may help address</li>
-</ul>
-<p><strong>2nd paragraph</strong> Review your undergraduate coursework</p>
-<ul>
-<li>focus on your major discipline</li>
-<li>highlight the courses that prepare you for the program</li>
-<li>identify any gap in your training to be filled by the master program</li>
-<li>emphasise the skills and knowledge developed</li>
-<li>connect the dots across the courses.</li>
-</ul>
-<p><strong>3rd paragraph</strong> Review your undergraduate project experience</p>
-<ul>
-<li>focus on your 1-2 project</li>
-<li>adopt IMRD(introduction, method ,result ,discussion )</li>
-<li>highlight the skill development and other learning experience</li>
-<li>discuss your inspiration and desire for further studies</li>
-<li>relate to the master program whenever possible.</li>
-</ul>
-<p><strong>4th paragraph</strong> your career plan</p>
-<ul>
-<li>your career interested</li>
-<li>how you developed the interest in such a career (related the experience discussed earlier)</li>
-<li>what skills and experience do you still need to implement such a career plan.</li>
-</ul>
-<p><strong>5th paragraph</strong> Why choose the target master program</p>
-<ul>
-<li>the specific courses that may strengthen you as a professional</li>
-<li>the faculty members you would like to work with for your thesis</li>
-<li>other learning opportunities that can help you accomplish you career goals</li>
-<li>why you will be an asset to the program.</li>
-</ul>
-<p><strong>6th paragraph</strong> Conclusion: reiterate the main points and summarise your main arguments.</p>
-<hr>
-<h3 id="-2nd-sample-outline-of-ps-"><strong>-2nd Sample Outline of PS-</strong></h3>
-<h4 id="1st-paragraph"><strong>1st Paragraph</strong></h4>
-<p>Describe the area of research that interests you and why. If you have already done some research work in this area, be sure to mention it. Also, explain why you think you are suitable for this area. You may also describe competitions in the area that you have done well in and special academic attainments. For example, a double major in mathematics and computer science probably set you apart from students who only studied computer science. If you have nothing special to say, then just mention briefly how you came to choose this area.</p>
-<h4 id="2nd-paragraph"><strong>2nd Paragraph</strong></h4>
-<p>Describe research programs you have worked on (one paragraph per program.)</p>
-<ol>
-<li>What did you find?</li>
-<li>What did you learn?</li>
-<li>What approaches did you try?</li>
-<li>Did these approaches work or not?</li>
-</ol>
-<h4 id="3rd-paragraph"><strong>3rd Paragraph</strong></h4>
-<p>Explain why you feel you need a Masters degree or PhD.</p>
-<h4 id="4th-paragraph"><strong>4th Paragraph</strong></h4>
-<p>Tell the reader why you want to go to that particular university. Make it easy for them:</p>
-<ol>
-<li>If you want to work with a particular person or persons tell them who you want to work with and why.</li>
-<li>If you want to work in a particular area, tell them why you want to work in that area in their university.</li>
-<li>If there is no particular person you want to work with or particular area you want to work in, explain why you would like to join their program.</li>
-</ol>
-<h4 id="5th-paragraph"><strong>5th Paragraph</strong></h4>
-<p>You can also state what papers you have read from that university and what you enjoyed about them or how they inspired you. Lastly, tell them what you hope to gain from their university.</p>
-<p>一些总结的tips：</p>
-<ol>
-<li>确保你的PS控制在一到两页内，因为你是在给一个很忙的人看。</li>
-<li>不要说你小时候想当科学家的故事，因为对于教授他们而言毫无意义。</li>
-<li>尽可能地在文书中体现你所想申请的专业的相关信息，包括它的课程或者未来就业情况，这样可以表现你确实对这个他们的信息很了解，并且很渴望去读书。</li>
-<li>把自己的PS多给身边的人看一看，然后根据他们的意见有选择性地进行修改。</li>
-</ol>
-<hr>
-<h2 id="-curriculum-vitae-"><strong>-Curriculum Vitae-</strong></h2>
-<p>CV的话就是个人简历，要求精炼控制在一页之内，能让招生办的人看了你的简历就能大致知道你是否能被录取，可以理解为CV是脱水版的PS。我这里就Po上我删减版的CV框架给大家参考形式。</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/2020/01/13/0028c0daf285279b8a1f650e555d2e1f.png" alt="img" loading="lazy"></figure>
-<h2 id="-reference-letter-"><strong>-Reference Letter-</strong></h2>
-<p>RL是推荐信，一般学校的申请要求是提供两封来自老师的推荐信，当然如果你有实习的话，你也可以让你的实习主任给你写一份推荐信。原则上来说，给学生写推荐信是大学老师的一个职责，但是考虑到国内的实际情况，第一老师没那么多时间给你写推荐信，第二老师的英语水平有限而且对你的了解也没那么清楚。</p>
-<p>因此实际的操作方法是，自己以老师的口吻写推荐信，然后让老师阅览无误后签字。这样问题其实就转变为找怎样的老师给签字。</p>
-<p>首先，必须要找和自己比较熟悉的老师，因为推荐信里要求说明老师和学生是怎么认识的，认识有多久了之类的问题，只有比较熟悉的老师写的推荐信会比较有说服力。</p>
-<p>其次，如果可能的话，找和你申请的学校有相关经历的老师，比如你想申请东京大学，而你的老师中有一个是在日本留过学的话，就可以联系他“写推荐信”。</p>
-<p>关于大牛的推荐信，如果你能联系到你们专业里的大牛老师给你写推荐信，那就更好了，不过我觉得对于申请Msc项目来说，推荐信更多只是辅助作用，如果申请Mphil和Phd，那么一封大牛的推荐信会帮助很多。</p>
-<p>更多的推荐信细节可以下载链接里的<a href="https://www.jianguoyun.com/p/DYNwZ58QtvuCCBirr8gC">《推荐信写作指南》</a></p>
-<p><strong>- END -</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://cdn.sspai.com/2020/01/13/5ce030a0f608b220a7e15dad56f0aace.gif" alt="img" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
