@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://canaan-chen.github.io</id>
     <title>UncleFish&apos;s Blog</title>
-    <updated>2021-03-28T06:51:47.263Z</updated>
+    <updated>2021-03-28T08:12:40.095Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://canaan-chen.github.io"/>
     <link rel="self" href="http://canaan-chen.github.io/atom.xml"/>
@@ -10,6 +10,22 @@
     <logo>http://canaan-chen.github.io/images/avatar.png</logo>
     <icon>http://canaan-chen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, UncleFish&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Theta 区块链界的YouTube？]]></title>
+        <id>http://canaan-chen.github.io/theta-qu-kuai-lian-jie-de-youtube/</id>
+        <link href="http://canaan-chen.github.io/theta-qu-kuai-lian-jie-de-youtube/">
+        </link>
+        <updated>2021-03-28T08:09:02.000Z</updated>
+        <summary type="html"><![CDATA[<p>今天我按照计划推出一篇关于Theta的文章，至于为什么要推出是因为我在这方面有所投资，在前期没有特殊了解的情况下就轻易入场了，现在相当于为之前自己的决策做一个补功课的行为。话不多说，直接就开始Theta的介绍。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>今天我按照计划推出一篇关于Theta的文章，至于为什么要推出是因为我在这方面有所投资，在前期没有特殊了解的情况下就轻易入场了，现在相当于为之前自己的决策做一个补功课的行为。话不多说，直接就开始Theta的介绍。</p>
+<!-- more -->
+<p>Theta 近期由于其币价暴涨得到市场的再次关注，其暴涨的主要功臣我认为是灰度基金，自从灰度将其注册为第八个信托基金后，币价立马迎来了新高。抛开这些市场的行情，那Theta到底是做什么的呢？在其官网上它的备注是这样的 - “Theta is a blockchain-based video streaming project.”（基于区块链的流媒体项目）。什么意思？就是用区块链技术来促进媒体技术，现在媒体行业有一个“最后一公里”问题 — 如何快速地加载4K、8K等高清视频，而Theta就是为了解决这一问题。类似于FilCoin这种租赁存储空间的方式，Theta是通过让用户租赁自己多余的带宽和计算资源来加速视频的加载。举个例子，我们在YouTube上看视频，我们的媒体数据是直接从固定的服务器上加载然后缓存在自己的电脑里，但是如果我们用Theta看视频，它会选择周边比较近的节点缓存我们的视频，然后我们是直接从这个节点加载数据，这其实也是一种分布式存储的应用，通过分布式网络节点来进行网络加速。</p>
+<p>![]https://pic1.zhimg.com/v2-42acc620c3709caaea5fa46de5ff5618_b.jpg</p>
+<p>关于代币，Theta推出两种代币，Theta 和 TFUEL， Theta是用于奖励那些愿意分享带宽和存储的用户，TFUEL则是用于奖励那些内容创作者。在Theta背后的团队里，我们能发现一些Youtube的联合创始人，因此人们很容易将其和Youtube进行对比，事实上Theta和Youtube还是有很大的差距，我认为最大的差距在于内容的输出上，目前Theta还只是以电竞直播为主，不过在观察它的发展过中可以看到三星、谷歌等大公司的身影，说明它背后的技术依旧是值得认可的。</p>
+<p>长期来看这个项目还是很有前景的，需要关注的是近期Theta宣布将主网3.0的发布时间从4月21日推迟到6月30日，并且预计v3.0会销毁25%的TFUEL</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一周国际新闻分析—里拉暴跌、苏格拉运河堵塞]]></title>
         <id>http://canaan-chen.github.io/yi-zhou-guo-ji-xin-wen-fen-xi-li-la-bao-die-su-ge-la-yun-he-du-sai/</id>
@@ -921,81 +937,6 @@ valine:
 <p>基本上讲完了我搭建博客时遇到的所有问题，我之前看过一个博主写的一句话，“搭建博客就像玩了一个游戏，你的博客就是你的角色，你总是会想方设法地给他升级“。博客优化其实是一个无止境的路，需要耐心和时间，但往往我们会过度的为了美化它而忘记了自己搭建的初衷。好的内容才是一个博客真正的灵魂。</p>
 <h2 id="参考">参考</h2>
 <p><a href="https://theme-next.iissnan.com/theme-settings.html">Next 官方指南</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[I2C 模块设计| biu 模块]]></title>
-        <id>http://canaan-chen.github.io/I2C-模块设计-biu-模块/</id>
-        <link href="http://canaan-chen.github.io/I2C-模块设计-biu-模块/">
-        </link>
-        <updated>2020-03-17T12:36:24.000Z</updated>
-        <summary type="html"><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>下方结构图为I2C接口中的master模块示意图，这个章节主要用于讲述其中的biu模块。根据结构图可知，biu模块存在的地址在于APB interface 和APB register 之间，它的目的在于将复杂的AHB 接口信号转换为单周期的读写信号，这样方便对后面的reg进行操作。</p>
-<!--more-->
-<figure data-type="image" tabindex="1"><img src="https://image-1301586523.cos.ap-shanghai.myqcloud.com/1584102093634.png" alt="" loading="lazy"></figure>
-<pre><code class="language-verilog">module apb_i2c_biu #(
-	parameter ADDR_SLICE_LHS = 5, // addres [4:0] 
-	parameter APB_DATA_WIDTH = 32
-)
-(
-// signals connect to APB module 
-	input							pclk,
-	input							presetn, // reset
-	input 							psel, // select signal
-	input	[ADDR_SLICE_LHS-1 : 0] 	paddr, // 5bit addres
-	input							pwrite,
-	input 							penable,
-	input	[APB_DATA_WIDTH-1 : 0]	pwdata,
-	output	reg [APB_DATA_WIDTH-1 : 0] prdata,
-//signals connect to register module
-	input	[15:0]					iprdata, // ?
-	output							wr_en,
-									rd_en,
-	output	[ADDR_SLICE_LHS-3:0]	reg_addr, // ahb addres searching
-	output	[3:0]					byte_en,
-	output	reg	[31:0]				ipwdata
-);
-</code></pre>
-<h3 id="写操作">写操作</h3>
-<p>当AHB实现写操作时，要求片选信号（psel）为高，使能信号（penable）为高，写信号（pwrite）为高，当满足这三个条件时，biu信号输出写使能（wr_en）高，来驱动后面的reg。当ahb数据到来时可直接存到输出reg（ipwdata）中。</p>
-<ul>
-<li>
-<p>写操作代码：</p>
-<pre><code class="language-verilog">assign wr_en = psel &amp; penable &amp; pwrite; // 写信号的要求
-
-always @(pwdata) begin
-	ipwdata = 32'b0;
-	ipwdata [APB_DATA_WIDTH-1:0] = pwdata[APB_DATA_WIDTH-1:0]; //apb总线上的数据每次发生变化，就将数据传输到输出reg中
-end
-
-</code></pre>
-</li>
-</ul>
-<h3 id="读操作">读操作</h3>
-<p>实现读操作时，要求在AHB读操作信号（pwrite 为低时）提前将reg中的数据传到输出数据缓存区prdata中。</p>
-<ul>
-<li>
-<p>关于读信号的判断</p>
-<p>biu 输出读信号（rd_en）的条件为：pwrite 为低，psel为高，penable 为高。但是为了保证在读操作实行时提前将数据准备好，rd_en 在penable为低便使能，具体代码如下：</p>
-<pre><code class="language-verilog">assign rd_en = psel &amp; !penable &amp; !pwrite; // 读信号要提前产生，因为要求把数据提前放到APB总线上
-
-// 数据传输过程
-always @ (posedge pclk or negedge presetn) begin
-	if(presetn == 1'b0) begin
-		prdata &lt;= {APB_DATA_WIDTH{1'b0}}; //apb 读寄存器中的数据清零
-	end
-	else begin
-		if (rd_en) begin
-			prdata &lt;= {16'b0,iprdata}; // 将读入的数据保存到apb reg中
-		end
-	end
-end
-</code></pre>
-</li>
-</ul>
-<h3 id="具体的代码链接如下">具体的代码链接如下：</h3>
-<p><a href="https://github.com/canaan-chen/I2C-IP-design/blob/master/apb_i2c_biu.v">Biu Ctrl Code</a></p>
 ]]></content>
     </entry>
 </feed>
